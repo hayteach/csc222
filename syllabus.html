@@ -1,174 +1,546 @@
-Heidi Ahders, M.S.
-Part-Time Instructor
+<! DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSC 222 - Data Structures - Course Syllabus</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow:  0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+        . instructor-info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius:  5px;
+            margin-bottom: 20px;
+        }
+        .toc {
+            background-color:  #f9f9f9;
+            padding: 20px;
+            border:  1px solid #ddd;
+            border-radius: 5px;
+            margin:  20px 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin:  8px 0;
+        }
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .toc a:hover {
+            text-decoration:  underline;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        . grade-table th, .grade-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align:  left;
+        }
+        . grade-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        .grade-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #3498db;
+        }
+        /* Quiz Styles */
+        .quiz-container {
+            background-color: #e8f5e9;
+            padding: 25px;
+            border-radius:  8px;
+            margin-top: 40px;
+            border: 2px solid #4caf50;
+        }
+        .quiz-question {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .quiz-question h4 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        .quiz-options {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .quiz-options li {
+            margin: 8px 0;
+        }
+        .quiz-options input[type="radio"] {
+            margin-right: 10px;
+        }
+        . quiz-submit {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        . quiz-submit:hover {
+            background-color: #45a049;
+        }
+        .quiz-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .quiz-result.show {
+            display: block;
+        }
+        .quiz-result.pass {
+            background-color: #d4edda;
+            border:  1px solid #c3e6cb;
+            color: #155724;
+        }
+        .quiz-result.fail {
+            background-color: #f8d7da;
+            border:  1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSC 222 - Data Structures</h1>
+        
+        <div class="instructor-info">
+            <h3>Heidi Ahders, M.S.</h3>
+            <p><strong>Part-Time Instructor</strong></p>
+            <p><strong>Email:</strong> <a href="mailto:hahders@mendocino.edu">hahders@mendocino.edu</a> or Canvas Inbox (Preferred Method)</p>
+            <p><strong>Student Contact Hours:</strong> By Appointment</p>
+            <p><strong>Contact:</strong> via Zoom (Make sure you have the Zoom software loaded)</p>
+            <p><strong>Prerequisite:</strong> Completion of CSC 221</p>
+            <p><strong>Course Website: </strong> <a href="https://mendocino.instructure.com" target="_blank">mendocino.instructure.com</a></p>
+        </div>
 
-Email:                               hahders@mendocino.edu or Canvas Inbox (Preferred Method)
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#supplies">Supplies</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#description">Course Description</a></li>
+                <li><a href="#policies">Course Policies</a></li>
+                <li><a href="#schedule">Schedule, Assignments, and Grading</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#quiz">Syllabus Quiz</a></li>
+            </ul>
+        </div>
 
-Student Contact Hrs:        By Appt. 
+        <h2 id="supplies">SUPPLIES</h2>
+        <h3>No Textbook Required, however... </h3>
+        <p>For this course, we will be using and merging content from a variety of different sources. Please access/acquire the following: </p>
+        
+        <h3>Register for the following at Saylor.org:</h3>
+        <ol>
+            <li>Go to <a href="https://www.saylor.org" target="_blank">Saylor. org</a> and "Log In" if you have an account.  If you do not have an account, please "Sign Up" (it doesn't matter what you select as the reason you are signing up).</li>
+            <li>Register for the following 2 courses: 
+                <ul>
+                    <li><a href="https://learn.saylor.org/course/cs102" target="_blank">CS102: Introduction to Computer Science</a></li>
+                    <li><a href="https://learn.saylor.org/course/cs201" target="_blank">CS201: Elementary Data Structures</a></li>
+                </ul>
+            </li>
+        </ol>
 
-Contact:  via Zoom. (Make sure you have the Zoom software loaded)
+        <h3>Access to Computers on Campus:</h3>
+        <p>The following computers should be able to run any of your class assignments without obnoxiously long delays:</p>
+        <ul>
+            <li><strong>DAM Computers in Library:</strong> There are 8 computers available with Wacom Touch monitors.  These are available whenever the Library is open (check library site for times during the semester).</li>
+            <li>There are also computers available in the lab area where Dr. Pai's Office is. If you want or need to use these while on campus, you need to contact Dr. Pai to set up an agreeable time/schedule.</li>
+        </ul>
 
-Prerequisite: Completion of CSC 221.
+        <h3>Required Hardware:</h3>
+        <ul>
+            <li>PC/Mac</li>
+        </ul>
 
-Course Website:             mendocino.instructure.com
+        <h3>Required Software:</h3>
+        <ul>
+            <li>Office 365 (Free to Mendocino College Students)</li>
+            <li>See First Assignments for the rest of the software needed</li>
+        </ul>
 
-Supplies
-Resources
-Course Description
-Course Policies
-Schedule, Assignments, and Grading
-About Me
-SUPPLIES
-No Textbook Required however ...
+        <h2 id="resources">INTERNET RESOURCES/WEBSITES</h2>
+        <h3>Reference Sheets</h3>
+        <p>Check out the individual Modules. </p>
 
-For this course, we will be using and merging content from a variety of different sources. Please access/acquire the following:
+        <h2 id="description">COURSE DESCRIPTION</h2>
+        <p>This course will explore the application of software engineering techniques, data structures, and associated algorithms to the design and development of computer programs. Programs are written in an advanced programming language. </p>
 
-Register for the following at Saylor.org Links to an external site.:
+        <h3>Course Objectives/Learning Outcomes: </h3>
+        
+        <h4>Course Objectives:</h4>
+        <ul>
+            <li>Write programs that use each of the following data structures: arrays, records, strings, linked-lists, stacks, queues and hash tables.</li>
+            <li>Implement, test and debug simple recursive functions and procedures.</li>
+            <li>Evaluate tradeoffs in lifetime management (reference counting vs garbage collection).</li>
+            <li>Explain how abstraction mechanisms support the creation of reusable software components.</li>
+            <li>Design, implement, test, and debug simple programs in an object-oriented programming language.</li>
+            <li>Compare and contrast object-oriented analysis and design with structured analysis and design.</li>
+        </ul>
 
-Go to Saylor.org Links to an external site.and "Log In" if you have an account. If you do not have an account, please "Sign Up" (it doesn't matter what you select as the reason you are signing up. I choose the "learning for knowledge/improvement option")
-Register for the following 2 courses:
-CS102: Introduction to Computer ScienceLinks to an external site.
-CS201: Elementary Data Structures
-Access to Computers on Campus:
+        <h4>Learning Outcomes:</h4>
+        <p>Upon successful completion of the course the student should be able to: </p>
+        <ul>
+            <li>Write programs that implement and use each of the following data structures: arrays, records, strings, linked lists, stacks, queues, and hash tables.</li>
+            <li>Compare iterative and recursive solutions for elementary problems such as factorial. </li>
+            <li>Compare and contrast object-oriented analysis and design with structured analysis and design.</li>
+            <li>Discuss the representation and use of primitive data types and built-in data structures.</li>
+            <li>Choose the appropriate data structure for modeling a given problem.</li>
+            <li>Identify and describe the properties of a variable such as its associated address, value, scope, persistence, and size.</li>
+            <li>Describe how the class mechanism supports encapsulation and information hiding.</li>
+        </ul>
 
-The following computers should be able to run any of your class assignments without obnoxiously long delays:
+        <div class="note">
+            <strong>NOTE:</strong> You will see these learning outcomes at times in the grading rubrics for assignments. When you see one, it means that I feel that all or part of this assignment allows you to demonstrate your ability to meet this outcome.
+        </div>
 
-DAM Computers in Library - There are 8 computers available with the same Wacom Touch monitors as in Classroom 1170. These are available whenever the Library is open (check library site for times during the COVID pandemic). Touch pens are also available for checkout.
+        <h2 id="policies">COURSE POLICIES</h2>
+        
+        <h3>Student Conduct and Academic Honesty</h3>
+        <p>Students are expected to behave in a courteous and respectful manner which is conducive to learning. Students should not engage in academic misconduct. For specific guidelines please refer to Administrative Procedures.</p>
 
-There are also computers available in the lab area where Dr. Pai's Office is. If you want or need to use these while on campus, you need to make sure to Dr. Pai to set up an agreeable time/schedule.
+        <h3>Cheating</h3>
+        <p>Cheating is not doing the work that you put your name on. A student will not receive any credit and may be dropped from the course or expelled from the school. Refer to the college handbook for more information.</p>
 
-Required Hardware:
-PC/Mac
-Required Software:
-Office 365 (Free to Mendocino College Students)
-See First Assignments for the rest of the software needed
-INTERNET RESOURCES/WEBSITES
-Reference Sheets
-Check out the individual Modules.
-COURSE DESCRIPTION
+        <h3>Students with Disabilities</h3>
+        <p>The College is committed to creating a learning environment that meets the needs of its diverse student body. If you anticipate or experience any barriers to learning in this course, please feel welcome to discuss your concerns with me.</p>
+        
+        <div class="note">
+            <strong>NOTE:</strong> Special accommodations will not be provided without documentation of your disability from the DRC (Disability Resources Center).
+        </div>
 
-This course will explore the application of software engineering techniques, data structures, and associated algorithms to the design and development of computer programs. Programs are written in an appropriate and modern object-oriented language.(C-ID: COMP-132)
+        <h3>Makeup and Late Work: </h3>
+        <p>For the Exams and Project, <strong>NO LATE SUBMISSIONS</strong> will be accepted. For all other categories, all late submissions could suffer a <strong>1% per day</strong> (or portion of a day) late penalty. These rules will be coded into Canvas. </p>
 
-Course Objectives/Learning Outcomes:
-Course Objectives:
-Write programs that use each of the following data structures: arrays, records, strings, linked-lists, stacks, queues and hash tables.
-Implement, test and debug simple recursive functions and procedures.
-Evaluate tradeoffs in lifetime management (reference counting vs garbage collection)
-Explain how abstraction mechanisms support the creation of reusable software components.
-Design, implement, test, and debug simple programs in an object-oriented programming language.
-Compare and contrast object-oriented analysis and design with structured analysis and design.
-Learning Outcomes
+        <h3>Absenteeism:</h3>
+        <p>There really is no "absenteeism" in an online course other than not checking the course site. The best way to do well in this course is to stay caught up with your work each week.  Historically, the students who do well are those who check the course site regularly and stay on top of their assignments.</p>
 
-Upon successful completion of the course the student should be able to:
+        <h4>The following examples (but not limited to) are NOT considered valid circumstances for late assignment extensions, makeup quizzes and/or exams:</h4>
+        <ul>
+            <li>Computer broke</li>
+            <li>No or lost Internet</li>
+            <li>Busy at work or work schedule change</li>
+            <li>Work traveling</li>
+            <li>Personal issues</li>
+            <li>Busy in other classes</li>
+            <li>Still do not have book or class materials</li>
+            <li>Forgot the course started</li>
+            <li>Spaced out the homework and assignments</li>
+            <li>Did not follow due dates or read the assignment schedule</li>
+            <li>Stuck at an airport with no Internet</li>
+            <li>Did not know what the assignments were or when they were due</li>
+            <li>Flu, cold, etc.  (without notification of onset and doctor excuse)</li>
+            <li>Chronic health issues not registered with the disability resources office at the college at the start of class</li>
+        </ul>
 
-Write programs that implement and use each of the following data structures: arrays, records, strings, linked lists, stacks, queues, and hash tables.
-Compare iterative and recursive solutions for elementary problems such as factorial.
-Compare and contrast object-oriented analysis and design with structured analysis and design.
-Discuss the representation and use of primitive data types and built-in data structures.
-Choose the appropriate data structure for modeling a given problem.
-Identify and describe the properties of a variable such as its associated address, value, scope, persistence, and size.
-Describe how the class mechanism supports encapsulation and information hiding.
+        <h2 id="schedule">COURSE SCHEDULE</h2>
+        <div class="note">
+            <strong>NOTE: </strong> All assignments are considered on-time if they are submitted by time specified on the assignment. If no time is specified, the assignment is due by 11:59pm on that date.  You are expected to have completed the reading and any other preparation before the due date.
+        </div>
 
-NOTE: You will see these at times in the grading rubrics for assignments. When you see one, it means that I feel that all or part of this assignment allows you to demonstrate your ability to meet this objective. Your score on each objective, will be between 0 and 1 with 1 being full understanding/demonstration  (of at least the portion provided in the assignment), 0.7 meaning adequate or satisfactory understanding/demonstration, and levels below meaning, at this point, you need more support in achieving the desired course outcome.
+        <h3>ASSIGNMENT DESCRIPTION: </h3>
+        <p>All assignments are expected to be submitted as defined in the assignment description and NO LATER THAN the provided Due Date. All students are welcome and highly encouraged to submit any assignments before the due date. </p>
 
-COURSE POLICIES:
-Student Conduct and Academic Honesty
+        <h4>Discussion - None</h4>
+        <p>Since this is a Hybrid Class we will be meeting once a week and you are expected to participate and contribute to the class. </p>
 
-Students are expected to behave courteous and respectful manner which is conducive to learning. Students should not engage in academic misconduct. For specific guidelines please refer to Admin Procedure 5500.1 (Links to an external site.) for the Student Conduct Guidelines and Admin Procedure 5500.2 (Links to an external site.) on academic honesty.If you are not familiar with these, you should review them as these standards will be the expectation in this class.
+        <h4>Homework/Quizzes</h4>
+        <p>In general, there is an online homework assignment for each section of this course. </p>
+        <ul>
+            <li>All HW assignments are untimed and you may submit them as many times as you wish with your highest score recorded as your final grade.</li>
+            <li>Each time you open a HW, you should get at least some different questions. </li>
+        </ul>
 
-Cheating
+        <div class="warning">
+            <strong>IMPORTANT:</strong> YOU MUST attempt each section HW assignment and score at least 50% before the next section will open up for you. You may always go back and retry/submit for a higher grade at any time up to the final deadline.
+        </div>
 
-Cheating is not doing the work that you put your name on. A student will not receive any credit and may be dropped from the course or expelled from the school. Refer to the college handbook for more information. No further warnings are issued. The homework lab assignments are NOT group projects unless specifically clarified by the instructor as a group activity. Labs done in class, of course, will be identical for “teams” and that is expected since you are working with a partner.  You must do your own work to receive credit for it. If you give your work using any method to another student, you are also guilty of cheating.
+        <p>It is your responsibility to complete and submit your assignments as indicated and in a timely manner. The points earned (or not earned) are based on your performance. </p>
 
- Student’s with Disabilities
+        <h4>Programming</h4>
+        <p>There are several programs that will be required for this course. All programs will be included in your final grade.  One to two of these assignments may be a "team" assignment.  Teams will be assigned by the instructor.</p>
 
-The College is committed to creating a learning environment that meets the needs of its diverse student body. If you anticipate or experience any barriers to learning in this course, please feel welcome to discuss your concerns with me. If you have a disability, or think you may have a disability, you may also want to meet with a Counselor at the Disability Resource Center to begin this conversation or request an official accommodation. The staff at the Disability Resource Center can be reached at (707) 468-3031 or drc@mendocino.edu. It is my goal to create a learning experience that is as accessible as possible. If you anticipate any issues related to the format, materials, or requirements of this course, please meet with me outside of class so we can explore potential options.
+        <h4>Exams</h4>
+        <p>There will be a midterm exam that covers the first half of the course.  In this exam, you should expect to answer questions similar to those from the quizzes and to also answer some programming based questions.</p>
 
-NOTE: Special accommodations will not be provided without documentation of your disability from the DRC.
+        <h4>Final Project</h4>
+        <p>A final project may be required and is a major program which will take some significant time to complete so plan accordingly. </p>
 
-Makeup and Late Work:
+        <h3>GRADE DISTRIBUTION</h3>
+        <p>Grades are awarded on a straight percentage basis: </p>
+        
+        <table class="grade-table">
+            <tr>
+                <th>Grade</th>
+                <th>Percentage</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>90% and up</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>80% to &lt; 90%</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>70% to &lt; 80%</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>60% to &lt; 70%</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>&lt; 60%</td>
+            </tr>
+        </table>
 
-For the Exams and Project, NO LATE SUBMISSIONS will be accepted. For all other categories, all late submissions could suffer a 1% per day (or portion of a day) late penalty. These rules will be coded into the Gradebook on Canvas so it will automatically be applied upon grading. 
+        <h3>OTHER INFORMATION</h3>
+        <p>This syllabus/outline may be subject to additions, deletions, and/or changes at the discretion of the instructor or the college district. The course content may vary from this outline to meet the needs of this particular class.</p>
 
-Absenteeism:
+        <p>At the time of writing this, some of the assignment details are in flux. Additionally, the schedule for the course is subject to change based upon how well we progress during the semester and any additional circumstances that may arise.</p>
 
-There really is no “absenteeism” in an online course other than not checking the course site. The best way to do well in this course is to stay caught up with your work each week. Historically, the individuals that do not do well in my courses are those that choose to procrastinate and try to do a lot of work in a very short period of time instead of doing a little bit throughout each week. 
+        <p>Any changes or other important announcements for the course will be posted in the "Announcements" section of the course.  It is your responsibility to monitor the Announcements (If you have set your Notification Preferences correctly, you should receive emails when announcements are posted).</p>
 
-The following examples (but not limited to) are not considered circumstances for not "attending" class, late assignment extensions, makeup quizzes and/or exams, and any other assignments past the due date SO PLAN ACCORDING.  Avoid being a procrastinator and plan for “life” circumstances.
+        <div class="warning">
+            <strong>NOTICE/WARNING:</strong> It is against Federal copyright law to make copies of textbooks and software without specific permission of the copyright holder. We are required by law to report all violations, and violations will be prosecuted. 
+        </div>
 
-Computer broke
-No or lost Internet
-Busy at work or work schedule change
-Work traveling
-Personal issues
-Busy in other classes
-Still do not have book or class materials
-Forgot the course started
-Spaced out the homework and assignments
-Did not follow due dates or read the assignment schedule
-Stuck at an airport with no Internet
-Did not know what the assignments were or when they were due
-Flu, cold, etc. (without notification of onset and doctor excuse)
-Chronic health issues not registered with the disability resources office at the college at the start of class. If not registered, no special accommodations are made. (You may want to contact the college Disability Resources office to see if you qualify for special arrangements.)
-COURSE SCHEDULE:
-Note, all assignments are considered on-time if they are submitted by time specified on the assignment. If no time is specified, the assignment is due by 11:59pm on that date. You are expected to have completed the reading for any given week PRIOR to the first class that week.
-ASSIGNMENT DESCRIPTION:
+        <h2 id="about">ABOUT ME</h2>
+        <p>Hi, My name is Heidi Ahders and I will be your instructor for this course. I am originally from the San Francisco East Bay.  I graduated from Acalanes High School in Lafayette.  After I graduated from high school, I attended Cal Poly San Luis Obispo where I received my B.S. in Mathematics. </p>
 
-All assignments are expected to be submitted as defined in the assignment description and NO LATER THAN the provided Due Date. All students are welcome and highly encouraged to submit any assignments early. Please note that when you wait until the last minute to submit an assignment, you run the risk of being late due to technical difficulties. In general, technical difficulties are not valid excuses for late work submission. If you are unsure of how something should be turned in, you should try it early (can always resubmit up to the due date with no restrictions or penalties) and ask questions.
+        <p>My husband then was accepted to Oregon State University so we moved to Corvallis, OR where I continued to be a substitute teacher.  In 1993 we had our son and at which time I took some time off from teaching. </p>
 
-Discussion - None
+        <p>After teaching for a year, I started my path in the computer field. I was given an opportunity to intern at HP in the Inkjet Division.  This gave me the opportunity to create webpages. This led to contracting work in the computer field. </p>
 
-Since this is a Hybrid Class we will be meeting once a week and you are expected to participate and contribute to the class
+        <p>In 1998, Roger was hired at Mendocino College and I was hired on his coat tails as a part-time math instructor. We then had our daughter in 1999 and I didn't want to leave her so I started teaching online courses in Mathematics and Computer Science.</p>
 
-Homework/quizzes 
+        <p>I hope that I learn more from you than you learn from me and that everyone has a great semester! </p>
 
-In general, there is an online homework assignment for each section of this course. 
+        <!-- QUIZ SECTION -->
+        <div class="quiz-container" id="quiz">
+            <h2>📝 Syllabus Quiz</h2>
+            <p><strong>Please answer the following questions to ensure you understand the key policies and requirements of this course.</strong></p>
 
-All HW assignments are untimed and you may submit them as many times as you wish with your highest score recorded as your final grade. Each time you open a HW, you should get at least some different questions. You may review your answers after each attempt.
+            <form id="syllabusQuiz">
+                <div class="quiz-question">
+                    <h4>Question 1: What is the prerequisite for CSC 222?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q1" value="a"> CSC 101</li>
+                        <li><input type="radio" name="q1" value="b"> CSC 221</li>
+                        <li><input type="radio" name="q1" value="c"> CSC 212</li>
+                        <li><input type="radio" name="q1" value="d"> No prerequisite</li>
+                    </ul>
+                </div>
 
-YOU MUST attempt each section HW assignment and score at least 50% before the next section will open up for you.  You may always go back and retry/submit for a higher grade at any time up to the final week of the semester
+                <div class="quiz-question">
+                    <h4>Question 2: What is the preferred method of contacting the instructor?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q2" value="a"> Phone call</li>
+                        <li><input type="radio" name="q2" value="b"> Canvas Inbox</li>
+                        <li><input type="radio" name="q2" value="c"> Office visit</li>
+                        <li><input type="radio" name="q2" value="d"> Text message</li>
+                    </ul>
+                </div>
 
-It is your responsibility to complete and submit your assignments as indicated and in a timely manner. The points earned (or not earned) are based on your performance.
+                <div class="quiz-question">
+                    <h4>Question 3: What is the late penalty for assignments (excluding exams and projects)?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q3" value="a"> 5% per day</li>
+                        <li><input type="radio" name="q3" value="b"> 10% per day</li>
+                        <li><input type="radio" name="q3" value="c"> 1% per day</li>
+                        <li><input type="radio" name="q3" value="d"> No late penalty</li>
+                    </ul>
+                </div>
 
-Programming 
+                <div class="quiz-question">
+                    <h4>Question 4: What minimum score must you achieve on each section homework before the next section opens?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q4" value="a"> 70%</li>
+                        <li><input type="radio" name="q4" value="b"> 50%</li>
+                        <li><input type="radio" name="q4" value="c"> 80%</li>
+                        <li><input type="radio" name="q4" value="d"> 60%</li>
+                    </ul>
+                </div>
 
-There are several programs that will be required for this course. All programs will be included in your final grade. One to two of these assignments may be a "team" assignment. Teams will be assigned by the instructor based upon student participation up to the time teams are assigned.
+                <div class="quiz-question">
+                    <h4>Question 5: Which of the following data structures will you learn in this course?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q5" value="a"> Arrays, linked lists, and stacks</li>
+                        <li><input type="radio" name="q5" value="b"> Only arrays</li>
+                        <li><input type="radio" name="q5" value="c"> Only queues</li>
+                        <li><input type="radio" name="q5" value="d"> None of the above</li>
+                    </ul>
+                </div>
 
-Exams
+                <div class="quiz-question">
+                    <h4>Question 6: Can late submissions be accepted for exams and the final project?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q6" value="a"> Yes, with a penalty</li>
+                        <li><input type="radio" name="q6" value="b"> No, late submissions will not be accepted</li>
+                        <li><input type="radio" name="q6" value="c"> Yes, without penalty</li>
+                        <li><input type="radio" name="q6" value="d"> Only if you have a good excuse</li>
+                    </ul>
+                </div>
 
-There will be  a midterm exam that covers the first half of the course. In this exam, you should expect to answer questions similar to those from the quizzes and to also answer some programming based questions. Exams are scheduled,  SO PLAN ACCORDINGLY OR YOU WILL GET 0 POINTS FOR EXAMS NOT TAKEN.  Please contact me should there be extenuating circumstances (death in the family, emergency out-of-town trip, etc.) that would cause you to miss taking an exam. Check the syllabus for exam due dates.
+                <div class="quiz-question">
+                    <h4>Question 7: What percentage do you need to earn an 'A' in this course?</h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q7" value="a"> 85% and up</li>
+                        <li><input type="radio" name="q7" value="b"> 95% and up</li>
+                        <li><input type="radio" name="q7" value="c"> 90% and up</li>
+                        <li><input type="radio" name="q7" value="d"> 88% and up</li>
+                    </ul>
+                </div>
 
-Final Project
+                <div class="quiz-question">
+                    <h4>Question 8: Which two Saylor. org courses must you register for? </h4>
+                    <ul class="quiz-options">
+                        <li><input type="radio" name="q8" value="a"> CS101 and CS202</li>
+                        <li><input type="radio" name="q8" value="b"> CS102 and CS201</li>
+                        <li><input type="radio" name="q8" value="c"> CS103 and CS204</li>
+                        <li><input type="radio" name="q8" value="d"> CS100 and CS200</li>
+                    </ul>
+                </div>
 
-A final project may be required and is a major program which will take some significant time to complete so plan accordingly. 
+                <button type="button" class="quiz-submit" onclick="gradeQuiz()">Submit Quiz</button>
+            </form>
 
-GRADE DISTRIBUTION
+            <div id="quizResult" class="quiz-result"></div>
+        </div>
+    </div>
 
-Grades are awarded on a straight percentage basis:
+    <script>
+        function gradeQuiz() {
+            // Correct answers
+            const answers = {
+                q1: 'b',
+                q2: 'b',
+                q3: 'c',
+                q4: 'b',
+                q5: 'a',
+                q6: 'b',
+                q7: 'c',
+                q8: 'b'
+            };
 
-A: 90% and up
-B: 80% to < 90%
-C: 70% to < 80%
-D: 60% to < 70%
-F: <60%
+            let score = 0;
+            let totalQuestions = Object.keys(answers).length;
+            let unanswered = [];
 
-OTHER INFORMATION
+            // Check each question
+            for (let question in answers) {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                if (selected) {
+                    if (selected.value === answers[question]) {
+                        score++;
+                    }
+                } else {
+                    unanswered.push(question. replace('q', ''));
+                }
+            }
 
-This syllabus/outline may be subject to additions, deletions, and/or changes at the discretion of the instructor or the college district.  The course content may vary from this outline to meet the needs of this particular group. Advance notice of such change shall be given. 
+            // Display result
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.classList.add('show');
 
-At the time of writing this, some of the assignment details are in flux. Additionally, the schedule for the course is subject to change based upon how well we progress during the semester and any additional information that we may cover (may end up substituting some topics). Any changes to defined assignments will be made early enough to not significantly impact a student's ability to complete it by the specified due date. Additionally, in the event that a change requires the due date to an existing assignment to be moved, said due date will only be moved to a later date and never an earlier date.
+            if (unanswered.length > 0) {
+                resultDiv.className = 'quiz-result show fail';
+                resultDiv.innerHTML = `<strong>⚠️ Please answer all questions!</strong><br>You missed question(s): ${unanswered.join(', ')}`;
+            } else {
+                const percentage = Math.round((score / totalQuestions) * 100);
+                
+                if (percentage >= 80) {
+                    resultDiv. className = 'quiz-result show pass';
+                    resultDiv. innerHTML = `
+                        <strong>✅ Congratulations! </strong><br>
+                        You scored ${score} out of ${totalQuestions} (${percentage}%)<br>
+                        You have demonstrated a good understanding of the syllabus!
+                    `;
+                } else {
+                    resultDiv.className = 'quiz-result show fail';
+                    resultDiv.innerHTML = `
+                        <strong>📚 Please review the syllabus! </strong><br>
+                        You scored ${score} out of ${totalQuestions} (${percentage}%)<br>
+                        We recommend reviewing the syllabus and retaking the quiz.
+                    `;
+                }
+            }
 
-Any changes or other important announcements for the course will be posted in the "Announcements" section of the course. It is your responsibility to monitor the Announcements (If you have set your Notifications to not receive Announcements, then it is your responsibility to regularly check them online)
+            // Scroll to result
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
-NOTICE/WARNING:  It is against Federal copyright law to make copies of textbooks and software without specific permission of the copyright holder.  We are required by law to report all violations, and we will.
-
-ABOUT ME
-
-Hi, My name is Heidi Ahders and I will be your instructor for this course. I am originally from the San Francisco East Bay. I graduated from Acalanes High School in Lafayette. After I graduated from high school, I attended Diablo Valley College where I completed my general education and then moved on to Sonoma State University where I met my husband, Roger Ahders. I complete my BA in Mathematics there in 1991.  My plan was to become a math teacher either in a junior high or high school. I completed my teaching credential there at Sonoma State in 1992 and began my teaching career as a substitute teacher in Sonoma County. 
-
-My husband then was accepted to Oregon State University so we moved to Corvallis, OR where I continued to be a substitute teacher. In 1993 we had our son and which time I took some time off from teaching to help my family's business where I could take my son to work and spend time with him. I eventually went back to teaching and at the same time decided to pursue a master's degree in math education.
-
-After teaching for a year, I started my path in the computer field. I was given an opportunity to intern at HP in the Inkjet Division. This gave me the opportunity to create webpages. This led to contract job within HP for the Mobile Computing Division, where I created a web application. I was also working part-time at the School District in the Technology Department where I created a district-wide application. 
-
-In 1998, Roger was hired at Mendocino College and I was hired on his coat tails as a part-time math instructor.  We then had our daughter in 1999 and I didn't want to leave her so I started teaching online and at night. I loved working on computers, specifically programming, web and application development, so decided to move to teaching in the computer science department where I could teach online. I started working on a Master's in Computer Science at Georgia Institute of Technology and in 2018 received my degree. 
-
-I hope that I learn more from you than you learn from me and that everyone has a great semester. 
+        // Allow Enter key to submit
+        document.getElementById('syllabusQuiz').addEventListener('keypress', function(event) {
+            if (event. key === 'Enter') {
+                event.preventDefault();
+                gradeQuiz();
+            }
+        });
+    </script>
+</body>
+</html>
