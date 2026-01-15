@@ -749,19 +749,6 @@
         const backToTopButton = document.getElementById('backToTop');
         const tocMenuButton = document.getElementById('tocMenuButton');
         let tocIsOpen = false;
-        let lastScrollPosition = 0;
-        
-        // Calculate TOC position after page loads
-        let tocOriginalPosition = 0;
-        window.addEventListener('load', function() {
-            tocOriginalPosition = toc.offsetTop;
-        });
-        // Fallback to immediate calculation
-        setTimeout(function() {
-            if (tocOriginalPosition === 0) {
-                tocOriginalPosition = toc.offsetTop;
-            }
-        }, 100);
         
         // Get all section IDs from TOC links
         const sections = Array.from(tocLinks).map(link => {
@@ -775,7 +762,7 @@
             e.stopPropagation();
             tocIsOpen = !tocIsOpen;
             if (tocIsOpen) {
-                toc.classList.add('open');
+                toc.classList.add('sticky', 'open');
                 tocMenuButton.textContent = '✖️ Close';
             } else {
                 toc.classList.remove('open');
@@ -792,61 +779,57 @@
             }
         });
         
-        // Handle scroll events with smooth state management
-        let isScrolling = false;
-        let menuButtonVisible = false;
+        // Simple scroll handler - just show button after minimal scroll
+        let ticking = false;
         
-        function handleScroll() {
-            if (isScrolling) return;
-            
-            isScrolling = true;
-            requestAnimationFrame(function() {
-                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-                
-                // Show TOC menu button after scrolling past original TOC
-                const shouldShowButton = scrollPosition > (tocOriginalPosition + 100);
-                
-                if (shouldShowButton && !menuButtonVisible) {
-                    toc.classList.add('sticky');
-                    tocMenuButton.classList.add('show');
-                    menuButtonVisible = true;
-                } else if (!shouldShowButton && menuButtonVisible && !tocIsOpen) {
-                    toc.classList.remove('sticky');
-                    tocMenuButton.classList.remove('show');
-                    menuButtonVisible = false;
-                }
-                
-                // Show/hide back to top button
-                if (scrollPosition > 300) {
-                    backToTopButton.classList.add('show');
-                } else {
-                    backToTopButton.classList.remove('show');
-                }
-                
-                // Highlight active section in TOC
-                let currentSection = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    const sectionBottom = sectionTop + section.offsetHeight;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
                     
-                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                        currentSection = section.getAttribute('id');
+                    // Show menu button after scrolling just 200px
+                    if (scrollPosition > 200) {
+                        tocMenuButton.classList.add('show');
+                        toc.classList.add('sticky');
+                    } else {
+                        if (!tocIsOpen) {
+                            tocMenuButton.classList.remove('show');
+                            toc.classList.remove('sticky');
+                        }
                     }
+                    
+                    // Show/hide back to top button
+                    if (scrollPosition > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                    
+                    // Highlight active section in TOC
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+                        
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+                    
+                    // Update active link
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.add('active');
+                        }
+                    });
+                    
+                    ticking = false;
                 });
                 
-                // Update active link
-                tocLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + currentSection) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                isScrolling = false;
-            });
-        }
-        
-        window.addEventListener('scroll', handleScroll, { passive: true });
+                ticking = true;
+            }
+        }, { passive: true });
         
         // Back to top button click
         backToTopButton.addEventListener('click', function() {
