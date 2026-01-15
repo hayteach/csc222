@@ -1,0 +1,252 @@
+<p>Please review all tabs before proceeding on.</p>
+<div class="enhanceable_content tabs">
+    <ul>
+        <li><a href="#tab1">Console Program</a></li>
+        <li><a href="#tab2">Console Output</a></li>
+        <li><a href="#tab3">Console Input</a></li>
+        <li><a href="#tab4">Variable Declaration</a></li>
+        <li><a href="#tab5">Strings</a></li>
+        <li><a href="#tab6">Branching</a></li>
+        <li><a href="#tab7">Looping</a></li>
+        <li><a href="#tab8">A Complete Example</a></li>
+    </ul>
+    <div id="tab1">
+        <h2>Writing a Console Program</h2>
+        <p>A Console program in C++ is simpler to code than one in Java due to the quirkiness of the Java language. The following table provides a comparison between the program structure of a Console program in Java versus C++</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th style="width: 284px;">Java</th>
+                    <th style="width: 223.2px;">C++</th>
+                    <th style="width: 250.4px;">Discussion</th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 284px;">
+                        <p>For file named: Compare.java</p>
+                        <pre>class Compare<br />{<br />&nbsp;public static void main(String[] args)<br />&nbsp;{<br />&nbsp; &nbsp; &nbsp; // program code goes here<br />&nbsp;}<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 223.2px;">
+                        <p>For c++, filename doesn't matter as long as end with ".cpp" - compare.cpp</p>
+                        <pre>int main()<br />{<br />&nbsp;// program code goes here<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 250.4px;">
+                        <p>Java, a purely object-oriented programming language, your console program has to be encapsulated in a class that has the same name as the file. C++, in contrast, is an object-oriented extension to the C programming language and as such supports both object-oriented programming and procedural programming.</p>
+                        <p>Because of this, your C++ filename can be anything you want and your console program only has to have a function (like a method in Java) that is named "main" and returns an integer.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab2">
+        <h2>Console Output</h2>
+        <p>Unlike Java, there is no pre-built console output function or method in the base language.</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th style="width: 284px;">Java</th>
+                    <th style="width: 223.2px;">C++</th>
+                    <th style="width: 250.4px;">Discussion</th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 284px;">
+                        <p>To write output to the console, we use System.out.print...</p>
+                        <pre>class Compare<br />{<br />  public static void main(String[] args)<br />  {<br />  &nbsp; // print to console<br />    System.out.println("Hello");<br />  }<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 223.2px;">
+                        <p>For C++, we need to include the "iostream" library (not "import" which is how we bring in libraries in Java)</p>
+                        <pre>#include&lt;iostream&gt;<br />int main()<br />{<br />  // program code goes here<br />  cout &lt;&lt; "Hello" &lt;&lt; endl;<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 250.4px;">
+                        <p>In Java, the standard,&nbsp; unformatted output, is done using the "print" and "println" methods in "System.out"</p>
+                        <p>In C++, the standard console output is done using the "cout" command which is part of the "iostream" library</p>
+                        <p>The format for console output is:</p>
+                        <p>cout &lt;&lt; "whatever you want to print to the screen" &lt;&lt; "anything else you want to add"</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 284px;">
+                        <p>To print multiple items to the screen in Java:</p>
+                        <pre>String name = "John";<br />System.out.println("Hello " + name);</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 223.2px;">
+                        <p>In C++, we can't use the "+" sign to concatenate things together, we have to use the "&lt;&lt;" symbol to do this.&nbsp;</p>
+                        <pre>string name = "John";<br />cout &lt;&lt; "Hello " &lt;&lt; name &lt;&lt; endl;</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 250.4px;">
+                        <p>In C++, we can use the "endl" constant to move the output to the next line ("endl" stands for end of line). You can also use the "\n" ; "\t"; "\\" and other similar escape sequences just like in Java.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab3">
+        <h2>Console Input</h2>
+        <p>For collecting console (keyboard) input ...&nbsp;</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th style="width: 35%;">Java</th>
+                    <th style="width: 35%;">C++</th>
+                    <th style="width: 30%;">Discussion</th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>We need to import the Scanner utility and create an instance. Then we can read the different types of data using the .next(), .nextLine(), .nextInt(), ... methods.</p>
+                        <pre>import java.util.Scanner;<br />class Compare<br />{<br />  public static void main(String[] args)<br />  {<br />  &nbsp; Scanner kb = new Scanner(System.in);<br />    System.out.println("Please enter your name: ");<br />    String name = kb.next();<br />    System.out.println("Your name is " + name);<br />  }<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>For C++, the console input utility, "cin", is part of the "iostream" library</p>
+                        <pre>#include&lt;iostream&gt;<br />int main()<br />{<br />  // program code goes here<br />  cout &lt;&lt; "Please enter your name: ";<br />  string name;<br />  cin &gt;&gt; name;<br />  cout &lt;&lt; "Your name is " &lt;&lt; name;<br />}</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>In C++, the "cin" utility takes whatever is in the input stream (typed into the keyboard) and puts it into the variable the "&gt;&gt;" symbol points to. NOTE: "cin" expects the appropriate data type being entered.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>To collect a number:</p>
+                        <pre>int age;<br />System.out.println("Please enter your age: ");<br />age = kb.nextInt();<br />System.out.println("Age + 5 is " + (age + 5));</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>In C++</p>
+                        <pre>int age:<br />cout &lt;&lt; "Please enter your age: ";<br />cin &gt;&gt; age;<br />cout &lt;&lt; "Age + 5 is: " &lt;&lt; age+5 &lt;&lt; endl; </pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>In C++, when asked the age, if you try to enter a string like "six", the program will read an age of "0" since there is no integer there.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>To collect a line of text with more than 1 word:</p>
+                        <pre>name = kb.nextLine();</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>&nbsp;</p>
+                        <pre>getline(cin, name);</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>In C++, cin will only get 1 value so a word or value. To read an entire line of code you need to use the "getline()" method which takes 2 parameters, the source for your input (cin) and the variable where what you read in is stored</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>How to flush the input line:</p>
+                        <pre>kb.nextLine();</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>&nbsp;</p>
+                        <pre>cin.clear(); //this clears any error in cin<br />cin.ignore(); //this ignores the rest of the line</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>Often when you are reading console input in Java, we had the problem where the cursor was still on the previous line and this would cause issues especially in loops.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab4">
+        <h2>Variable Declarations</h2>
+        <p>Declaration of primitive variables between Java and C++ is mostly identical</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th style="width: 35%;">Java</th>
+                    <th style="width: 35%;">C++</th>
+                    <th style="width: 30%;">Discussion</th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>The following primitives are the same:</p>
+                        <pre>int age;<br />double price;<br />char symbol;<br /><br />The other primitives that we haven't used as much include:<br />byte, short, long, float</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>The equivalent C++ declarations are the same:</p>
+                        <pre>int age;<br />double price;<br />char symbol;<br /><br />The other primitives that we won't use as much include:<br />byte, short, long, float<br />unsigned versions of char, short, int and long<br />long double<br /><br /></pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>Typical variables defined by "int, double, ..." are signed meaning they have negative and positive values. In C++ we can declare "unsigned" versions which only have positive values (so we have twice as many positives as compared to a signed version)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>To declare a boolean:</p>
+                        <pre>boolean isDone = false;</pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>In C++</p>
+                        <pre>bool isDone = false; </pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>for booleans in C++, the declaration is "bool" and not "boolean" as it is in Java.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab5">
+        <h2>Strings</h2>
+        <p>At a surface level, Strings are nearly identical between Java and C++</p>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th style="width: 35%;">Java</th>
+                    <th style="width: 35%;">C++</th>
+                    <th style="width: 30%;">Discussion</th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>String declaration is done as follows</p>
+                        <pre>String name = "John";<br /><br /></pre>
+                    </td>
+                    <td style="vertical-align: top; width: 35%;">
+                        <p>The equivalent C++ declaration is:</p>
+                        <pre>string name = "John";<br /><br /></pre>
+                    </td>
+                    <td style="vertical-align: top; width: 30%;">
+                        <p>For C++, there are 2 different string libraries. If needed, you should only use/include the "string" library by including:</p>
+                        <pre>#include &lt;string&gt;</pre>
+                        <p>For more information on strings in C++: <a href="https://www.cplusplus.com/reference/string/string/">string - C++ Reference (cplusplus.com)</a>&nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab6">
+        <h2>Branching</h2>
+        <p>Branching is used for decision making and there are 2 basic structures that we use for this:</p>
+        <ul>
+            <li>The IF, IF-ELSE, IF-ELSEIF-ELSE structures</li>
+            <li>The SWITCH-CASE structure</li>
+        </ul>
+        <p>The code for these is identical between Java and C++</p>
+    </div>
+    <div id="tab7">
+        <h2>Looping</h2>
+        <p>The 3 basic looping structures we covered in Java:</p>
+        <ul>
+            <li>for loops</li>
+            <li>while loops</li>
+            <li>do-while loops</li>
+        </ul>
+        <p>Are the same in C++</p>
+    </div>
+    <div id="tab8">
+        <h2>A Complete Example</h2>
+        <p>A program that asks the user to enter a name then an age. The program prints these back out and repeats until the user decides to quit.</p>
+        <p><a class="instructure_file_link" title="Basic.java" href="https://mendocino.instructure.com/courses/21391/files/2620353?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620353" data-api-returntype="File">Basic.java</a></p>
+        <p>--- Converted To ---</p>
+        <p><a class="instructure_file_link instructure_scribd_file" title="basic.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620350?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620350" data-api-returntype="File">The C++ version (basic.cpp)</a></p>
+        <p>Changes made (you can almost do a line-by-line comparison between the 2 programs to see the detailed changes):</p>
+        <ul>
+            <li>Change "public static void main..." to "int main..."</li>
+            <li>Modify all "System.out.print/println" outputs to "cout"</li>
+            <li>Modify all "Scanner inputs" to "cin"</li>
+            <li>Modify data declarations for:
+                <ul>
+                    <li>String to string</li>
+                    <li>boolean to bool</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
