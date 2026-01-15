@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 Homework: Monster Translation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        /* Table of Contents / Menu */
+        .toc {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .toc a.active {
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+            padding-left: 8px;
+            background-color: #fff5f5;
+        }
+        
+        /* Collapsible TOC Menu Button */
+        #tocMenuButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        #tocMenuButton:hover {
+            background-color: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        #tocMenuButton.show {
+            display: block;
+        }
+        
+        /* Sticky TOC Dropdown */
+        .toc.sticky {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 280px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out;
+            display: none;
+        }
+        
+        .toc.sticky.open {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        #backToTop:hover {
+            background-color: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        #backToTop.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .highlight-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        
+        .requirements-list {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .requirements-list ul {
+            padding-left: 25px;
+        }
+        
+        .requirements-list li {
+            margin: 10px 0;
+            line-height: 1.8;
+        }
+        
+        .download-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .download-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .submission-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+        
+        .submission-box h3 {
+            color: #155724;
+            margin-top: 0;
+        }
+        
+        .checklist {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .checklist ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .checklist li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 10px;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .toc.sticky {
+                width: calc(100vw - 40px);
+                right: 10px;
+                top: 55px;
+            }
+            
+            #tocMenuButton {
+                right: 10px;
+                top: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            #backToTop {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👾 Homework 1: Monster Translation</h1>
+            <p>Translate Java to C++ - Your First C++ Project!</p>
+        </header>
+        
+        <div class="content">
+            <div class="note">
+                <strong>🎯 Assignment Goal:</strong> This assignment helps you learn C++ syntax by translating a Java program. You'll work with both classes and a main program!
+            </div>
+            
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📋 Assignment Sections</h3>
+                <ul>
+                    <li><a href="#overview">Assignment Overview</a></li>
+                    <li><a href="#download">Download Files</a></li>
+                    <li><a href="#requirements">Requirements</a></li>
+                    <li><a href="#submission">Submission Instructions</a></li>
+                    <li><a href="#checklist">Pre-Submission Checklist</a></li>
+                </ul>
+            </div>
+            
+            <!-- Section: Overview -->
+            <div class="section" id="overview">
+                <h2>📖 Assignment Overview</h2>
+                <p>For this assignment, you will <strong>translate a provided Java program to C++</strong>. The purpose of this assignment is to help you learn the syntax for C++ statements and understand how Java classes convert to C++'s header/implementation file structure.</p>
+                
+                <div class="highlight-box">
+                    <h3>🎮 What You're Building</h3>
+                    <p>You'll be converting a Java program that consists of:</p>
+                    <ul>
+                        <li><strong>Monster Class</strong> - A class that represents a game monster with attributes and methods</li>
+                        <li><strong>KillMonster Program</strong> - A main program that creates and uses Monster objects</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <strong>💡 Remember:</strong> In C++, classes are split into two files: a <code>.h</code> header file (declarations) and a <code>.cpp</code> implementation file (definitions). The main program goes in its own <code>.cpp</code> file.
+                </div>
+            </div>
+            
+            <!-- Section: Download -->
+            <div class="download-box" id="download">
+                <h3>📥 Download Assignment Files</h3>
+                <p>Get the Java source files you'll need to translate:</p>
+                <a href="Assign01.zip" class="download-btn">⬇️ Download Assign01.zip</a>
+                <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.9;">
+                    The zip file contains the Java Monster class and KillMonster program
+                </p>
+            </div>
+            
+            <!-- Section: Requirements -->
+            <div class="section" id="requirements">
+                <h2>📝 Requirements</h2>
+                <p>Your C++ solution must include the following files:</p>
+                
+                <div class="requirements-list">
+                    <h3>Required Files (3 total):</h3>
+                    <ul>
+                        <li><strong>Monster.h</strong> - Header file containing:
+                            <ul>
+                                <li>Class declaration</li>
+                                <li>Member variable declarations</li>
+                                <li>Method prototypes (signatures)</li>
+                                <li>Include guards</li>
+                            </ul>
+                        </li>
+                        <li><strong>Monster.cpp</strong> - Implementation file containing:
+                            <ul>
+                                <li>Method implementations (the actual code)</li>
+                                <li><code>#include "Monster.h"</code> at the top</li>
+                            </ul>
+                        </li>
+                        <li><strong>KillMonster.cpp</strong> - Main program file containing:
+                            <ul>
+                                <li><code>int main()</code> function</li>
+                                <li>Program logic that uses the Monster class</li>
+                                <li><code>#include "Monster.h"</code> at the top</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>🔍 Key Translation Points</h3>
+                    <ul>
+                        <li>Convert <code>boolean</code> to <code>bool</code></li>
+                        <li>Convert <code>String</code> to <code>string</code> (and include <code>&lt;string&gt;</code>)</li>
+                        <li>Change <code>System.out.println()</code> to <code>cout &lt;&lt; ... &lt;&lt; endl;</code></li>
+                        <li>Use <code>#include &lt;iostream&gt;</code> for I/O operations</li>
+                        <li>Remember to add <code>using namespace std;</code> or use <code>std::</code> prefix</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section: Submission -->
+            <div class="submission-box" id="submission">
+                <h3>📤 Submission Instructions</h3>
+                <p><strong>What to Submit:</strong></p>
+                <ul>
+                    <li>Compress all 3 files (<code>Monster.h</code>, <code>Monster.cpp</code>, <code>KillMonster.cpp</code>) into a single archive</li>
+                    <li>Accepted formats: <code>.zip</code>, <code>.7z</code>, or <code>.rar</code></li>
+                    <li>Submit your compressed file through Canvas</li>
+                </ul>
+                
+                <div class="note" style="margin-top: 20px;">
+                    <strong>⚠️ Important:</strong> Make sure all three files are included in your submission. Missing files will result in point deductions!
+                </div>
+            </div>
+            
+            <!-- Section: Checklist -->
+            <div class="section" id="checklist">
+                <h2>✅ Pre-Submission Checklist</h2>
+                <p>Before you submit, make sure you've completed all of these:</p>
+                
+                <div class="checklist">
+                    <ul>
+                        <li>Downloaded and reviewed the original Java files</li>
+                        <li>Created <code>Monster.h</code> with class declaration and method prototypes</li>
+                        <li>Created <code>Monster.cpp</code> with method implementations</li>
+                        <li>Created <code>KillMonster.cpp</code> with main function</li>
+                        <li>Compiled your code successfully (no errors)</li>
+                        <li>Tested your program to ensure it works correctly</li>
+                        <li>Used proper C++ syntax (bool, string, cout, etc.)</li>
+                        <li>Included necessary header files (<code>&lt;iostream&gt;</code>, <code>&lt;string&gt;</code>)</li>
+                        <li>Added include guards to <code>Monster.h</code></li>
+                        <li>Compressed all 3 files into a single archive (.zip, .7z, or .rar)</li>
+                        <li>Verified the compressed file contains all required files</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Tips Section -->
+            <div class="highlight-box">
+                <h3>💡 Helpful Tips</h3>
+                <ul>
+                    <li><strong>Start with the header file:</strong> Define the class structure first in <code>Monster.h</code></li>
+                    <li><strong>Test incrementally:</strong> Implement one method at a time and test as you go</li>
+                    <li><strong>Watch for syntax:</strong> Remember the semicolon after class declarations in the header!</li>
+                    <li><strong>Scope resolution:</strong> Use <code>Monster::</code> before method names in <code>Monster.cpp</code></li>
+                    <li><strong>Need help?</strong> Review the Week 1 materials on class creation in C++</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TOC Menu Button -->
+    <button id="tocMenuButton" title="Table of Contents">📋 Menu</button>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top">↑</button>
+    
+    <script>
+        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
+        
+        const toc = document.querySelector('.toc');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTopButton = document.getElementById('backToTop');
+        const tocMenuButton = document.getElementById('tocMenuButton');
+        let tocIsOpen = false;
+        
+        // Get all section IDs from TOC links
+        const sections = Array.from(tocLinks).map(link => {
+            const href = link.getAttribute('href');
+            return href ? document.querySelector(href) : null;
+        }).filter(section => section !== null);
+        
+        // Toggle TOC menu
+        tocMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocIsOpen = !tocIsOpen;
+            
+            if (tocIsOpen) {
+                toc.classList.add('sticky', 'open');
+                tocMenuButton.textContent = '✖ Close';
+            } else {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+            }
+        });
+        
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(e) {
+            if (tocIsOpen && !toc.contains(e.target) && e.target !== tocMenuButton) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocIsOpen = false;
+            }
+        });
+        
+        // Scroll event with requestAnimationFrame for better performance
+        let ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrollPosition = window.scrollY;
+                    
+                    // Show/hide menu button and back to top button
+                    if (scrollPosition > 200) {
+                        tocMenuButton.classList.add('show');
+                    } else {
+                        tocMenuButton.classList.remove('show');
+                    }
+                    
+                    if (scrollPosition > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                    
+                    // Active section highlighting
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+                        
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+                    
+                    // Update active link
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.add('active');
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        }, { passive: true });
+        
+        // Back to top button click
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scroll for TOC links and close menu
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 20;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close TOC menu after clicking a link
+                    if (tocIsOpen) {
+                        toc.classList.remove('open');
+                        tocMenuButton.textContent = '📋 Menu';
+                        tocIsOpen = false;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
