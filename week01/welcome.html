@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to CSC 222</title>
+    <title>Welcome to CSC 222 - Programming and Algorithms II</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        /* Skip to main content link for keyboard users */
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1em;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .skip-to-main:focus {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
         }
         
         body {
@@ -57,8 +75,14 @@
             opacity: 0.9;
         }
         
-        .content {
+        main {
             padding: 40px;
+        }
+        
+        /* Ensure focus indicators are visible */
+        a:focus, button:focus {
+            outline: 3px solid #667eea;
+            outline-offset: 2px;
         }
         
         .welcome-box {
@@ -127,16 +151,15 @@
         }
         
         .link-box a {
-            color: #667eea;
-            text-decoration: none;
+            color: #4a5fc1; /* Improved contrast for WCAG AA */
+            text-decoration: underline;
             font-weight: bold;
             font-size: 1.1em;
             transition: color 0.3s;
         }
         
         .link-box a:hover {
-            color: #764ba2;
-            text-decoration: underline;
+            color: #5a3a8f; /* Improved contrast */
         }
         
         .feature-grid {
@@ -155,7 +178,7 @@
             transition: transform 0.3s;
         }
         
-        .feature-card:hover {
+        .feature-card:hover, .feature-card:focus-within {
             transform: translateY(-5px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
@@ -219,7 +242,7 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
-        .cta-button:hover {
+        .cta-button:hover, .cta-button:focus {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
@@ -232,12 +255,17 @@
             border-radius: 5px;
         }
         
+        /* Hide decorative emojis from screen readers */
+        .emoji {
+            aria-hidden: true;
+        }
+        
         @media (max-width: 768px) {
             header h1 {
                 font-size: 1.8em;
             }
             
-            .content {
+            main {
                 padding: 20px;
             }
             
@@ -245,23 +273,41 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .cta-button {
+                border: 2px solid white;
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <div class="container">
-        <header>
-            <h1>🎓 Welcome to CSC 222!</h1>
+        <header role="banner">
+            <h1><span class="emoji" aria-hidden="true">🎓</span> Welcome to CSC 222!</h1>
             <p>Programming and Algorithms II</p>
         </header>
         
-        <div class="content">
-            <div class="welcome-box">
-                <h2>👋 Welcome to the Spring 2026 Semester!</h2>
+        <main id="main-content" role="main">
+            <section class="welcome-box" aria-labelledby="welcome-heading">
+                <h2 id="welcome-heading"><span class="emoji" aria-hidden="true">👋</span> Welcome to the Spring 2026 Semester!</h2>
                 <p>This combined <strong>Lecture + Lab course</strong> will guide you through the fascinating world of data structures and algorithms using C++. You'll learn both the conceptual foundations and the practical implementation skills needed to become a proficient programmer.</p>
-            </div>
+            </section>
             
-            <div class="info-card">
-                <h3>📚 What This Course Covers</h3>
+            <section class="info-card" aria-labelledby="course-covers-heading">
+                <h3 id="course-covers-heading"><span class="emoji" aria-hidden="true">📚</span> What This Course Covers</h3>
                 <p><strong>In this integrated lecture and lab course, you will:</strong></p>
                 <ul style="padding-left: 20px; margin-top: 15px;">
                     <li>Learn console programming in C++</li>
@@ -269,18 +315,18 @@
                     <li>Understand essential algorithms and their applications</li>
                     <li>Develop practical coding skills through hands-on labs</li>
                 </ul>
-            </div>
+            </section>
             
-            <div class="meeting-info">
-                <h3>🎥 Online Zoom Meetings</h3>
+            <section class="meeting-info" aria-labelledby="meeting-heading">
+                <h3 id="meeting-heading"><span class="emoji" aria-hidden="true">🎥</span> Online Zoom Meetings</h3>
                 <div class="meeting-time">
-                    📅 Every Wednesday, 2:00 - 3:20 PM<br>
-                    Pacific Time (US and Canada)
+                    <span class="emoji" aria-hidden="true">📅</span> Every Wednesday, 2:00 - 3:20 PM<br>
+                    Pacific Time (US and Canada)<br>
                     <small>(Could change if needed)</small>
                 </div>
                 
                 <div class="link-box">
-                    <p><strong>📍 Where to find the meeting link:</strong></p>
+                    <p><strong><span class="emoji" aria-hidden="true">📍</span> Where to find the meeting link:</strong></p>
                     <ul style="padding-left: 20px; margin-top: 10px;">
                         <li>Check the <strong>Calendar</strong> in Canvas</li>
                         <li>Visit the <strong>TechConnect</strong> area on the class site</li>
@@ -288,38 +334,38 @@
                 </div>
                 
                 <div class="note">
-                    <strong>💡 Pro Tip:</strong> Save the meeting link to your bookmarks so you can easily join each week!
+                    <strong><span class="emoji" aria-hidden="true">💡</span> Pro Tip:</strong> Save the meeting link to your bookmarks so you can easily join each week!
                 </div>
-            </div>
+            </section>
             
-            <div class="info-card">
-                <h3>🚀 What to Expect</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">💻</div>
+            <section class="info-card" aria-labelledby="expectations-heading">
+                <h3 id="expectations-heading"><span class="emoji" aria-hidden="true">🚀</span> What to Expect</h3>
+                <div class="feature-grid" role="list">
+                    <div class="feature-card" role="listitem">
+                        <div class="feature-icon" role="img" aria-label="Computer">💻</div>
                         <h4>Hands-On Coding</h4>
                         <p>Integrated labs with practical exercises</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧠</div>
+                    <div class="feature-card" role="listitem">
+                        <div class="feature-icon" role="img" aria-label="Brain">🧠</div>
                         <h4>Conceptual Learning</h4>
                         <p>Deep understanding of data structures</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
+                    <div class="feature-card" role="listitem">
+                        <div class="feature-icon" role="img" aria-label="Target">🎯</div>
                         <h4>Real Projects</h4>
                         <p>Build applications that solve problems</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🤝</div>
+                    <div class="feature-card" role="listitem">
+                        <div class="feature-icon" role="img" aria-label="Handshake">🤝</div>
                         <h4>Live Support</h4>
                         <p>Weekly Zoom sessions for help</p>
                     </div>
                 </div>
-            </div>
+            </section>
             
-            <div class="checklist">
-                <h3>✅ Getting Started Checklist</h3>
+            <section class="checklist" aria-labelledby="checklist-heading">
+                <h3 id="checklist-heading"><span class="emoji" aria-hidden="true">✅</span> Getting Started Checklist</h3>
                 <ul>
                     <li>Review the course syllabus</li>
                     <li>Set up your C++ development environment</li>
@@ -328,21 +374,24 @@
                     <li>Introduce yourself in the discussion board</li>
                     <li>Join the first Zoom meeting on Wednesday!</li>
                 </ul>
-            </div>
+            </section>
             
             <div style="text-align: center; margin: 40px 0;">
-                <a href="https://mendocino.instructure.com/courses/21391/modules" class="cta-button">
-                    🎯 Start Your Journey - Go to Modules
+                <a href="https://mendocino.instructure.com/courses/21391/modules" 
+                   class="cta-button" 
+                   target="_parent"
+                   aria-label="Navigate to course modules to begin your learning journey">
+                    <span class="emoji" aria-hidden="true">🎯</span> Start Your Journey - Go to Modules
                 </a>
                 <p style="margin-top: 15px; color: #666;">
                     <em>After Week 3, Modules will become the Home Page for the course</em>
                 </p>
             </div>
             
-            <div class="note">
-                <strong>📧 Need Help?</strong> Don't hesitate to reach out! Use the course messaging system, attend Zoom meetings, or post in the discussion board. We're here to help you succeed! 🌟
+            <div class="note" role="complementary" aria-label="Help information">
+                <strong><span class="emoji" aria-hidden="true">📧</span> Need Help?</strong> Don't hesitate to reach out! Use the course messaging system, attend Zoom meetings, or post in the discussion board. We're here to help you succeed! <span class="emoji" aria-hidden="true">🌟</span>
             </div>
-        </div>
+        </main>
     </div>
 </body>
 </html>
