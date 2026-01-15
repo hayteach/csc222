@@ -792,25 +792,28 @@
             }
         });
         
-        // Handle scroll events with throttling to prevent jumping
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-            // Clear the timeout to debounce scroll events
-            clearTimeout(scrollTimeout);
+        // Handle scroll events with smooth state management
+        let isScrolling = false;
+        let menuButtonVisible = false;
+        
+        function handleScroll() {
+            if (isScrolling) return;
             
-            scrollTimeout = setTimeout(function() {
+            isScrolling = true;
+            requestAnimationFrame(function() {
                 const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
                 
                 // Show TOC menu button after scrolling past original TOC
-                if (scrollPosition > (tocOriginalPosition + 100)) {
+                const shouldShowButton = scrollPosition > (tocOriginalPosition + 100);
+                
+                if (shouldShowButton && !menuButtonVisible) {
                     toc.classList.add('sticky');
                     tocMenuButton.classList.add('show');
-                } else {
-                    // Only close if scrolling up and menu was closed
-                    if (!tocIsOpen) {
-                        toc.classList.remove('sticky');
-                        tocMenuButton.classList.remove('show');
-                    }
+                    menuButtonVisible = true;
+                } else if (!shouldShowButton && menuButtonVisible && !tocIsOpen) {
+                    toc.classList.remove('sticky');
+                    tocMenuButton.classList.remove('show');
+                    menuButtonVisible = false;
                 }
                 
                 // Show/hide back to top button
@@ -839,9 +842,11 @@
                     }
                 });
                 
-                lastScrollPosition = scrollPosition;
-            }, 50); // 50ms debounce
-        });
+                isScrolling = false;
+            });
+        }
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
         
         // Back to top button click
         backToTopButton.addEventListener('click', function() {
