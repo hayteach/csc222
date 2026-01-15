@@ -503,10 +503,20 @@
 
         <p>It is your responsibility to complete and submit your assignments as indicated and in a timely manner. The points earned (or not earned) are based on your performance. </p>
 
-        <h4>Programming</h4>
-        <p>There are several programs that will be required for this course. All programs will be included in your final grade.  One to two of these assignments may be a "team" assignment.  Teams will be assigned by the instructor.</p>
+        <h4>🔬 Labs (Hands-On Learning!)</h4>
+        <p>Lab assignments are where theory meets practice! These hands-on exercises will help you apply the concepts you're learning in a practical, guided way. 💻</p>
+        <ul>
+            <li>🧪 Labs are designed to reinforce lecture material and give you real coding experience with data structures and algorithms.</li>
+            <li>👥 Some labs may be completed individually, while others might be pair-programming exercises (we'll let you know!).</li>
+            <li>📋 Each lab comes with clear instructions and expected outcomes - follow them carefully!</li>
+            <li>✅ Labs must be completed and submitted by the specified deadline to receive full credit.</li>
+            <li>🆘 Stuck? That's what office hours and class time are for! Don't wait until the last minute to ask for help.</li>
+        </ul>
 
-        <h4>Exams</h4>
+        <h4>💻 Programming Assignments</h4>
+        <p>There are several programs that will be required for this course. All programs will be included in your final grade. One to two of these assignments may be a "team" assignment. Teams will be assigned by the instructor.</p>
+
+        <h4>📝 Exams</h4>
         <p>There will be a midterm exam that covers the first half of the course.  In this exam, you should expect to answer questions similar to those from the quizzes and to also answer some programming based questions.</p>
 
         <h4>Final Project</h4>
@@ -738,8 +748,20 @@
         const tocLinks = document.querySelectorAll('.toc a');
         const backToTopButton = document.getElementById('backToTop');
         const tocMenuButton = document.getElementById('tocMenuButton');
-        const tocOriginalPosition = toc.offsetTop;
         let tocIsOpen = false;
+        let lastScrollPosition = 0;
+        
+        // Calculate TOC position after page loads
+        let tocOriginalPosition = 0;
+        window.addEventListener('load', function() {
+            tocOriginalPosition = toc.offsetTop;
+        });
+        // Fallback to immediate calculation
+        setTimeout(function() {
+            if (tocOriginalPosition === 0) {
+                tocOriginalPosition = toc.offsetTop;
+            }
+        }, 100);
         
         // Get all section IDs from TOC links
         const sections = Array.from(tocLinks).map(link => {
@@ -748,7 +770,9 @@
         }).filter(section => section !== null);
         
         // Toggle TOC menu
-        tocMenuButton.addEventListener('click', function() {
+        tocMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             tocIsOpen = !tocIsOpen;
             if (tocIsOpen) {
                 toc.classList.add('open');
@@ -768,46 +792,55 @@
             }
         });
         
-        // Handle scroll events
+        // Handle scroll events with throttling to prevent jumping
+        let scrollTimeout;
         window.addEventListener('scroll', function() {
-            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            // Clear the timeout to debounce scroll events
+            clearTimeout(scrollTimeout);
             
-            // Show TOC menu button after scrolling past original TOC
-            if (scrollPosition > tocOriginalPosition + 100) {
-                toc.classList.add('sticky');
-                tocMenuButton.classList.add('show');
-            } else {
-                toc.classList.remove('sticky', 'open');
-                tocMenuButton.classList.remove('show');
-                tocMenuButton.textContent = '📋 Menu';
-                tocIsOpen = false;
-            }
-            
-            // Show/hide back to top button
-            if (scrollPosition > 300) {
-                backToTopButton.classList.add('show');
-            } else {
-                backToTopButton.classList.remove('show');
-            }
-            
-            // Highlight active section in TOC
-            let currentSection = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 150;
-                const sectionBottom = sectionTop + section.offsetHeight;
+            scrollTimeout = setTimeout(function() {
+                const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
                 
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    currentSection = section.getAttribute('id');
+                // Show TOC menu button after scrolling past original TOC
+                if (scrollPosition > (tocOriginalPosition + 100)) {
+                    toc.classList.add('sticky');
+                    tocMenuButton.classList.add('show');
+                } else {
+                    // Only close if scrolling up and menu was closed
+                    if (!tocIsOpen) {
+                        toc.classList.remove('sticky');
+                        tocMenuButton.classList.remove('show');
+                    }
                 }
-            });
-            
-            // Update active link
-            tocLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + currentSection) {
-                    link.classList.add('active');
+                
+                // Show/hide back to top button
+                if (scrollPosition > 300) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
                 }
-            });
+                
+                // Highlight active section in TOC
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                // Update active link
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                lastScrollPosition = scrollPosition;
+            }, 50); // 50ms debounce
         });
         
         // Back to top button click
