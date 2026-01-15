@@ -159,17 +159,110 @@
             border:  1px solid #f5c6cb;
             color: #721c24;
         }
+        
+        /* Sticky TOC Styles */
+        .toc.sticky {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .toc.sticky h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        
+        .toc a.active {
+            color: #e74c3c;
+            font-weight: bold;
+            border-left: 3px solid #e74c3c;
+            padding-left: 8px;
+            background-color: #fff5f5;
+        }
+        
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        #backToTop:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+        }
+        
+        #backToTop.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .toc.sticky {
+                display: none; /* Hide sticky TOC on mobile to avoid clutter */
+            }
+            
+            #backToTop {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>CSC 222 - Data Structures</h1>
+        <h1>🎯 CSC 222 - Programming and Algoritms II 🚀</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #555; font-style: italic;">Where we make linked lists fun and stacks... well, slightly less intimidating! 😄</p>
         
         <div class="instructor-info">
             <h3>Heidi Ahders, M.S.</h3>
             <p><strong>Part-Time Instructor</strong></p>
             <p><strong>Email:</strong> <a href="mailto:hahders@mendocino.edu">hahders@mendocino.edu</a> or Canvas Inbox (Preferred Method)</p>
-            <p><strong>Student Contact Hours:</strong> By Appointment</p>
+            <p><strong>Student Contact Hours:</strong> TBD</p>
             <p><strong>Contact:</strong> via Zoom (Make sure you have the Zoom software loaded)</p>
             <p><strong>Prerequisite:</strong> Completion of CSC 221</p>
             <p><strong>Course Website: </strong> <a href="https://mendocino.instructure.com" target="_blank">mendocino.instructure.com</a></p>
@@ -182,23 +275,24 @@
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="#description">Course Description</a></li>
                 <li><a href="#policies">Course Policies</a></li>
+                <li><a href="#ai-usage">AI Usage Policy</a></li>
                 <li><a href="#schedule">Schedule, Assignments, and Grading</a></li>
                 <li><a href="#about">About Me</a></li>
                 <li><a href="#quiz">Syllabus Quiz</a></li>
             </ul>
         </div>
 
-        <h2 id="supplies">SUPPLIES</h2>
-        <h3>No Textbook Required, however... </h3>
-        <p>For this course, we will be using and merging content from a variety of different sources. Please access/acquire the following: </p>
+        <h2 id="supplies">📚 SUPPLIES (aka Your Coding Toolkit)</h2>
+        <h3>🎉 No Textbook Required, however... </h3>
+        <p>Good news! You won't need to spend a fortune on a textbook that'll gather dust. Instead, we'll be like code ninjas, gathering wisdom from various sources across the internet. Here's what you'll need to grab: </p>
         
         <h3>Register for the following at Saylor.org:</h3>
         <ol>
             <li>Go to <a href="https://www.saylor.org" target="_blank">Saylor. org</a> and "Log In" if you have an account.  If you do not have an account, please "Sign Up" (it doesn't matter what you select as the reason you are signing up).</li>
-            <li>Register for the following 2 courses: 
+            <li>Register (Enroll) for the following 2 courses: 
                 <ul>
-                    <li><a href="https://learn.saylor.org/course/cs102" target="_blank">CS102: Introduction to Computer Science</a></li>
-                    <li><a href="https://learn.saylor.org/course/cs201" target="_blank">CS201: Elementary Data Structures</a></li>
+                    <li><a href="https://learn.saylor.org/course/view.php?id=64" target="_blank">CS102: Introduction to Computer Science</a></li>
+                    <li><a href="https://learn.saylor.org/course/view.php?id=1307" target="_blank">CS201: Elementary Data Structures</a></li>
                 </ul>
             </li>
         </ol>
@@ -210,34 +304,35 @@
             <li>There are also computers available in the lab area where Dr. Pai's Office is. If you want or need to use these while on campus, you need to contact Dr. Pai to set up an agreeable time/schedule.</li>
         </ul>
 
-        <h3>Required Hardware:</h3>
+        <h3>💻 Required Hardware:</h3>
         <ul>
-            <li>PC/Mac</li>
+            <li>PC/Mac (basically, if it can run a browser and doesn't sound like a jet engine, you're golden! ✈️)</li>
         </ul>
 
-        <h3>Required Software:</h3>
+        <h3>🔧 Required Software:</h3>
         <ul>
-            <li>Office 365 (Free to Mendocino College Students)</li>
-            <li>See First Assignments for the rest of the software needed</li>
+            <li>Office 365 (Free to Mendocino College Students - because who doesn't love free stuff? 🎁)</li>
+            <li>Visual Studio Code (Free Download - your new best friend for the semester 🤝)</li>
+            <li>See First Assignments for the rest of the software needed (don't worry, it's all free too!)</li>
         </ul>
 
         <h2 id="resources">INTERNET RESOURCES/WEBSITES</h2>
         <h3>Reference Sheets</h3>
         <p>Check out the individual Modules. </p>
 
-        <h2 id="description">COURSE DESCRIPTION</h2>
-        <p>This course will explore the application of software engineering techniques, data structures, and associated algorithms to the design and development of computer programs. Programs are written in an advanced programming language. </p>
+        <h2 id="description">📖 COURSE DESCRIPTION (The Fun Stuff!)</h2>
+        <p>Ready to level up your coding game? 🎮 This course is where the magic happens! We'll explore the art and science of data structures and algorithms - think of them as the LEGO blocks of programming. You'll learn how to build elegant, efficient programs that would make even experienced developers nod in approval. Warning: You may develop an unhealthy obsession with Big O notation. 😅</p>
 
-        <h3>Course Objectives/Learning Outcomes: </h3>
+        <h3>🎯 Course Objectives/Learning Outcomes (aka What You'll Be Able to Brag About): </h3>
         
         <h4>Course Objectives:</h4>
         <ul>
-            <li>Write programs that use each of the following data structures: arrays, records, strings, linked-lists, stacks, queues and hash tables.</li>
-            <li>Implement, test and debug simple recursive functions and procedures.</li>
-            <li>Evaluate tradeoffs in lifetime management (reference counting vs garbage collection).</li>
-            <li>Explain how abstraction mechanisms support the creation of reusable software components.</li>
-            <li>Design, implement, test, and debug simple programs in an object-oriented programming language.</li>
-            <li>Compare and contrast object-oriented analysis and design with structured analysis and design.</li>
+            <li>📊 Write programs that use each of the following data structures: arrays, records, strings, linked-lists, stacks, queues and hash tables (collect 'em all!).</li>
+            <li>🔄 Implement, test and debug simple recursive functions and procedures (inception for code!).</li>
+            <li>⚖️ Evaluate tradeoffs in lifetime management (reference counting vs garbage collection) - it's like choosing between pizza toppings, but for memory!</li>
+            <li>🧩 Explain how abstraction mechanisms support the creation of reusable software components (DRY - Don't Repeat Yourself!).</li>
+            <li>🎨 Design, implement, test, and debug simple programs in an object-oriented programming language.</li>
+            <li>🤔 Compare and contrast object-oriented analysis and design with structured analysis and design.</li>
         </ul>
 
         <h4>Learning Outcomes:</h4>
@@ -256,13 +351,13 @@
             <strong>NOTE:</strong> You will see these learning outcomes at times in the grading rubrics for assignments. When you see one, it means that I feel that all or part of this assignment allows you to demonstrate your ability to meet this outcome.
         </div>
 
-        <h2 id="policies">COURSE POLICIES</h2>
+        <h2 id="policies">📜 COURSE POLICIES (The Important Stuff - Please Read!)</h2>
         
-        <h3>Student Conduct and Academic Honesty</h3>
-        <p>Students are expected to behave in a courteous and respectful manner which is conducive to learning. Students should not engage in academic misconduct. For specific guidelines please refer to Administrative Procedures.</p>
+        <h3>🤝 Student Conduct and Academic Honesty</h3>
+        <p>Let's keep it real and respectful! Think of this class as a coding dojo - we're all here to learn and help each other grow. Be cool, be kind, and be honest in your work. For specific guidelines please refer to Administrative Procedures.</p>
 
-        <h3>Cheating</h3>
-        <p>Cheating is not doing the work that you put your name on. A student will not receive any credit and may be dropped from the course or expelled from the school. Refer to the college handbook for more information.</p>
+        <h3>🚫 Cheating (Don't Do It!)</h3>
+        <p>Listen, we get it - sometimes code gets tough. But copying someone else's work and slapping your name on it? That's a no-go. Not only will you miss out on learning, but you could lose credit, get dropped from the course, or face even bigger consequences. When in doubt, ask for help instead! We're all about learning here. 💪</p>
 
         <h3>Students with Disabilities</h3>
         <p>The College is committed to creating a learning environment that meets the needs of its diverse student body. If you anticipate or experience any barriers to learning in this course, please feel welcome to discuss your concerns with me.</p>
@@ -271,29 +366,61 @@
             <strong>NOTE:</strong> Special accommodations will not be provided without documentation of your disability from the DRC (Disability Resources Center).
         </div>
 
-        <h3>Makeup and Late Work: </h3>
-        <p>For the Exams and Project, <strong>NO LATE SUBMISSIONS</strong> will be accepted. For all other categories, all late submissions could suffer a <strong>1% per day</strong> (or portion of a day) late penalty. These rules will be coded into Canvas. </p>
-
-        <h3>Absenteeism:</h3>
-        <p>There really is no "absenteeism" in an online course other than not checking the course site. The best way to do well in this course is to stay caught up with your work each week.  Historically, the students who do well are those who check the course site regularly and stay on top of their assignments.</p>
-
-        <h4>The following examples (but not limited to) are NOT considered valid circumstances for late assignment extensions, makeup quizzes and/or exams:</h4>
+        <h3 id="ai-usage">🤖 AI Usage Policy (Yes, We're Living in the Future!)</h3>
+        <p>So, AI is a thing now, right? Tools like GitHub Copilot and ChatGPT are like having a really smart (but sometimes quirky) coding buddy. You CAN use them in this course - but with great power comes great responsibility! Think of AI as your study partner, not your replacement brain. 🧠✨</p>
+        
+        <h4>Permitted Uses of AI:</h4>
         <ul>
-            <li>Computer broke</li>
-            <li>No or lost Internet</li>
-            <li>Busy at work or work schedule change</li>
-            <li>Work traveling</li>
-            <li>Personal issues</li>
-            <li>Busy in other classes</li>
-            <li>Still do not have book or class materials</li>
-            <li>Forgot the course started</li>
-            <li>Spaced out the homework and assignments</li>
-            <li>Did not follow due dates or read the assignment schedule</li>
-            <li>Stuck at an airport with no Internet</li>
-            <li>Did not know what the assignments were or when they were due</li>
-            <li>Flu, cold, etc.  (without notification of onset and doctor excuse)</li>
-            <li>Chronic health issues not registered with the disability resources office at the college at the start of class</li>
+            <li><strong>Learning and Understanding:</strong> Use AI to help explain concepts, debug code, or understand error messages.</li>
+            <li><strong>Code Review:</strong> Use AI to review your code for best practices, optimization suggestions, or potential bugs.</li>
+            <li><strong>Brainstorming:</strong> Use AI to explore different approaches to solving a problem or implementing a data structure.</li>
+            <li><strong>Documentation:</strong> Use AI to help generate or improve code comments and documentation.</li>
         </ul>
+        
+        <h4>Required Practices:</h4>
+        <ul>
+            <li><strong>Understanding:</strong> You must understand any code that you submit. If asked to explain your code, you should be able to do so clearly.</li>
+            <li><strong>Attribution:</strong> When AI generates significant portions of your code, include a comment indicating this (e.g., "// AI-assisted implementation").</li>
+            <li><strong>Testing:</strong> All code, whether AI-generated or not, must be tested and verified by you to ensure it works correctly.</li>
+            <li><strong>Learning Focus:</strong> AI should supplement your learning, not replace it. Use AI as a tutor, not as a solution provider.</li>
+        </ul>
+        
+        <h4>Prohibited Uses:</h4>
+        <ul>
+            <li><strong>Exams:</strong> AI tools may not be used during examinations unless explicitly permitted.</li>
+            <li><strong>Blind Copying:</strong> Copying AI-generated code without understanding it is considered academic dishonesty.</li>
+            <li><strong>Misrepresentation:</strong> Submitting AI-generated work as entirely your own without attribution is a violation of academic integrity.</li>
+        </ul>
+        
+        <div class="warning">
+            <strong>IMPORTANT:</strong> The goal of this course is to develop your problem-solving skills and understanding of data structures and algorithms. While AI can be a valuable tool, over-reliance on it will prevent you from achieving the learning outcomes of this course. Remember: in interviews and professional settings, you'll need to demonstrate your own knowledge and skills.
+        </div>
+
+        <h3>⏰ Makeup and Late Work (Time is of the Essence!): </h3>
+        <p>Here's the deal: For Exams and the Final Project, <strong>NO LATE SUBMISSIONS</strong> will be accepted (seriously, don't test this! ⚠️). For everything else, late work gets dinged <strong>1% per day</strong> - think of it as a "procrastination tax." Canvas will handle this automatically, so no begging or bribing necessary. 😊</p>
+
+        <h3>👻 Absenteeism (aka The Disappearing Student Syndrome):</h3>
+        <p>Look, this is a hybrid course - there's no "I forgot to show up" excuse. But there IS a "I haven't checked Canvas in three weeks and now I'm panicking" problem. Don't be that person! Pro tip from past successful students: Check in regularly, stay on top of assignments, and you'll cruise through this course like a boss. 😎</p>
+
+        <h4>🚨 The "We've Heard It All Before" List (aka NOT Valid Excuses):</h4>
+        <p>Look, we're all human and life happens. But these excuses have been retired from active duty:</p>
+        <ul>
+            <li>💻 "My computer broke" (Back up your work! Cloud storage is your friend!)</li>
+            <li>📡 "No or lost Internet" (Libraries, coffee shops, campus - Wi-Fi is everywhere!)</li>
+            <li>👔 "Busy at work or work schedule change" (Plan ahead, friend!)</li>
+            <li>✈️ "Work traveling" (Laptops are portable for a reason!)</li>
+            <li>😰 "Personal issues" (We care, but communication is key!)</li>
+            <li>📚 "Busy in other classes" (Time management is part of college life!)</li>
+            <li>📖 "Still don't have book or class materials" (Good news: no textbook required!)</li>
+            <li>😴 "Forgot the course started" (Canvas notifications are a thing!)</li>
+            <li>🤷 "Spaced out the homework and assignments" (Happens to the best of us - set reminders!)</li>
+            <li>📅 "Didn't follow due dates or read the assignment schedule" (Syllabus = your roadmap!)</li>
+            <li>🛫 "Stuck at an airport with no Internet" (Most airports have Wi-Fi now!)</li>
+            <li>❓ "Didn't know what assignments were due" (Check Canvas regularly!)</li>
+            <li>🤧 "Flu, cold, etc. without notification" (Communication is everything!)</li>
+            <li>🏥 "Chronic health issues not registered with DRC" (Please register at the start if applicable!)</li>
+        </ul>
+        <p style="font-style: italic; margin-top: 15px;">Bottom line: Life happens, but communicate early and often if you need help! We're here for you. 💙</p>
 
         <h2 id="schedule">COURSE SCHEDULE</h2>
         <div class="note">
@@ -306,11 +433,12 @@
         <h4>Discussion - None</h4>
         <p>Since this is a Hybrid Class we will be meeting once a week and you are expected to participate and contribute to the class. </p>
 
-        <h4>Homework/Quizzes</h4>
-        <p>In general, there is an online homework assignment for each section of this course. </p>
+        <h4>📝 Homework/Quizzes (Practice Makes Perfect!)</h4>
+        <p>Each section comes with its own homework assignment - think of them as XP points for your coding skills! 🎮</p>
         <ul>
-            <li>All HW assignments are untimed and you may submit them as many times as you wish with your highest score recorded as your final grade.</li>
-            <li>Each time you open a HW, you should get at least some different questions. </li>
+            <li>🕐 All HW assignments are <strong>untimed</strong> - no pressure! Take a deep breath, grab some coffee ☕, and work at your own pace.</li>
+            <li>🔄 You can submit as many times as you want! We keep your highest score, so feel free to retry until you nail it. It's like a video game with unlimited lives!</li>
+            <li>🎲 Each time you open a HW, you'll get some different questions - keeps things fresh and helps you learn better!</li>
         </ul>
 
         <div class="warning">
@@ -370,13 +498,13 @@
         </div>
 
         <h2 id="about">ABOUT ME</h2>
-        <p>Hi, My name is Heidi Ahders and I will be your instructor for this course. I am originally from the San Francisco East Bay.  I graduated from Acalanes High School in Lafayette.  After I graduated from high school, I attended Cal Poly San Luis Obispo where I received my B.S. in Mathematics. </p>
+        <p>Hi, My name is Heidi Ahders and I will be your instructor for this course. I am originally from the San Francisco East Bay.  I graduated from Acalanes High School in Lafayette.  After I graduated from high school, I attended Diablo Valley Community College and transferred to Sonoma State University where I received my B.A. in Mathematics and a teaching credential.in Mathematics. </p>
 
         <p>My husband then was accepted to Oregon State University so we moved to Corvallis, OR where I continued to be a substitute teacher.  In 1993 we had our son and at which time I took some time off from teaching. </p>
 
-        <p>After teaching for a year, I started my path in the computer field. I was given an opportunity to intern at HP in the Inkjet Division.  This gave me the opportunity to create webpages. This led to contracting work in the computer field. </p>
+        <p>I eventually decided to return to school and received my Masters degree in Mathematics Education from Oregon State University in 1996. And after teaching for a year, I started my path in the computer field. I was given an opportunity to intern at HP in the Inkjet Division.  This gave me the opportunity to create webpages, learn to program and work in the private sector. This led to contracting work in the computer field. </p>
 
-        <p>In 1998, Roger was hired at Mendocino College and I was hired on his coat tails as a part-time math instructor. We then had our daughter in 1999 and I didn't want to leave her so I started teaching online courses in Mathematics and Computer Science.</p>
+        <p>In 1998, Roger was hired at Mendocino College and I was hired on his coat tails as a part-time math instructor. We then had our daughter in 1999 and I didn't want to leave her so I started teaching at night and online courses in Mathematics. I continued to do consulting work in computer science, and then had the opportunity to get my second Masters, this time in Computer Science. I graduated from Georgia Institute of Technology in December of 2018. Since then I have been teaching and also had the pleasure to work as a Lead Software Engineer at Wells Fargo. I am currently working on side projects that hopefully will lead to more opportunities in the future. </p>
 
         <p>I hope that I learn more from you than you learn from me and that everyone has a great semester! </p>
 
@@ -473,6 +601,9 @@
         </div>
     </div>
 
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top">↑</button>
+
     <script>
         function gradeQuiz() {
             // Correct answers
@@ -540,6 +671,82 @@
                 event.preventDefault();
                 gradeQuiz();
             }
+        });
+        
+        // ===== Sticky TOC, Back to Top, and Active Section Highlighting =====
+        
+        const toc = document.querySelector('.toc');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTopButton = document.getElementById('backToTop');
+        const tocOriginalPosition = toc.offsetTop;
+        
+        // Get all section IDs from TOC links
+        const sections = Array.from(tocLinks).map(link => {
+            const href = link.getAttribute('href');
+            return href ? document.querySelector(href) : null;
+        }).filter(section => section !== null);
+        
+        // Handle scroll events
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Sticky TOC
+            if (scrollPosition > tocOriginalPosition + 100) {
+                toc.classList.add('sticky');
+            } else {
+                toc.classList.remove('sticky');
+            }
+            
+            // Show/hide back to top button
+            if (scrollPosition > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+            
+            // Highlight active section in TOC
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            // Update active link
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Back to top button click
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 20;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
