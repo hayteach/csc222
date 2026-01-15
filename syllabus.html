@@ -79,14 +79,14 @@
             margin: 15px 0;
         }
         .grade-table {
-            width: 100%;
+            width: 400px;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 20px auto;
         }
         . grade-table th, .grade-table td {
             border: 1px solid #ddd;
             padding: 12px;
-            text-align:  left;
+            text-align: center;
         }
         . grade-table th {
             background-color: #3498db;
@@ -94,6 +94,20 @@
         }
         .grade-table tr:nth-child(even) {
             background-color: #f2f2f2;
+        }
+        .grade-table td:first-child {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .grade-table td:last-child {
+            text-align: left;
+        }
+        .grade-table th:first-child {
+            text-align: center;
+        }
+        .grade-table th:last-child {
+            text-align: left;
         }
         a {
             color: #3498db;
