@@ -160,27 +160,60 @@
             color: #721c24;
         }
         
-        /* Sticky TOC Styles */
-        .toc.sticky {
+        /* Collapsible TOC Menu Button */
+        #tocMenuButton {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 250px;
-            max-height: 80vh;
-            overflow-y: auto;
-            z-index: 1000;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            animation: slideIn 0.3s ease-out;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            display: none;
         }
         
-        @keyframes slideIn {
+        #tocMenuButton:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+        
+        #tocMenuButton.show {
+            display: block;
+        }
+        
+        /* Sticky TOC Dropdown */
+        .toc.sticky {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 250px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out;
+            display: none;
+        }
+        
+        .toc.sticky.open {
+            display: block;
+        }
+        
+        @keyframes slideDown {
             from {
                 opacity: 0;
-                transform: translateX(20px);
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
         
@@ -240,7 +273,16 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .toc.sticky {
-                display: none; /* Hide sticky TOC on mobile to avoid clutter */
+                width: calc(100vw - 40px);
+                right: 10px;
+                top: 55px;
+            }
+            
+            #tocMenuButton {
+                right: 10px;
+                top: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
             }
             
             #backToTop {
@@ -601,6 +643,9 @@
         </div>
     </div>
 
+    <!-- TOC Menu Button -->
+    <button id="tocMenuButton" title="Table of Contents">📋 Menu</button>
+
     <!-- Back to Top Button -->
     <button id="backToTop" title="Back to Top">↑</button>
 
@@ -673,12 +718,14 @@
             }
         });
         
-        // ===== Sticky TOC, Back to Top, and Active Section Highlighting =====
+        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
         
         const toc = document.querySelector('.toc');
         const tocLinks = document.querySelectorAll('.toc a');
         const backToTopButton = document.getElementById('backToTop');
+        const tocMenuButton = document.getElementById('tocMenuButton');
         const tocOriginalPosition = toc.offsetTop;
+        let tocIsOpen = false;
         
         // Get all section IDs from TOC links
         const sections = Array.from(tocLinks).map(link => {
@@ -686,15 +733,40 @@
             return href ? document.querySelector(href) : null;
         }).filter(section => section !== null);
         
+        // Toggle TOC menu
+        tocMenuButton.addEventListener('click', function() {
+            tocIsOpen = !tocIsOpen;
+            if (tocIsOpen) {
+                toc.classList.add('open');
+                tocMenuButton.textContent = '✖️ Close';
+            } else {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+            }
+        });
+        
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(event) {
+            if (tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocIsOpen = false;
+            }
+        });
+        
         // Handle scroll events
         window.addEventListener('scroll', function() {
             const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
             
-            // Sticky TOC
+            // Show TOC menu button after scrolling past original TOC
             if (scrollPosition > tocOriginalPosition + 100) {
                 toc.classList.add('sticky');
+                tocMenuButton.classList.add('show');
             } else {
-                toc.classList.remove('sticky');
+                toc.classList.remove('sticky', 'open');
+                tocMenuButton.classList.remove('show');
+                tocMenuButton.textContent = '📋 Menu';
+                tocIsOpen = false;
             }
             
             // Show/hide back to top button
@@ -732,7 +804,7 @@
             });
         });
         
-        // Smooth scroll for TOC links
+        // Smooth scroll for TOC links and close menu
         tocLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -745,6 +817,13 @@
                         top: offsetTop,
                         behavior: 'smooth'
                     });
+                    
+                    // Close TOC menu after clicking a link
+                    if (tocIsOpen) {
+                        toc.classList.remove('open');
+                        tocMenuButton.textContent = '📋 Menu';
+                        tocIsOpen = false;
+                    }
                 }
             });
         });
