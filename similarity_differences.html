@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java & C++ Similarities and Differences</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        /* Table of Contents / Menu */
+        .toc {
+            background: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .toc a.active {
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+            padding-left: 8px;
+            background-color: #fff5f5;
+        }
+        
+        /* Collapsible TOC Menu Button */
+        #tocMenuButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        #tocMenuButton:hover {
+            background-color: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        #tocMenuButton.show {
+            display: block;
+        }
+        
+        /* Sticky TOC Dropdown */
+        .toc.sticky {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 280px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s ease-out;
+            display: none;
+        }
+        
+        .toc.sticky.open {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        #backToTop:hover {
+            background-color: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        #backToTop.show {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .key-takeaway {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        
+        .key-takeaway h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .key-takeaway ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .key-takeaway li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .key-takeaway li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .toc.sticky {
+                width: calc(100vw - 40px);
+                right: 10px;
+                top: 55px;
+            }
+            
+            #tocMenuButton {
+                right: 10px;
+                top: 10px;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            #backToTop {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .comparison-table {
+                font-size: 0.9em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Java & C++ Quick Reference</h1>
+            <p>Your comprehensive guide to similarities and differences!</p>
+        </header>
+        
+        <div class="content">
+            <div class="note">
+                <strong>🎯 Pro Tip:</strong> This page highlights the key similarities and differences between Java and C++. Use it as a quick reference when writing code!
+            </div>
+            
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>📋 Quick Navigation</h3>
+                <ul>
+                    <li><a href="#variables">Variable Declarations</a></li>
+                    <li><a href="#imports">Importing Libraries</a></li>
+                    <li><a href="#classes">Creating Classes</a></li>
+                    <li><a href="#console">Console Programs</a></li>
+                    <li><a href="#control">Control Structures</a></li>
+                    <li><a href="#operators">Operators</a></li>
+                </ul>
+            </div>
+            
+            <!-- Section: Variable Declarations -->
+            <div class="section" id="variables">
+                <h2>📊 Variable Declarations</h2>
+                <p>Most primitive data types are identical between Java and C++, with a few minor exceptions.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Java</th>
+                            <th>C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Integer</strong></td>
+                            <td><code>int</code></td>
+                            <td><code>int</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Double</strong></td>
+                            <td><code>double</code></td>
+                            <td><code>double</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boolean</strong></td>
+                            <td><code>boolean</code></td>
+                            <td><code>bool</code> ⚠️</td>
+                        </tr>
+                        <tr>
+                            <td><strong>String</strong></td>
+                            <td><code>String</code></td>
+                            <td><code>string</code> ⚠️</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Character</strong></td>
+                            <td><code>char</code></td>
+                            <td><code>char</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note">
+                    <strong>⚠️ Watch Out!</strong> In C++, use <code>bool</code> (not <code>boolean</code>) and <code>string</code> (lowercase, not <code>String</code>).
+                </div>
+            </div>
+            
+            <!-- Section: Importing Libraries -->
+            <div class="section" id="imports">
+                <h2>📦 Importing Libraries</h2>
+                <p>Both languages allow you to import external code, but they use different syntax.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Purpose</th>
+                            <th>Java</th>
+                            <th>C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Standard Libraries</strong></td>
+                            <td><code>import java.util.Scanner;</code></td>
+                            <td><code>#include &lt;iostream&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Your Own Classes</strong></td>
+                            <td>If in same folder, no import needed</td>
+                            <td><code>#include "ClassName.h"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Example: Using Standard I/O</h3>
+                <div class="code-block">
+<pre>// Java
+import java.util.Scanner;
+
+// C++
+#include &lt;iostream&gt;
+#include &lt;string&gt;</pre>
+                </div>
+            </div>
+            
+            <!-- Section: Creating Classes -->
+            <div class="section" id="classes">
+                <h2>🏗️ Creating Classes</h2>
+                <p>Class creation differs significantly between Java and C++.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Java</th>
+                            <th style="width: 50%;">C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p><strong>Single File Approach</strong></p>
+                                <div class="code-block">
+<pre>class ClassName {
+    // Attributes and methods
+    // all in one file
+}</pre>
+                                </div>
+                            </td>
+                            <td>
+                                <p><strong>Two File Approach</strong></p>
+                                <ul>
+                                    <li><code>.h</code> file - Header with declarations</li>
+                                    <li><code>.cpp</code> file - Implementation with code</li>
+                                </ul>
+                                <p>More details covered in class!</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Section: Console Programs -->
+            <div class="section" id="console">
+                <h2>💻 Creating Console Programs</h2>
+                <p>Console programs have different entry points in each language.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Java</th>
+                            <th style="width: 50%;">C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="code-block">
+<pre>class ClassName {
+    public static void main(String[] args) {
+        // program code
+    }
+}</pre>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="code-block">
+<pre>int main() {
+    // program code
+    return 0;
+}</pre>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="note">
+                    <strong>✨ Key Difference:</strong> C++ doesn't require a class wrapper for console programs—just a simple <code>main()</code> function!
+                </div>
+            </div>
+            
+            <!-- Section: Control Structures -->
+            <div class="section" id="control">
+                <h2>🔀 Control Structures</h2>
+                <p>Great news! Control structures are virtually identical in both languages.</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Structure</th>
+                            <th>Java</th>
+                            <th>C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Branching</strong> (if, else-if, switch)</td>
+                            <td>
+                                <div class="code-block">
+<pre>if (condition) {
+    // code
+} else {
+    // code
+}</pre>
+                                </div>
+                            </td>
+                            <td><strong>Same as Java! 🎉</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loops</strong> (for, while, do-while)</td>
+                            <td>
+                                <div class="code-block">
+<pre>for (int i = 0; i &lt; 10; i++) {
+    // code
+}</pre>
+                                </div>
+                            </td>
+                            <td><strong>Same as Java! 🎉</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Section: Operators -->
+            <div class="section" id="operators">
+                <h2>🔢 Operators</h2>
+                <p>All comparison and logical operators work identically!</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Operator Type</th>
+                            <th>Java</th>
+                            <th>C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Comparison</strong></td>
+                            <td><code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></td>
+                            <td><strong>Same as Java! 🎉</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logical (And/Or)</strong></td>
+                            <td><code>&amp;&amp;</code>, <code>||</code></td>
+                            <td><strong>Same as Java! 🎉</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Key Takeaways -->
+            <div class="key-takeaway">
+                <h3>🎯 Key Takeaways</h3>
+                <ul>
+                    <li>Most data types are identical (watch for <code>bool</code> and <code>string</code>)</li>
+                    <li>Use <code>#include</code> instead of <code>import</code></li>
+                    <li>C++ classes require two files (.h and .cpp)</li>
+                    <li>Console programs need only <code>int main()</code> in C++</li>
+                    <li>All control structures (if, for, while) are identical! 🎉</li>
+                    <li>All operators work the same way</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- TOC Menu Button -->
+    <button id="tocMenuButton" title="Table of Contents">📋 Menu</button>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top">↑</button>
+    
+    <script>
+        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
+        
+        const toc = document.querySelector('.toc');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTopButton = document.getElementById('backToTop');
+        const tocMenuButton = document.getElementById('tocMenuButton');
+        let tocIsOpen = false;
+        
+        // Get all section IDs from TOC links
+        const sections = Array.from(tocLinks).map(link => {
+            const href = link.getAttribute('href');
+            return href ? document.querySelector(href) : null;
+        }).filter(section => section !== null);
+        
+        // Toggle TOC menu
+        tocMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocIsOpen = !tocIsOpen;
+            
+            if (tocIsOpen) {
+                toc.classList.add('sticky', 'open');
+                tocMenuButton.textContent = '✖ Close';
+            } else {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+            }
+        });
+        
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(e) {
+            if (tocIsOpen && !toc.contains(e.target) && e.target !== tocMenuButton) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocIsOpen = false;
+            }
+        });
+        
+        // Scroll event with requestAnimationFrame for better performance
+        let ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrollPosition = window.scrollY;
+                    
+                    // Show/hide menu button and back to top button
+                    if (scrollPosition > 200) {
+                        tocMenuButton.classList.add('show');
+                    } else {
+                        tocMenuButton.classList.remove('show');
+                    }
+                    
+                    if (scrollPosition > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+                    
+                    // Active section highlighting
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+                        
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+                    
+                    // Update active link
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.add('active');
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        }, { passive: true });
+        
+        // Back to top button click
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scroll for TOC links and close menu
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 20;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close TOC menu after clicking a link
+                    if (tocIsOpen) {
+                        toc.classList.remove('open');
+                        tocMenuButton.textContent = '📋 Menu';
+                        tocIsOpen = false;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
