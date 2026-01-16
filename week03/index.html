@@ -12,6 +12,35 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
         }
+        /* Skip link - visible on focus */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: #fff;
+            color: #000;
+            padding: 8px 12px;
+            z-index: 1000;
+        }
+        .skip-link:focus {
+            left: 20px;
+            top: 20px;
+            width: auto;
+            height: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        /* Focus outlines for keyboard users */
+        a:focus, button:focus, input:focus, .check-answer-btn:focus, .toc a:focus, .code-block:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 3px;
+        }
+        /* Make code blocks keyboard focusable */
+        .code-block:focus { box-shadow: 0 0 0 4px rgba(255,193,7,0.25); }
+        /* Improve contrast for focus-visible state */
+        :focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
         .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
         header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 30px; text-align: center; }
         header h1 { font-size: 2em; margin-bottom: 10px; }
@@ -24,6 +53,33 @@
         .toc a { color: #667eea; text-decoration: none; font-weight: bold; transition: all 0.3s; }
         .toc a:hover { color: #764ba2; text-decoration: underline; }
         .section { margin-bottom: 40px; padding: 25px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #667eea; }
+        /* Sticky TOC and Back to Top styles */
+        #tocMenuButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        #tocMenuButton:hover { background-color: #764ba2; transform: scale(1.05); }
+        #tocMenuButton.show { display: block; }
+        .toc.sticky { position: fixed; top: 60px; right: 20px; width: 280px; max-height: 70vh; overflow-y: auto; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; }
+        .toc.sticky.open { display: block; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px);} to { opacity: 1; transform: translateY(0);} }
+        #backToTop { position: fixed; bottom: 30px; right: 30px; background-color: #667eea; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); display: none; z-index: 999; transition: all 0.3s ease; }
+        #backToTop:hover { background-color: #764ba2; transform: scale(1.1); }
+        #backToTop.show { display: block; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         h2 { color: #2c3e50; margin-bottom: 15px; font-size: 1.8em; }
         h3 { color: #34495e; margin: 20px 0 10px 0; font-size: 1.3em; }
         .code-block { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 8px; margin: 10px 0; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9em; }
@@ -48,18 +104,19 @@
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="container">
         <header>
             <h1>Week 3: Pointers & Destructors</h1>
             <p>Understanding addresses, dynamic memory, and safe cleanup in C++ 🔧</p>
         </header>
 
-        <div class="content">
+        <main id="main-content" class="content" tabindex="-1" role="main">
             <div class="note">
                 <strong>🧠 Quick note:</strong> Pointers let you work directly with memory addresses. They are powerful but require care — especially with dynamic allocation and deallocation.
             </div>
 
-            <div class="toc">
+            <nav id="toc-nav" class="toc" role="navigation" aria-label="Table of Contents">
                 <h3>📋 Table of Contents</h3>
                 <ul>
                     <li><a href="#pointers">What is a Pointer?</a></li>
@@ -70,7 +127,7 @@
                     <li><a href="#quiz">Quiz</a></li>
                     <li><a href="#additional-resources">Resources</a></li>
                 </ul>
-            </div>
+            </nav>
 
             <div class="section">
                 <h2 id="pointers">📌 What is a Pointer?</h2>
@@ -86,17 +143,18 @@
 
             <div class="section" id="symbols">
                 <h2>🔣 Pointer Symbols & Meaning</h2>
-                <table style="width:100%; border-collapse: collapse;" border="1">
+                <table style="width:100%; border-collapse: collapse;" border="1" aria-labelledby="symbols-caption">
+                    <caption id="symbols-caption" style="text-align:left; padding:8px; font-weight:700;">Symbols & Common Pitfalls</caption>
                     <thead>
                         <tr>
-                            <th style="text-align:left; padding:8px;">Symbol</th>
-                            <th style="text-align:left; padding:8px;">Meaning / Example</th>
-                            <th style="text-align:left; padding:8px;">Common Pitfalls</th>
+                            <th scope="col" style="text-align:left; padding:8px;">Symbol</th>
+                            <th scope="col" style="text-align:left; padding:8px;">Meaning / Example</th>
+                            <th scope="col" style="text-align:left; padding:8px;">Common Pitfalls</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding:8px;"><code>*</code></td>
+                            <th scope="row" style="padding:8px;"><code>*</code></th>
                             <td style="padding:8px;"><p>The <code>*</code> defines a variable as a pointer and is used to dereference a pointer to access or modify the value stored at that address.</p>
                                 <p><strong>Declaration:</strong> <code>int* p = nullptr;</code></p>
                                 <p><strong>Dereference example:</strong> <code>*p = 5;</code> — writes the value 5 into the location pointed to by <code>p</code>.</p>
@@ -104,14 +162,14 @@
                             <td style="padding:8px;">Dereferencing a <code>nullptr</code> or an uninitialized pointer causes undefined behavior; always initialize and check before use.</td>
                         </tr>
                         <tr>
-                            <td style="padding:8px;"><code>&amp;</code></td>
+                            <th scope="row" style="padding:8px;"><code>&amp;</code></th>
                             <td style="padding:8px;"><p>The <code>&amp;</code> operator returns the address of a variable (its memory location).</p>
                                 <p><strong>Example:</strong> <code>int x = 3; int* p = &amp;x;</code> — <code>p</code> now stores the address of <code>x</code>.</p>
                             </td>
                             <td style="padding:8px;">Avoid storing the address of a variable that goes out of scope (returning address of a local) — leads to dangling pointers.</td>
                         </tr>
                         <tr>
-                            <td style="padding:8px;"><code>-&gt;</code></td>
+                            <th scope="row" style="padding:8px;"><code>-&gt;</code></th>
                             <td style="padding:8px;"><p>The <code>-&gt;</code> operator accesses members of an object through a pointer to that object.</p>
                                 <p><strong>Example:</strong> <code>card c('s',3); card* pc = &amp;c; pc->getValue();</code></p>
                             </td>
@@ -120,7 +178,7 @@
                     </tbody>
                 </table>
 
-                <div class="code-block">
+                <div class="code-block" role="region" aria-label="Pointer code example" tabindex="0">
 <pre>// Create a pointer
 int n = 10;
 int* p = &n;        // p stores the address of n
@@ -145,7 +203,7 @@ delete[] arr;           // free heap memory when done</pre>
 <div class="section" id="destructors">
     <h2>🧹 Destructors & Memory Management</h2>
     <p>Destructors are special member functions that run when an object is destroyed. Use them to free resources (memory, file handles) that the object acquired during its lifetime.</p>
-    <div class="code-block">
+    <div class="code-block" role="region" aria-label="Destructor code example" tabindex="0">
 <pre>class Foo {
 public:
     Foo() { ptr = new int[10]; }
@@ -167,7 +225,7 @@ std::unique_ptr&lt;int[]&gt; arr = std::make_unique&lt;int[]&gt;(10); // auto fr
     <h2>🔍 Examples & Common Pitfalls</h2>
 
     <h3>Null and dangling pointers</h3>
-    <div class="code-block">
+    <div class="code-block" role="region" aria-label="Null/dangling pointers example" tabindex="0">
 <pre>// Null pointer safe check
 int* p = nullptr;
 if (p) { *p = 5; } // check before dereferencing
@@ -180,7 +238,7 @@ q = nullptr;
     </div>
 
     <h3>Mismatched delete / delete[]</h3>
-    <div class="code-block">
+    <div class="code-block" role="region" aria-label="delete[] example" tabindex="0">
 <pre>int* a = new int[5];
 // wrong: delete a;  // leads to undefined behavior
 delete[] a; // correct
@@ -218,7 +276,7 @@ delete[] a; // correct
         <label><input type="radio" name="q1" value="b"> A variable that stores the address of an int</label>
         <label><input type="radio" name="q1" value="c"> A function returning an int</label>
         <button class="check-answer-btn" onclick="checkAnswer('q1', 'b', 1)">Check Answer</button>
-        <div class="feedback" id="feedback1" style="display:none"></div>
+        <div class="feedback" id="feedback1" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
     </div>
 
     <div class="quiz-question" id="q2">
@@ -227,7 +285,7 @@ delete[] a; // correct
         <label><input type="radio" name="q2" value="b"> -&gt;</label>
         <label><input type="radio" name="q2" value="c"> &amp;</label>
         <button class="check-answer-btn" onclick="checkAnswer('q2', 'c', 2)">Check Answer</button>
-        <div class="feedback" id="feedback2" style="display:none"></div>
+        <div class="feedback" id="feedback2" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
     </div>
 
     <div class="quiz-question" id="q3">
@@ -236,7 +294,7 @@ delete[] a; // correct
         <label><input type="radio" name="q3" value="b"> delete[] ptr;</label>
         <label><input type="radio" name="q3" value="c"> free(ptr);</label>
         <button class="check-answer-btn" onclick="checkAnswer('q3', 'b', 3)">Check Answer</button>
-        <div class="feedback" id="feedback3" style="display:none"></div>
+        <div class="feedback" id="feedback3" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
     </div>
 
     <div class="quiz-question" id="q4">
@@ -245,12 +303,12 @@ delete[] a; // correct
         <label><input type="radio" name="q4" value="b"> Cleans up resources when an object is destroyed</label>
         <label><input type="radio" name="q4" value="c"> Allocates dynamic memory</label>
         <button class="check-answer-btn" onclick="checkAnswer('q4', 'b', 4)">Check Answer</button>
-        <div class="feedback" id="feedback4" style="display:none"></div>
+        <div class="feedback" id="feedback4" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
     </div>
 
     <div style="margin-top:20px;">
         <button class="check-answer-btn" onclick="checkAll()">Check All</button>
-        <div id="quiz-summary" style="margin-top:12px;font-weight:700"></div>
+        <div id="quiz-summary" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="margin-top:12px;font-weight:700"></div>
     </div>
 </div>
 
@@ -258,8 +316,15 @@ delete[] a; // correct
     <strong>💡 Next steps:</strong> Try the examples in <code>pointers.zip</code>, then refactor to use <code>std::unique_ptr</code> where possible.
 </div>
 
+</main>
 </div>
-</div>
+
+<!-- TOC Menu Button -->
+<button id="tocMenuButton" title="Table of Contents" aria-controls="toc-nav" aria-expanded="false">📋 Menu</button>
+
+
+<!-- Back to Top Button -->
+<button id="backToTop" title="Back to Top" aria-label="Back to top">↑</button>
 
 <script>
     function checkAnswer(qName, correct, id) {
@@ -271,14 +336,20 @@ delete[] a; // correct
         if (!selected) {
             feedback.textContent = 'Please select an answer.';
             feedback.className = 'feedback incorrect';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
             return;
         }
         if (selected === correct) {
             feedback.textContent = 'Correct! ✅';
             feedback.className = 'feedback correct';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
         } else {
             feedback.textContent = 'Incorrect. Try reviewing the section above. ❌';
             feedback.className = 'feedback incorrect';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
         }
     }
 
@@ -296,9 +367,143 @@ delete[] a; // correct
             else if (selected === ans) { feedback.textContent = 'Correct! ✅'; feedback.className='feedback correct'; }
             else { feedback.textContent = 'Incorrect. ❌'; feedback.className='feedback incorrect'; }
         }
-        document.getElementById('quiz-summary').textContent = `You scored ${score} / ${total}.`;
+        const summary = document.getElementById('quiz-summary');
+        summary.textContent = `You scored ${score} / ${total}.`;
+        summary.setAttribute('tabindex','-1');
+        summary.focus();
     }
-</script>
+
+        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
+        const toc = document.querySelector('.toc');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTopButton = document.getElementById('backToTop');
+        const tocMenuButton = document.getElementById('tocMenuButton');
+        let tocIsOpen = false;
+
+        // Get all section IDs from TOC links
+        const sections = Array.from(tocLinks).map(link => {
+            const href = link.getAttribute('href');
+            return href ? document.querySelector(href) : null;
+        }).filter(section => section !== null);
+
+        // Toggle TOC menu
+        tocMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocIsOpen = !tocIsOpen;
+            tocMenuButton.setAttribute('aria-expanded', tocIsOpen ? 'true' : 'false');
+            if (tocIsOpen) {
+                toc.classList.add('sticky', 'open');
+                tocMenuButton.textContent = '✖️ Close';
+                // move focus into TOC for keyboard users
+                const firstLink = toc.querySelector('a'); if (firstLink) firstLink.focus();
+            } else {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.focus();
+            }
+        });
+
+        // Close menu with Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && tocIsOpen) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.setAttribute('aria-expanded', 'false');
+                tocIsOpen = false;
+                tocMenuButton.focus();
+            }
+        });
+
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(event) {
+            if (tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.setAttribute('aria-expanded', 'false');
+                tocIsOpen = false;
+            }
+        });
+
+        // Simple scroll handler
+        let ticking = false;
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Show menu button after scrolling 200px
+                    if (scrollPosition > 200) {
+                        tocMenuButton.classList.add('show');
+                        toc.classList.add('sticky');
+                    } else {
+                        if (!tocIsOpen) {
+                            tocMenuButton.classList.remove('show');
+                            toc.classList.remove('sticky');
+                        }
+                    }
+
+                    // Show/hide back to top button
+                    if (scrollPosition > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+
+                    // Highlight active section in TOC
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+
+                    // Update active link
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Back to top button click
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scroll for TOC links and close menu
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 20;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+
+                    // Close TOC menu after clicking a link
+                    if (tocIsOpen) {
+                        toc.classList.remove('open');
+                        tocMenuButton.textContent = '📋 Menu';
+                        tocIsOpen = false;
+                    }
+                }
+            });
+        });
+
+    </script>
 
 </body>
 </html>
