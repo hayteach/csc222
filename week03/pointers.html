@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pointers — Watch List & Resources</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #111827; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .skip-link { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; background:#fff; color:#000; padding:8px 12px; z-index:1000 }
+        .skip-link:focus { left:20px; top:20px; width:auto; height:auto; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+        .container { max-width: 1000px; margin:0 auto; background:white; border-radius:15px; box-shadow:0 10px 40px rgba(0,0,0,0.2); overflow:hidden }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color:white; padding:30px; text-align:center }
+        header h1 { font-size:2em; margin-bottom:10px }
+        header p { font-size:1.05em; opacity:0.95 }
+        main.content { padding:40px }
+        .toc { background:#f0f4ff; padding:20px; border:1px solid #a6b4e5; border-radius:8px; margin:20px 0 }
+        .toc h2 { color:#0b2b5a; font-weight:700; margin-top:0 }
+        .toc a { color:#0b3b75; text-decoration:none; font-weight:700; padding:6px 8px; display:inline-block; border-radius:6px }
+        .toc a:hover, .toc a:focus { color:#062343; background:#e9f0ff }
+        .section { margin-bottom:40px; padding:25px; background:#f8f9fa; border-radius:10px; border-left:5px solid #667eea }
+        h2 { color:#2c3e50; margin-bottom:15px; font-size:1.8em }
+        h3 { color:#34495e; margin:20px 0 10px 0 }
+        .code-block { background:#2c3e50; color:#ecf0f1; padding:15px; border-radius:8px; margin:10px 0; overflow-x:auto; font-family:'Courier New', monospace }
+        .note { background:#fff3cd; border-left:4px solid #ffc107; padding:15px; margin:20px 0; border-radius:5px }
+        .quiz-section { background:#e3f2fd; border:2px solid #2196f3; border-radius:8px; padding:25px; margin:30px 0 }
+        .quiz-question { margin:25px 0; padding:20px; background:white; border-radius:8px }
+        .quiz-question label { display:block; padding:10px; margin:5px 0; background:#f8f9fa; border-radius:5px }
+        .check-answer-btn { background: #2196f3; color:white; border:none; padding:10px 25px; border-radius:6px; cursor:pointer }
+        .feedback { margin-top:10px; padding:15px; border-radius:6px; font-weight:600 }
+        .feedback.correct { background:#d4edda; color:#155724; border:1px solid #c3e6cb }
+        .feedback.incorrect { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb }
+        #tocMenuButton { position:fixed; top:20px; right:20px; background:#667eea; color:white; border:none; border-radius:8px; padding:10px 15px; font-weight:700; display:none; z-index:1001 }
+        #backToTop { position:fixed; bottom:30px; right:30px; background:#667eea; color:white; border:none; border-radius:50%; width:50px; height:50px; font-size:24px; display:none; z-index:999 }
+        a:focus, button:focus, input:focus, .toc a:focus { outline:3px solid #ffcc00; outline-offset:3px }
+        @media (max-width:768px) { .content{padding:20px} .toc.sticky{width:calc(100vw-40px); right:10px; top:55px} #tocMenuButton { right:10px; top:10px; padding:8px 12px; font-size:12px } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="container">
+        <header>
+            <h1>Pointers Watch List</h1>
+            <p>Videos to build intuition for pointers, dynamic memory, destructors, and related topics.</p>
+        </header>
+
+        <main id="main-content" class="content" tabindex="-1" role="main">
+            <nav id="toc-nav" class="toc" role="navigation" aria-label="Table of Contents">
+                <h2>📋 Table of Contents</h2>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#channel">Channel & Ordered Watch List</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                </ul>
+            </nav>
+
+            <section class="section" id="overview" aria-labelledby="ovh">
+                <h2 id="ovh">Overview</h2>
+                <p>To deepen your understanding of pointers and related topics, watch the following videos in order. Each video focuses on a specific concept and builds toward safe, modern C++ practices.</p>
+            </section>
+
+            <section class="section" id="channel" aria-labelledby="chh">
+                <h2 id="chh">Channel: MakingGamesWithBen — Recommended Order</h2>
+                <ol>
+                    <li>Basic Pointers (09:14): <a href="https://www.youtube.com/watch?v=CwjJBa8qX_A&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys&amp;index=32&amp;t=0s">Basic Pointers</a></li>
+                    <li>Stack vs Heap (09:00): <a href="https://www.youtube.com/watch?v=woHnBfiBbhs&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys&amp;index=32">Stack vs Heap memory</a></li>
+                    <li>new, delete and delete [] (12:34): <a href="https://www.youtube.com/watch?v=LMpkhZc17Z0&amp;index=34&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys">new, delete and delete[]</a></li>
+                    <li>Smart Pointers! (5:45): <a href="https://www.youtube.com/watch?v=obrB-Rei9qA&amp;index=36&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys">Smart Pointers</a></li>
+                    <li>Dynamic Arrays, Destructors (13:11): <a href="https://www.youtube.com/watch?v=51EvrNznOks&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys&amp;index=37">Dynamic Arrays, Destructors</a></li>
+                    <li>Inheritance (08:10): <a href="https://www.youtube.com/watch?v=gYJHK_q630Q&amp;index=39&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys">Inheritance</a></li>
+                    <li>Polymorphism &amp; virtual (16:51): <a href="https://www.youtube.com/watch?v=wcI9Ek0Yvdo&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys&amp;index=40">Polymorphism &amp; virtual</a></li>
+                    <li>Pointer Pitfalls (21:30): <a href="https://www.youtube.com/watch?v=I-cNBYn79cU&amp;index=41&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys">Pointer Pitfalls and Coding Style</a></li>
+                    <li>Pure Virtual &amp; Abstract Classes (05:29): <a href="https://www.youtube.com/watch?v=up3YU4eovjs&amp;index=42&amp;list=PLSPw4ASQYyynKPY0I-QFHK0iJTjnvNUys">Pure Virtual &amp; Abstract Classes</a></li>
+                </ol>
+            </section>
+
+            <section class="section" id="notes" aria-labelledby="notes-h">
+                <h2 id="notes-h">Notes</h2>
+                <p>Start with the basics and follow the order. Take notes and review the linked resources and examples.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- TOC Menu Button -->
+    <button id="tocMenuButton" title="Table of Contents" aria-controls="toc-nav" aria-expanded="false">📋 Menu</button>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">↑</button>
+
+    <script>
+// Quiz removed by request — no quiz JavaScript needed.
+
+        // TOC and Back to Top behaviour (same as index)
+        const toc = document.querySelector('.toc'); const tocLinks = document.querySelectorAll('.toc a'); const backToTopButton = document.getElementById('backToTop'); const tocMenuButton = document.getElementById('tocMenuButton'); let tocIsOpen=false;
+        const sections = Array.from(tocLinks).map(link=>{ const href=link.getAttribute('href'); return href ? document.querySelector(href) : null; }).filter(s=>s!==null);
+        tocMenuButton.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); tocIsOpen=!tocIsOpen; tocMenuButton.setAttribute('aria-expanded', tocIsOpen?'true':'false'); if(tocIsOpen){ toc.classList.add('sticky','open'); tocMenuButton.textContent='✖️ Close'; const first=toc.querySelector('a'); if(first) first.focus(); } else { toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.focus(); } });
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape' && tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; tocMenuButton.focus(); } });
+        document.addEventListener('click', function(event){ if(tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; } });
+        let ticking=false; window.addEventListener('scroll', function(){ if(!ticking){ window.requestAnimationFrame(function(){ const scrollPosition=window.pageYOffset||document.documentElement.scrollTop; if(scrollPosition>200){ tocMenuButton.classList.add('show'); toc.classList.add('sticky'); } else { if(!tocIsOpen){ tocMenuButton.classList.remove('show'); toc.classList.remove('sticky'); } } if(scrollPosition>300) backToTopButton.classList.add('show'); else backToTopButton.classList.remove('show'); let currentSection=''; sections.forEach(section=>{ const sectionTop=section.offsetTop-150; const sectionBottom=sectionTop+section.offsetHeight; if(scrollPosition>=sectionTop && scrollPosition<sectionBottom) currentSection=section.getAttribute('id'); }); tocLinks.forEach(link=>{ link.classList.remove('active'); if(link.getAttribute('href')==='#'+currentSection) link.classList.add('active'); }); ticking=false; }); ticking=true; } }, { passive:true }); backToTopButton.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); }); tocLinks.forEach(link=>{ link.addEventListener('click', function(e){ e.preventDefault(); const targetId=this.getAttribute('href'); const target=document.querySelector(targetId); if(target){ window.scrollTo({ top: target.offsetTop-20, behavior:'smooth' }); if(tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocIsOpen=false; } } }); });
+    </script>
+</body>
+</html>
