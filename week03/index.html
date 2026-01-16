@@ -59,6 +59,19 @@
                 <strong>🧠 Quick note:</strong> Pointers let you work directly with memory addresses. They are powerful but require care — especially with dynamic allocation and deallocation.
             </div>
 
+            <div class="toc">
+                <h3>📋 Table of Contents</h3>
+                <ul>
+                    <li><a href="#pointers">What is a Pointer?</a></li>
+                    <li><a href="#symbols">Symbols & Examples</a></li>
+                    <li><a href="#destructors">Destructors & Memory Management</a></li>
+                    <li><a href="#examples">Examples & Pitfalls</a></li>
+                    <li><a href="#key-takeaways">Key Takeaways</a></li>
+                    <li><a href="#quiz">Quiz</a></li>
+                    <li><a href="#additional-resources">Resources</a></li>
+                </ul>
+            </div>
+
             <div class="section">
                 <h2 id="pointers">📌 What is a Pointer?</h2>
                 <p>A pointer is a variable that stores the memory address of another value. Unlike Java or Python where references are managed for you, in C++ you explicitly create, use, and (sometimes) delete pointers.</p>
@@ -75,7 +88,11 @@
                 <h2>🔣 Pointer Symbols & Meaning</h2>
                 <table style="width:100%; border-collapse: collapse;" border="1">
                     <thead>
-                        <tr><th style="text-align:left; padding:8px;">Symbol</th><th style="text-align:left; padding:8px;">Meaning / Example</th></tr>
+                        <tr>
+                            <th style="text-align:left; padding:8px;">Symbol</th>
+                            <th style="text-align:left; padding:8px;">Meaning / Example</th>
+                            <th style="text-align:left; padding:8px;">Common Pitfalls</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
@@ -84,18 +101,21 @@
                                 <p><strong>Declaration:</strong> <code>int* p = nullptr;</code></p>
                                 <p><strong>Dereference example:</strong> <code>*p = 5;</code> — writes the value 5 into the location pointed to by <code>p</code>.</p>
                             </td>
+                            <td style="padding:8px;">Dereferencing a <code>nullptr</code> or an uninitialized pointer causes undefined behavior; always initialize and check before use.</td>
                         </tr>
                         <tr>
                             <td style="padding:8px;"><code>&amp;</code></td>
                             <td style="padding:8px;"><p>The <code>&amp;</code> operator returns the address of a variable (its memory location).</p>
                                 <p><strong>Example:</strong> <code>int x = 3; int* p = &amp;x;</code> — <code>p</code> now stores the address of <code>x</code>.</p>
                             </td>
+                            <td style="padding:8px;">Avoid storing the address of a variable that goes out of scope (returning address of a local) — leads to dangling pointers.</td>
                         </tr>
                         <tr>
                             <td style="padding:8px;"><code>-&gt;</code></td>
                             <td style="padding:8px;"><p>The <code>-&gt;</code> operator accesses members of an object through a pointer to that object.</p>
                                 <p><strong>Example:</strong> <code>card c('s',3); card* pc = &amp;c; pc->getValue();</code></p>
                             </td>
+                            <td style="padding:8px;">Using <code>-></code> on a <code>nullptr</code> or invalid object pointer causes crashes; always ensure the pointer is valid.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -121,51 +141,65 @@ delete[] arr;           // free heap memory when done</pre>
                     <strong>⚠️ Tip:</strong> Always initialize pointers (e.g., <code>nullptr</code>) and free dynamically allocated memory with <code>delete</code> or <code>delete[]</code> when appropriate.
                 </div>
             </div>
-<table style="border-collapse: collapse; width: 97.4128%;" border="1">
-    <tbody>
-        <tr>
-            <td style="width: 49.9769%;">Symbol</td>
-            <td style="width: 49.9769%;">Description</td>
-        </tr>
-        <tr>
-            <td style="width: 49.9769%;">
-                <pre>*</pre>
-            </td>
-            <td style="width: 49.9769%;">
-                <p>The * defines a variable as a pointer. The basic syntax for creating a pointer is:</p>
-                <pre>dataType* pointerName = nullptr;</pre>
-                <p>Once a pointer is declared, the * can be used to "de-reference" the pointer which means to access the object/value of the address stored in the pointer.</p>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 49.9769%;">
-                <pre>&amp;</pre>
-            </td>
-            <td style="width: 49.9769%;">
-                <p>When the &amp; directly precedes a variable name, it returns the address in memory where that variable is stored.</p>
-                <p>To get the address of a variable named card1, you would have:</p>
-                <pre>&amp;card1</pre>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 49.9769%;">
-                <pre>-&gt;</pre>
-            </td>
-            <td style="width: 49.9769%;">
-                <p>This is called "pointer notation" and is used when a pointer points to an instance of a class (or points to an object). Pointer notation is used to access the methods of the object that the pointer holds the address to.</p>
-                <p>So, if I have an object:</p>
-                <pre>card card1('s', 3);</pre>
-                <p>To access the "getValue()" method, we would:</p>
-                <pre>card1.getValue();</pre>
-                <p>If I have a pointer to card1:</p>
-                <pre>card* ptrCard1 = &amp;card1;</pre>
-                <p>To access the "getValue()" method using the pointer, we would have:</p>
-                <pre>ptrCard1-&gt;getValue();</pre>
-                <p>&nbsp;</p>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="section" id="destructors">
+    <h2>🧹 Destructors & Memory Management</h2>
+    <p>Destructors are special member functions that run when an object is destroyed. Use them to free resources (memory, file handles) that the object acquired during its lifetime.</p>
+    <div class="code-block">
+<pre>class Foo {
+public:
+    Foo() { ptr = new int[10]; }
+    ~Foo() { delete[] ptr; }
+private:
+    int* ptr;
+};
+
+// RAII: prefer patterns where acquisition and release are tied to object lifetime.
+// Better: use smart pointers
+#include &lt;memory&gt;
+std::unique_ptr&lt;int[]&gt; arr = std::make_unique&lt;int[]&gt;(10); // auto freed
+</pre>
+    </div>
+    <p>Modern C++ recommends RAII and smart pointers (<code>std::unique_ptr</code>, <code>std::shared_ptr</code>) to avoid manual <code>new</code>/<code>delete</code> bookkeeping.</p>
+</div>
+
+<div class="section" id="examples">
+    <h2>🔍 Examples & Common Pitfalls</h2>
+
+    <h3>Null and dangling pointers</h3>
+    <div class="code-block">
+<pre>// Null pointer safe check
+int* p = nullptr;
+if (p) { *p = 5; } // check before dereferencing
+
+// Dangling pointer example
+int* q = new int(5);
+delete q; // q now dangling; set to nullptr to avoid reuse
+q = nullptr;
+</pre>
+    </div>
+
+    <h3>Mismatched delete / delete[]</h3>
+    <div class="code-block">
+<pre>int* a = new int[5];
+// wrong: delete a;  // leads to undefined behavior
+delete[] a; // correct
+</pre>
+    </div>
+
+    <h3>Double delete</h3>
+    <p>Never call <code>delete</code> on the same pointer more than once. Reset pointers to <code>nullptr</code> after deleting, or better, use smart pointers.</p>
+</div>
+
+<div class="key-takeaway" id="key-takeaways">
+    <h3>✅ Key Takeaways</h3>
+    <ul>
+        <li>Pointers store addresses; use <code>*</code> to dereference, <code>&amp;</code> to get an address, and <code>-&gt;</code> to access members through a pointer.</li>
+        <li>Always initialize pointers and check for <code>nullptr</code> before dereferencing.</li>
+        <li>When you allocate with <code>new</code>, free with <code>delete</code> or <code>delete[]</code> accordingly; prefer smart pointers to avoid errors.</li>
+        <li>Use destructors and RAII to ensure resources are freed reliably.</li>
+    </ul>
+</div>
 <div class="section" id="additional-resources">
     <h2>🔗 Additional Resources</h2>
     <ul>
