@@ -92,6 +92,12 @@
 // Quiz removed by request — no quiz JavaScript needed.
 
         // TOC and Back to Top behaviour (same as index)
+        // Ensure 'show' class actually makes the buttons visible (JS fallback for environments missing CSS)
+        (function applyShowFallback(){
+            const s = document.createElement('style');
+            s.textContent = "#tocMenuButton.show { display:block !important; opacity:1; transform:translateY(0); } #backToTop.show { display:flex !important; align-items:center; justify-content:center; opacity:1; transform:translateY(0); }";
+            document.head.appendChild(s);
+        })();
         const toc = document.querySelector('.toc'); const tocLinks = document.querySelectorAll('.toc a'); const backToTopButton = document.getElementById('backToTop'); const tocMenuButton = document.getElementById('tocMenuButton'); let tocIsOpen=false;
         const sections = Array.from(tocLinks).map(link=>{ const href=link.getAttribute('href'); return href ? document.querySelector(href) : null; }).filter(s=>s!==null);
         tocMenuButton.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); tocIsOpen=!tocIsOpen; tocMenuButton.setAttribute('aria-expanded', tocIsOpen?'true':'false'); if(tocIsOpen){ toc.classList.add('sticky','open'); tocMenuButton.textContent='✖️ Close'; const first=toc.querySelector('a'); if(first) first.focus(); } else { toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.focus(); } });
