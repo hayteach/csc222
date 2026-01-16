@@ -80,15 +80,22 @@
                     <tbody>
                         <tr>
                             <td style="padding:8px;"><code>*</code></td>
-                            <td style="padding:8px;">Declares a pointer or dereferences it. E.g. <code>int* p = nullptr;</code> then <code>*p</code> accesses the value.</td>
+                            <td style="padding:8px;"><p>The <code>*</code> defines a variable as a pointer and is used to dereference a pointer to access or modify the value stored at that address.</p>
+                                <p><strong>Declaration:</strong> <code>int* p = nullptr;</code></p>
+                                <p><strong>Dereference example:</strong> <code>*p = 5;</code> — writes the value 5 into the location pointed to by <code>p</code>.</p>
+                            </td>
                         </tr>
                         <tr>
                             <td style="padding:8px;"><code>&amp;</code></td>
-                            <td style="padding:8px;">Returns the address of a variable. E.g. <code>int x = 3; int* p = &amp;x;</code></td>
+                            <td style="padding:8px;"><p>The <code>&amp;</code> operator returns the address of a variable (its memory location).</p>
+                                <p><strong>Example:</strong> <code>int x = 3; int* p = &amp;x;</code> — <code>p</code> now stores the address of <code>x</code>.</p>
+                            </td>
                         </tr>
                         <tr>
                             <td style="padding:8px;"><code>-&gt;</code></td>
-                            <td style="padding:8px;">Used with a pointer to access members of an object. E.g. <code>ptr->getValue()</code></td>
+                            <td style="padding:8px;"><p>The <code>-&gt;</code> operator accesses members of an object through a pointer to that object.</p>
+                                <p><strong>Example:</strong> <code>card c('s',3); card* pc = &amp;c; pc->getValue();</code></p>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
