@@ -125,6 +125,28 @@
         .symbols-table { width: 100%; border-collapse: collapse; }
         .symbols-table caption { text-align: left; padding: 8px; font-weight: 700; }
         .symbols-table th, .symbols-table td { padding: 8px; text-align: left; }
+        .symbols-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .symbols-table caption { text-align: left; padding: 8px; font-weight: 700; color: #0b2b5a; }
+        .symbols-table thead th { background: #f1f5f9; font-weight: 700; padding: 12px; border-top: 1px solid #e2e8f0; }
+        .symbols-table tbody td, .symbols-table tbody th { padding: 12px; vertical-align: top; border-bottom: 1px solid #d1d5db; }
+        .symbols-table tbody tr:nth-child(odd) { background: #ffffff; }
+        .symbols-table tbody tr:nth-child(even) { background: #f8fafc; }
+        .symbols-table tbody tr:hover { background: #eef2ff; }
+        /* Make rows focusable for keyboard users (so hover/focus effect is reachable) */
+        .symbols-table tbody tr { transition: background 0.15s ease; }
+        .symbols-table tbody tr:focus-within { outline: 3px solid #ffcc00; outline-offset: 2px; }
+        /* Improve contrast for code cells */
+        .symbols-table code { background: rgba(2,6,23,0.03); padding: 2px 6px; border-radius: 4px; }
+        @media (max-width: 600px) {
+            .symbols-table thead { display: none; }
+            .symbols-table, .symbols-table tbody, .symbols-table tr, .symbols-table td { display: block; width: 100%; }
+            .symbols-table tr { margin-bottom: 12px; }
+            .symbols-table td { padding-left: 50%; position: relative; }
+            .symbols-table td:before { position: absolute; left: 12px; width: 40%; white-space: nowrap; font-weight: 700; }
+            .symbols-table td:nth-of-type(1):before { content: "Symbol"; }
+            .symbols-table td:nth-of-type(2):before { content: "Meaning / Example"; }
+            .symbols-table td:nth-of-type(3):before { content: "Common Pitfalls"; }
+        }
 
         /* Quiz summary highlight when updated */
         #quiz-score { transition: background 0.6s ease, transform 0.25s ease; display: inline-block; margin-top: 12px; font-weight: 700; }
