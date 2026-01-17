@@ -1,0 +1,99 @@
+<p>A queue is another abstract data type that simulates a very common occurrence in nature.&nbsp;</p>
+<p>Please review all tabs before proceeding on.</p>
+<div class="enhanceable_content tabs">
+    <ul>
+        <li><a href="#tab1">Definition of a Queue</a></li>
+        <li><a href="#tab2">Queue Operations</a></li>
+        <li><a href="#tab3">Array-based Implementation</a></li>
+        <li><a href="#tab5">Testers</a></li>
+    </ul>
+    <div id="tab1">
+        <p>&nbsp;</p>
+        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
+            <tbody>
+                <tr>
+                    <td colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
+                </tr>
+                <tr>
+                    <td style="width: 49.9225%; vertical-align: top;">
+                        <p>In the real world, we have occasions when we accumulate stuff into a holding area for later use. Each of these areas can have different properties. A Queue ADT (abstract data type) acts just like a line at the DMV or a Bank. If you think about how these lines work, the first thing you can get at is the first thing you added to the queue. So a queue is known as a FIFO (First In - First Out) structure.&nbsp;</p>
+                        <p>First person in line is the first person to get service!</p>
+                    </td>
+                    <td style="width: 50.0258%; vertical-align: top;"><img id="665537" src="https://mendocino.instructure.com/courses/21391/files/2620313/preview" alt="People waiting in line as an analogy for a queue" width="320" height="181" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620313" data-api-returntype="File" /> &nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tab2">
+        <p>&nbsp;</p>
+        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
+            <tbody>
+                <tr>
+                    <td colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
+                </tr>
+                <tr>
+                    <td style="width: 49.9225%; vertical-align: top;">
+                        <p>Just like for the Stack ADT, we want to create a Queue interface so that all queues, regardless of how we implement them, will have and use a common set of methods. In essences, from a user standpoint, it won't matter whether we implement the queue using an array or a linked-list. Their program will work with either since all of the methods are named the same and produce identical output.</p>
+                        <p>This is, by the way, one of the primary reasons to use interfaces for common ADTs.</p>
+                    </td>
+                    <td style="width: 50.0258%; vertical-align: top;">&nbsp; <img id="666314" src="https://mendocino.instructure.com/courses/21391/files/2620308/preview" alt="queueADT_h.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620308" data-api-returntype="File" />&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The implementation of the queueADT interface is shown in the figure below. Please note that all of the methods we defined in this&nbsp; <br />ADT are virtual and abstract. Because of this, there can be no corresponding implementation file hence there is no include statement for queueADT.cpp because that file will not exist. The actual implementation details will be coded in any class that implements this interface.</p>
+        <p><img id="666317" src="https://mendocino.instructure.com/courses/21391/files/2620322/preview" alt="queueADT_h_file.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620322" data-api-returntype="File" />&nbsp;</p>
+        <p>Here's a copy of the actual code file: &nbsp;<a class="instructure_file_link instructure_scribd_file inline_disabled" title="queueADT.h" href="https://mendocino.instructure.com/courses/21391/files/2620346?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620346" data-api-returntype="File">queueADT.h</a>&nbsp;</p>
+    </div>
+    <div id="tab3">
+        <p>Now that we've defined how a queue works, we can look at creating one that we can use in other programs to solve problems. The first implementation we will look at is that of using an Array to store the elements we put into our queue. First, we will look at the UML diagram for an array-based queue that implements all of the queue operations from the queueADT interface plus the additional attributes and methods we need as described below.</p>
+        <p>&nbsp;</p>
+        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
+            <tbody>
+                <tr>
+                    <td style="width: 99.9483%;" colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
+                </tr>
+                <tr>
+                    <td style="width: 49.9225%; vertical-align: top;">
+                        <p><img id="666316" src="https://mendocino.instructure.com/courses/21391/files/2620320/preview" alt="arrayQueue_UML.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620320" data-api-returntype="File" /> &nbsp;</p>
+                    </td>
+                    <td style="width: 50.0258%; vertical-align: top;">
+                        <p>&nbsp; In addition to the interface methods of:</p>
+                        <ul>
+                            <li>initializeQueue()</li>
+                            <li>isEmptyQueue()</li>
+                            <li>isFullQueue()</li>
+                            <li>front()</li>
+                            <li>rear()</li>
+                            <li>addQueue(const ItemType&amp;)</li>
+                            <li>deleteQueue()</li>
+                        </ul>
+                        <p>We need the following attributes to use an array:</p>
+                        <ul>
+                            <li>maxQueueSize - to define how big our array is (or the maximum number of ItemType things we can store in the stack</li>
+                            <li>count - the current size of the Queue (how many things are currently in the queue</li>
+                            <li>queueFront - the current front of the queue which is necessary when you want to take things out of the queue</li>
+                            <li>queueRear - the current rear of the queue which is necessary when you want to add things to the queue</li>
+                            <li>*list - pointer to our array of ItemType things</li>
+                        </ul>
+                        <p>We also have the added methods so that we can construct arrayQueue objects:</p>
+                        <ul>
+                            <li>arrayQueuu(int = 100) - default arrayQueue constructor</li>
+                            <li>arrayQueue(arrayQueue) - constructor for creating a stack from an existing queue</li>
+                            <li>~arrayQueue() - destructor for the arrayQueue object</li>
+                            <li>operator=&nbsp; - define what the assignment operator, =, will do when using arrayQueue objects</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>I've included a copy of my files for this class. We will not have time to go over each method in detail so you should review the code, test it to make sure it works and reach out to me if you have any questions on any of the methods.</p>
+        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="arrayQueue.h" href="https://mendocino.instructure.com/courses/21391/files/2620324?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620324" data-api-returntype="File">arrayQueue.h</a>&nbsp;</p>
+        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="arrayQueue.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620314?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620314" data-api-returntype="File">arrayQueue.cpp</a>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+    <div id="tab5">
+        <p>Once we've coded our queues made from arrays, we need to test them. The following program creates queues, adds things on, deletes them off, etc...</p>
+        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="testProgQueueArray.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620321?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620321" data-api-returntype="File">testProgQueueArray.cpp</a> &nbsp;</p>
+        <p><br />&nbsp;</p>
+    </div>
+</div>
