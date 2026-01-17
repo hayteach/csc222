@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 6 — Pointers & References (C++) — Updated</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #111827; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
+        .skip-link { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; background:#fff; color:#000; padding:8px 12px; z-index:1000 }
+        .skip-link:focus { left:20px; top:20px; width:auto; height:auto; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+        .container { max-width: 1000px; margin:0 auto; background:white; border-radius:15px; box-shadow:0 10px 40px rgba(0,0,0,0.2); overflow:hidden }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color:white; padding:30px; text-align:center }
+        header h1 { font-size:2em; margin-bottom:10px }
+        header p { font-size:1.05em; opacity:0.95 }
+        main.content { padding:40px }
+        .toc { background:#f0f4ff; padding:20px; border:1px solid #a6b4e5; border-radius:8px; margin:20px 0; transition: transform .18s ease, opacity .18s ease; max-width:360px; }
+        .toc.sticky { position:fixed; right:20px; top:88px; width:320px; max-width:calc(100% - 40px); z-index:1000; box-shadow:0 12px 40px rgba(0,0,0,0.08); }
+        .toc.open { transform: translateY(0); }
+        .toc h2 { color:#0b2b5a; font-weight:700; margin-top:0 }
+        .toc a { color:#0b3b75; text-decoration:none; font-weight:700; padding:6px 8px; display:inline-block; border-radius:6px }
+        .toc a:hover, .toc a:focus { color:#062343; background:#e9f0ff }
+        .section { margin-bottom:40px; padding:25px; background:#f8f9fa; border-radius:10px; border-left:5px solid #667eea }
+        h2 { color:#2c3e50; margin-bottom:15px; font-size:1.8em }
+        h3 { color:#34495e; margin:20px 0 10px 0 }
+        .code-block { background:#2c3e50; color:#ecf0f1; padding:15px; border-radius:8px; margin:10px 0; overflow-x:auto; font-family:'Courier New', monospace }
+        .note { background:#fff3cd; border-left:4px solid #ffc107; padding:15px; margin:20px 0; border-radius:5px }
+        #tocMenuButton { position:fixed; top:20px; right:20px; background:#667eea; color:white; border:none; border-radius:8px; padding:10px 15px; font-weight:700; display:block; opacity:0; transform:translateY(-6px); z-index:1001; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition:opacity .18s ease, transform .18s ease; }
+        #tocMenuButton:hover { background-color: #764ba2; transform: scale(1.05); }
+        #tocMenuButton.show { opacity:1; transform:translateY(0); }
+        #backToTop { position:fixed; bottom:30px; right:30px; background:#667eea; color:white; border:none; border-radius:50%; width:50px; height:50px; font-size:24px; display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(6px); z-index:999; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition:opacity .18s ease, transform .18s ease; }
+        #backToTop.show { opacity:1; transform:translateY(0); }
+        a:focus, button:focus, input:focus, .toc a:focus { outline:3px solid #ffcc00; outline-offset:3px }
+        .visually-hidden { position:absolute !important; left:-9999px !important; width:1px !important; height:1px !important; overflow:hidden !important; }
+        @media (max-width:768px) { .content{padding:20px} .toc.sticky{width:calc(100vw-40px); right:10px; top:55px} #tocMenuButton { right:10px; top:10px; padding:8px 12px; font-size:12px } }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="container">
+        <header>
+            <h1>Week 6 — Pointers & References</h1>
+            <p>Expanded explanations with examples and exercises to build intuition.</p>
+        </header>
+
+        <main id="main-content" class="content" tabindex="-1" role="main">
+            <nav id="toc-nav" class="toc" role="navigation" aria-label="Table of Contents">
+                <h2>📋 Table of Contents</h2>
+                <ul>
+                    <li><a href="#types">C Data Types</a></li>
+                    <li><a href="#words">Words & Active Memory</a></li>
+                    <li><a href="#memory-pointers">Memory Pointers</a></li>
+                    <li><a href="#scalars">Pointers for Scalars</a></li>
+                    <li><a href="#vectors-functions">Vectors & Functions</a></li>
+                    <li><a href="#arrays">Pointers for Arrays</a></li>
+                    <li><a href="#arithmetic">Pointer Arithmetic</a></li>
+                    <li><a href="#takeaways">Key Takeaways</a></li>
+                </ul>
+            </nav>
+
+            <section class="section" id="types" aria-labelledby="types-h">
+                <h2 id="types-h">C Data Types</h2>
+                <p>C and C++ provide primitive data types (<code>int</code>, <code>char</code>, <code>float</code>, <code>double</code>, <code>bool</code>) and derived types (arrays, pointers, references, structs, classes). The type determines how many bytes are used to store values and how the compiler lays them out in memory (alignment, padding).</p>
+                <p><strong>Why this matters:</strong> size and signedness affect ranges, arithmetic, and binary layout. Use <code>sizeof()</code> when you need exact byte counts and prefer fixed-width types (<code>int32_t</code>, <code>uint64_t</code>) when portability matters.</p>
+                <div class="code-block" role="region" aria-label="Data types example" tabindex="0"><pre>int i = 42;
+char c = 'A';
+double d = 3.14;
+int arr[3] = {1,2,3};
+std::vector&lt;int&gt; v = {1,2,3};
+printf("sizeof(int) = %zu\n", sizeof(int));</pre></div>
+                <p class="note"><strong>Mini exercise:</strong> Predict the output of <code>sizeof(char)</code>, <code>sizeof(int)</code>, and <code>sizeof(double)</code> on your machine and compare.</p>
+            </section>
+
+            <section class="section" id="words" aria-labelledby="words-h">
+                <h2 id="words-h">Words & Active Memory</h2>
+                <p>"Words" refer to the machine's word size (often 4 or 8 bytes) used for alignment and addressing. Active memory is the region a program uses at runtime — stack (automatic storage for local variables) and heap (dynamic memory via <code>new</code>/<code>malloc</code>).</p>
+                <p class="note"><strong>Stack vs Heap:</strong> Stack allocations are fast and have automatic lifetime (scope-based). Heap allocations give flexible lifetime but require explicit free or smart-pointer management.</p>
+                <div class="code-block" role="region" aria-label="Stack lifetime example" tabindex="0"><pre>// Dangling pointer example (bug)
+int *dangling() {
+    int local = 5;
+    return &local; // returning address of a stack variable — dangerous
+}
+int main() {
+    int *p = dangling();
+    // *p is now undefined behavior
+}</pre></div>
+                <p class="note"><strong>Mini exercise:</strong> Explain why returning a pointer to a local variable is unsafe and how to fix it (hint: allocate on heap or return by value).</p>
+            </section>
+
+            <section class="section" id="memory-pointers" aria-labelledby="mem-h">
+                <h2 id="mem-h">Memory Pointers</h2>
+                <p>A pointer holds a memory address that refers to storage for a value. The declaration uses <code>*</code> and should match the pointed type. You can also have pointers to pointers (<code>int **pp</code>) and <code>void*</code> for type-erased addresses.</p>
+                <div class="code-block" role="region" aria-label="Pointer basics" tabindex="0"><pre>int x = 10;
+int *p = &x;   // p points to x
+*p = 11;       // changes x through p
+int *n = nullptr; // safe empty pointer
+int **pp = &p; // pointer to pointer</pre></div>
+                <p class="note"><strong>Common pitfalls:</strong> - Dereferencing <code>null</code> or dangling pointers causes undefined behavior. - Casting pointers to the wrong type can break alignment or interpretation.</p>
+                <p class="note"><strong>Mini exercise:</strong> What happens if you cast an <code>int*</code> to a <code>char*</code> and write a byte? Try and explain when that could be useful (byte-level manipulation).</p>
+            </section>
+
+            <section class="section" id="scalars" aria-labelledby="scalars-h">
+                <h2 id="scalars-h">Pointers for Scalars</h2>
+                <p>Scalars (single values) can be passed by pointer to allow modification or to avoid copying. In modern C++, passing by reference is often clearer and safer:</p>
+                <div class="code-block" role="region" aria-label="Scalar pointer vs reference example" tabindex="0"><pre>// Pointer version
+void increment(int *p) { if(p) (*p)++; }
+
+// Reference version (preferred when valid object exists)
+void incrementRef(int &r) { r++; }
+
+int main() {
+    int a = 5;
+    increment(&a);    // a becomes 6
+    incrementRef(a);  // a becomes 7
+}</pre></div>
+                <p class="note">Use references when you require a valid object and pointers when "no object" is meaningful (use <code>nullptr</code>).</p>
+                <p class="note"><strong>Mini exercise:</strong> Rewrite a function that uses a pointer to instead use a reference and explain when the change is appropriate.</p>
+            </section>
+
+            <section class="section" id="vectors-functions" aria-labelledby="vf-h">
+                <h2 id="vf-h">Pointers: Vectors & Functions</h2>
+                <p>For containers like <code>std::vector</code>, prefer references or const references (<code>&</code>) instead of raw pointers. Function pointers and callables (std::function, lambdas) are used for callbacks.</p>
+                <div class="code-block" role="region" aria-label="Vector and function pointer examples" tabindex="0"><pre>// Pass by reference (preferred)
+void process(const std::vector&lt;int&gt;&amp; v) { /* read-only */ }
+
+// Function pointer example
+using Callback = void(*)(int);
+void register_cb(Callback cb) { if(cb) cb(42); }
+
+// Lambda / std::function (more flexible)
+#include &lt;functional&gt;
+std::function&lt;void(int)&gt; cb = [](int x){ /*...*/ };</pre></div>
+                <p class="note"><strong>Tip:</strong> Use references for guaranteed objects; use pointers if "no object" should be allowed. Prefer iterators or container member functions instead of raw pointer arithmetic when working with STL containers.</p>
+            </section>
+
+            <section class="section" id="arrays" aria-labelledby="arr-h">
+                <h2 id="arr-h">Pointers for Arrays</h2>
+                <p>Arrays decay to pointers to their first element in many contexts. Be careful with sizes & bounds — the pointer alone does not carry length information.</p>
+                <div class="code-block" role="region" aria-label="Array pointer example" tabindex="0"><pre>int a[5] = {1,2,3,4,5};
+int *p = a;         // points to a[0]
+int second = *(p + 1); // pointer arithmetic to access elements
+
+// Passing array & length (correct)
+void sum(int *arr, size_t n) { /* use n to bound access */ }
+
+// Common bug: sizeof(arr) inside function returns pointer size, not array size
+void bad() {
+    int a[5];
+    sum(a, sizeof(a)/sizeof(a[0])); // OK here
+}
+void bad_call(int *arr) {
+    // sizeof(arr)/sizeof(arr[0]) is wrong here — arr is a pointer
+}
+</pre></div>
+                <p class="note">Prefer <code>std::array</code> or <code>std::vector</code> (or <code>std::span</code>) so the length is explicit and safe.</p>
+            </section>
+
+            <section class="section" id="arithmetic" aria-labelledby="arith-h">
+                <h2 id="arith-h">Pointer Arithmetic</h2>
+                <p>Pointer arithmetic advances in units of the pointed type size. Adding 1 to an <code>int*</code> advances by <code>sizeof(int)</code> bytes.</p>
+                <div class="code-block" role="region" aria-label="Pointer arithmetic examples" tabindex="0"><pre>int arr[3] = {10,20,30};
+int *p = arr;     // &arr[0]
+p++;              // now points to &arr[1]
+int diff = &arr[2] - &arr[0]; // 2 (difference in elements)
+
+// Pointer arithmetic respects element count, not bytes — it's safe inside array bounds.
+</pre></div>
+                <p class="note">Only perform pointer arithmetic within the same array/object. Going outside yields undefined behavior. Use <code>std::begin</code>/<code>std::end</code> or container iterators where possible.</p>
+            </section>
+
+            <section class="section" id="takeaways" aria-labelledby="end-h">
+                <h2 id="end-h">Key Takeaways</h2>
+                <ul>
+                    <li>Use references for guaranteed valid objects; use pointers when optional or nullable semantics are needed.</li>
+                    <li>Prefer modern C++: <code>std::unique_ptr</code>, <code>std::shared_ptr</code>, and container types to avoid manual memory errors.</li>
+                    <li>Always manage lifetime and avoid dangling pointers — watch scope and ownership.</li>
+                    <li>When in doubt, prefer safer standard library types (containers, smart pointers, <code>std::span</code>) over manual pointers.</li>
+                </ul>
+                <p class="note"><strong>Practice:</strong> Try writing a short program that allocates an array, fills it, and safely computes a sum using both raw pointers and <code>std::vector</code>. Observe differences in safety and clarity.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- TOC Menu Button -->
+    <button id="tocMenuButton" class="show" title="Toggle Table of Contents" aria-controls="toc-nav" aria-expanded="true" aria-label="Toggle Table of Contents">✖️ Close</button>
+    <div id="tocAnnouncer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top" aria-label="Back to top">↑</button>
+
+    <script>
+        // Small JS to match existing week pages: TOC toggle, active-section tracking, back-to-top
+        const toc = document.querySelector('.toc'); const tocLinks = document.querySelectorAll('.toc a'); const backToTopButton = document.getElementById('backToTop'); const tocMenuButton = document.getElementById('tocMenuButton'); const tocAnnouncer = document.getElementById('tocAnnouncer'); let tocIsOpen=true;
+        // Initialize: ensure menu is open and accessible on load
+        toc.classList.add('sticky','open');
+        tocMenuButton.classList.add('show');
+        tocMenuButton.setAttribute('aria-expanded','true');
+        tocMenuButton.textContent='✖️ Close';
+        if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents opened';
+        tocMenuButton.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); tocIsOpen=!tocIsOpen; tocMenuButton.setAttribute('aria-expanded', tocIsOpen?'true':'false'); if(tocIsOpen){ toc.classList.add('sticky','open'); tocMenuButton.textContent='✖️ Close'; if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents opened'; const first=toc.querySelector('a'); if(first) first.focus(); } else { toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents closed'; tocMenuButton.focus(); } });
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape' && tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; tocMenuButton.focus(); if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents closed'; } });
+        document.addEventListener('click', function(event){ if(tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents closed'; } });
+        let ticking=false; const sections = Array.from(tocLinks).map(link=>{ const href=link.getAttribute('href'); return href ? document.querySelector(href) : null; }).filter(s=>s!==null);
+        window.addEventListener('scroll', function(){ if(!ticking){ window.requestAnimationFrame(function(){ const scrollPosition=window.pageYOffset||document.documentElement.scrollTop; if(scrollPosition>200){ tocMenuButton.classList.add('show'); toc.classList.add('sticky'); } else { if(!tocIsOpen){ tocMenuButton.classList.remove('show'); toc.classList.remove('sticky'); } } if(scrollPosition>300) backToTopButton.classList.add('show'); else backToTopButton.classList.remove('show'); let currentSection=''; sections.forEach(section=>{ const sectionTop=section.offsetTop-150; const sectionBottom=sectionTop+section.offsetHeight; if(scrollPosition>=sectionTop && scrollPosition<sectionBottom) currentSection=section.getAttribute('id'); }); tocLinks.forEach(link=>{ link.classList.remove('active'); if(link.getAttribute('href')==='#'+currentSection) link.classList.add('active'); }); ticking=false; }); ticking=true; } }, { passive:true });
+        backToTopButton.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
+        tocLinks.forEach(link=>{ link.addEventListener('click', function(e){ e.preventDefault(); const targetId=this.getAttribute('href'); const target=document.querySelector(targetId); if(target){ window.scrollTo({ top: target.offsetTop-20, behavior:'smooth' }); if(tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocIsOpen=false; if(tocAnnouncer) tocAnnouncer.textContent = 'Table of contents closed'; } } }); });
+    </script>
+</body>
+</html>
