@@ -6,33 +6,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Week 6 — Pointers & References (C++)</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #111827; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
-        .skip-link { position: absolute; left: -999px; top: auto; width: 1px; height: 1px; overflow: hidden; background:#fff; color:#000; padding:8px 12px; z-index:1000 }
-        .skip-link:focus { left:20px; top:20px; width:auto; height:auto; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
-        .container { max-width: 1000px; margin:0 auto; background:white; border-radius:15px; box-shadow:0 10px 40px rgba(0,0,0,0.2); overflow:hidden }
-        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color:white; padding:30px; text-align:center }
-        header h1 { font-size:2em; margin-bottom:10px }
-        header p { font-size:1.05em; opacity:0.95 }
-        main.content { padding:40px }
-        .toc { background:#f0f4ff; padding:20px; border:1px solid #a6b4e5; border-radius:8px; margin:20px 0; transition: transform .18s ease, opacity .18s ease; max-width:360px; }
-        .toc.sticky { position:fixed; right:20px; top:88px; width:320px; max-width:calc(100% - 40px); z-index:1000; box-shadow:0 12px 40px rgba(0,0,0,0.08); }
-        .toc.open { transform: translateY(0); }
-        .toc h2 { color:#0b2b5a; font-weight:700; margin-top:0 }
-        .toc a { color:#0b3b75; text-decoration:none; font-weight:700; padding:6px 8px; display:inline-block; border-radius:6px }
-        .toc a:hover, .toc a:focus { color:#062343; background:#e9f0ff }
-        .section { margin-bottom:40px; padding:25px; background:#f8f9fa; border-radius:10px; border-left:5px solid #667eea }
-        h2 { color:#2c3e50; margin-bottom:15px; font-size:1.8em }
-        h3 { color:#34495e; margin:20px 0 10px 0 }
-        .code-block { background:#2c3e50; color:#ecf0f1; padding:15px; border-radius:8px; margin:10px 0; overflow-x:auto; font-family:'Courier New', monospace }
-        .note { background:#fff3cd; border-left:4px solid #ffc107; padding:15px; margin:20px 0; border-radius:5px }
-        #tocMenuButton { position:fixed; top:20px; right:20px; background:#667eea; color:white; border:none; border-radius:8px; padding:10px 15px; font-weight:700; display:block; opacity:0; transform:translateY(-6px); z-index:1001; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition:opacity .18s ease, transform .18s ease; }
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6; color: #111827; /* darker text for better contrast */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        /* Skip link - visible on focus */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: #fff;
+            color: #000;
+            padding: 8px 12px;
+            z-index: 1000;
+        }
+        .skip-link:focus {
+            left: 20px;
+            top: 20px;
+            width: auto;
+            height: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        /* Focus outlines for keyboard users */
+        a:focus, button:focus, input:focus, .check-answer-btn:focus, .toc a:focus, .code-block:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 3px;
+        }
+        /* Make code blocks keyboard focusable */
+        .code-block:focus { box-shadow: 0 0 0 4px rgba(255,193,7,0.25); }
+        /* Improve contrast for focus-visible state */
+        :focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 30px; text-align: center; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.9; }
+        .content { padding: 40px; }
+        /* Table of Contents - improved contrast for accessibility */
+        .toc {
+            background: #f0f4ff; /* subtle light blue for contrast */
+            padding: 20px;
+            border: 1px solid #a6b4e5; /* higher contrast border */
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .toc h2 {
+            margin-top: 0;
+            color: #0b2b5a; /* darker, high-contrast heading */
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .toc ul { list-style-type: none; padding-left: 0; }
+        .toc li { margin: 8px 0; }
+        .toc a {
+            color: #0b3b75; /* darker blue for contrast */
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.15s ease, color 0.15s ease;
+            padding: 6px 8px;
+            display: inline-block;
+            border-radius: 6px;
+        }
+        .toc a:hover, .toc a:focus {
+            color: #062343;
+            background: #e9f0ff; /* light highlight */
+            text-decoration: none;
+        }
+        /* Active link styling */
+        .toc a.active {
+            color: #e74c3c;
+            background: #fff5f5;
+            box-shadow: inset 0 0 0 1px rgba(231,76,60,0.08);
+            padding-left: 6px;
+        }
+        .section { margin-bottom: 40px; padding: 25px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #667eea; }
+        /* Sticky TOC and Back to Top styles */
+        #tocMenuButton {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+            transition: all 0.3s ease;
+            display: none;
+        }
         #tocMenuButton:hover { background-color: #764ba2; transform: scale(1.05); }
-        #tocMenuButton.show { opacity:1; transform:translateY(0); }
-        #backToTop { position:fixed; bottom:30px; right:30px; background:#667eea; color:white; border:none; border-radius:50%; width:50px; height:50px; font-size:24px; display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(6px); z-index:999; box-shadow:0 6px 18px rgba(0,0,0,0.12); transition:opacity .18s ease, transform .18s ease; }
-        #backToTop.show { opacity:1; transform:translateY(0); }
-        a:focus, button:focus, input:focus, .toc a:focus { outline:3px solid #ffcc00; outline-offset:3px }
-        @media (max-width:768px) { .content{padding:20px} .toc.sticky{width:calc(100vw-40px); right:10px; top:55px} #tocMenuButton { right:10px; top:10px; padding:8px 12px; font-size:12px } }
+        #tocMenuButton.show { display: block; }
+        .toc.sticky { position: fixed; top: 60px; right: 20px; width: 280px; max-height: 70vh; overflow-y: auto; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; }
+        .toc.sticky.open { display: block; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px);} to { opacity: 1; transform: translateY(0);} }
+        #backToTop { position: fixed; bottom: 30px; right: 30px; background-color: #667eea; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); display: none; z-index: 999; transition: all 0.3s ease; }
+        #backToTop:hover { background-color: #764ba2; transform: scale(1.1); }
+        #backToTop.show { display: block; animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h2 { color: #2c3e50; margin-bottom: 15px; font-size: 1.8em; }
+        h3 { color: #34495e; margin: 20px 0 10px 0; font-size: 1.3em; }
+        .code-block { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 8px; margin: 10px 0; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9em; }
+        pre { margin: 0; white-space: pre-wrap; }
+        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .quiz-section { background: #e3f2fd; border: 2px solid #2196f3; border-radius: 8px; padding: 25px; margin: 30px 0; }
+        .quiz-question { margin: 25px 0; padding: 20px; background: white; border-radius: 8px; }
+        .quiz-question h4 { color: #2c3e50; margin-bottom: 15px; }
+        .quiz-question label { display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
+        .quiz-question label:hover { background: #e3f2fd; }
+        .quiz-question input[type="radio"] { margin-right: 10px; }
+        .check-answer-btn { background: #2196f3; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s; }
+        .check-answer-btn:hover { background: #1976d2; transform: translateY(-2px); }
+        .feedback { margin-top: 10px; padding: 15px; border-radius: 6px; font-weight: 600; }
+        .feedback.correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .feedback.incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .key-takeaway { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin: 30px 0; }
+        .key-takeaway ul { list-style-type: none; padding-left: 0; }
+        .key-takeaway li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .key-takeaway li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; }
+        @media (max-width: 768px) { .content { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -44,7 +144,7 @@
         </header>
 
         <main id="main-content" class="content" tabindex="-1" role="main">
-            <nav id="toc-nav" class="toc" role="navigation" aria-label="Table of Contents">
+            <nav id="toc-nav" class="toc sticky open" role="navigation" aria-label="Table of Contents">
                 <h2>📋 Table of Contents</h2>
                 <ul>
                     <li><a href="#types">C Data Types</a></li>
@@ -143,21 +243,188 @@ int diff = &arr[2] - &arr[0]; // 2 (difference in elements)</pre></div>
     </div>
 
     <!-- TOC Menu Button -->
-    <button id="tocMenuButton" title="Table of Contents" aria-controls="toc-nav" aria-expanded="false">📋 Menu</button>
+    <button id="tocMenuButton" class="show" title="Toggle Table of Contents" aria-controls="toc-nav" aria-expanded="true" aria-label="Toggle Table of Contents">✖️ Close</button>
 
     <!-- Back to Top Button -->
     <button id="backToTop" title="Back to Top" aria-label="Back to top">↑</button>
 
-    <script>
-        // Small JS to match existing week pages: TOC toggle, active-section tracking, back-to-top
-        const toc = document.querySelector('.toc'); const tocLinks = document.querySelectorAll('.toc a'); const backToTopButton = document.getElementById('backToTop'); const tocMenuButton = document.getElementById('tocMenuButton'); let tocIsOpen=false;
-        tocMenuButton.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); tocIsOpen=!tocIsOpen; tocMenuButton.setAttribute('aria-expanded', tocIsOpen?'true':'false'); if(tocIsOpen){ toc.classList.add('sticky','open'); tocMenuButton.textContent='✖️ Close'; const first=toc.querySelector('a'); if(first) first.focus(); } else { toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.focus(); } });
-        document.addEventListener('keydown', function(e){ if(e.key==='Escape' && tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; tocMenuButton.focus(); } });
-        document.addEventListener('click', function(event){ if(tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocMenuButton.setAttribute('aria-expanded','false'); tocIsOpen=false; } });
-        let ticking=false; const sections = Array.from(tocLinks).map(link=>{ const href=link.getAttribute('href'); return href ? document.querySelector(href) : null; }).filter(s=>s!==null);
-        window.addEventListener('scroll', function(){ if(!ticking){ window.requestAnimationFrame(function(){ const scrollPosition=window.pageYOffset||document.documentElement.scrollTop; if(scrollPosition>200){ tocMenuButton.classList.add('show'); toc.classList.add('sticky'); } else { if(!tocIsOpen){ tocMenuButton.classList.remove('show'); toc.classList.remove('sticky'); } } if(scrollPosition>300) backToTopButton.classList.add('show'); else backToTopButton.classList.remove('show'); let currentSection=''; sections.forEach(section=>{ const sectionTop=section.offsetTop-150; const sectionBottom=sectionTop+section.offsetHeight; if(scrollPosition>=sectionTop && scrollPosition<sectionBottom) currentSection=section.getAttribute('id'); }); tocLinks.forEach(link=>{ link.classList.remove('active'); if(link.getAttribute('href')==='#'+currentSection) link.classList.add('active'); }); ticking=false; }); ticking=true; } }, { passive:true });
-        backToTopButton.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
-        tocLinks.forEach(link=>{ link.addEventListener('click', function(e){ e.preventDefault(); const targetId=this.getAttribute('href'); const target=document.querySelector(targetId); if(target){ window.scrollTo({ top: target.offsetTop-20, behavior:'smooth' }); if(tocIsOpen){ toc.classList.remove('open'); tocMenuButton.textContent='📋 Menu'; tocIsOpen=false; } } }); });
-    </script>
+<script>
+    function checkAnswer(qName, correct, id) {
+        const radios = document.getElementsByName(qName);
+        let selected = null;
+        for (const r of radios) { if (r.checked) selected = r.value; }
+        const feedback = document.getElementById('feedback' + id);
+        feedback.style.display = 'block';
+        if (!selected) {
+            feedback.textContent = 'Please select an answer.';
+            feedback.className = 'feedback incorrect';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
+            return;
+        }
+        if (selected === correct) {
+            feedback.textContent = 'Correct! ✅';
+            feedback.className = 'feedback correct';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
+        } else {
+            feedback.textContent = 'Incorrect. Try reviewing the section above. ❌';
+            feedback.className = 'feedback incorrect';
+            feedback.setAttribute('tabindex','-1');
+            feedback.focus();
+        }
+    }
+
+    function checkAll() {
+        const answers = { q1: 'b', q2: 'c', q3: 'b', q4: 'b' };
+        let score = 0; let total = Object.keys(answers).length;
+        for (const [q, ans] of Object.entries(answers)) {
+            const radios = document.getElementsByName(q);
+            let selected = null; for (const r of radios) if (r.checked) selected = r.value;
+            if (selected === ans) score++;
+            const id = q.replace('q','');
+            const feedback = document.getElementById('feedback' + id);
+            feedback.style.display = 'block';
+            if (!selected) { feedback.textContent = 'No answer selected.'; feedback.className='feedback incorrect'; }
+            else if (selected === ans) { feedback.textContent = 'Correct! ✅'; feedback.className='feedback correct'; }
+            else { feedback.textContent = 'Incorrect. ❌'; feedback.className='feedback incorrect'; }
+        }
+        const summary = document.getElementById('quiz-summary');
+        summary.textContent = `You scored ${score} / ${total}.`;
+        summary.setAttribute('tabindex','-1');
+        summary.focus();
+    }
+
+        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
+        const toc = document.querySelector('.toc');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTopButton = document.getElementById('backToTop');
+        const tocMenuButton = document.getElementById('tocMenuButton');
+        let tocIsOpen = false;
+
+        // Get all section IDs from TOC links
+        const sections = Array.from(tocLinks).map(link => {
+            const href = link.getAttribute('href');
+            return href ? document.querySelector(href) : null;
+        }).filter(section => section !== null);
+
+        // Toggle TOC menu
+        tocMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocIsOpen = !tocIsOpen;
+            tocMenuButton.setAttribute('aria-expanded', tocIsOpen ? 'true' : 'false');
+            if (tocIsOpen) {
+                toc.classList.add('sticky', 'open');
+                tocMenuButton.textContent = '✖️ Close';
+                // move focus into TOC for keyboard users
+                const firstLink = toc.querySelector('a'); if (firstLink) firstLink.focus();
+            } else {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.focus();
+            }
+        });
+
+        // Close menu with Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && tocIsOpen) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.setAttribute('aria-expanded', 'false');
+                tocIsOpen = false;
+                tocMenuButton.focus();
+            }
+        });
+
+        // Close TOC when clicking outside
+        document.addEventListener('click', function(event) {
+            if (tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton) {
+                toc.classList.remove('open');
+                tocMenuButton.textContent = '📋 Menu';
+                tocMenuButton.setAttribute('aria-expanded', 'false');
+                tocIsOpen = false;
+            }
+        });
+
+        // Simple scroll handler
+        let ticking = false;
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+                    // Show menu button after scrolling 200px
+                    if (scrollPosition > 200) {
+                        tocMenuButton.classList.add('show');
+                        toc.classList.add('sticky');
+                    } else {
+                        if (!tocIsOpen) {
+                            tocMenuButton.classList.remove('show');
+                            toc.classList.remove('sticky');
+                        }
+                    }
+
+                    // Show/hide back to top button
+                    if (scrollPosition > 300) {
+                        backToTopButton.classList.add('show');
+                    } else {
+                        backToTopButton.classList.remove('show');
+                    }
+
+                    // Highlight active section in TOC
+                    let currentSection = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 150;
+                        const sectionBottom = sectionTop + section.offsetHeight;
+
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                            currentSection = section.getAttribute('id');
+                        }
+                    });
+
+                    // Update active link
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + currentSection) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Back to top button click
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Smooth scroll for TOC links and close menu
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 20;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+
+                    // Close TOC menu after clicking a link
+                    if (tocIsOpen) {
+                        toc.classList.remove('open');
+                        tocMenuButton.textContent = '📋 Menu';
+                        tocIsOpen = false;
+                    }
+                }
+            });
+        });
+
+</script>
 </body>
 </html>
