@@ -1,0 +1,224 @@
+
+/* ===============================
+   Accessibility Starter Styles
+   (Focus, contrast, motion, forms)
+   =============================== */
+
+/* 1) CSS Variables – adjust to your brand with contrast in mind */
+:root {
+  --text: #1a1a1a;
+  --muted-text: #444;
+  --bg: #ffffff;
+  --bg-alt: #fafafa;
+
+  /* Ensure at least 4.5:1 contrast for body text on bg */
+  --link: #0b63ce;            /* Accessible link blue */
+  --link-visited: #6a38c2;
+  --link-hover: #084a9e;
+
+  --border: #d0d0d0;
+  --focus: #ffbf47;           /* Highly visible focus (gold) */
+  --button-bg: #155b2f;       /* Accessible green on white */
+  --button-text: #ffffff;
+
+  /* Typography */
+  --font-size: 18px;          /* 18–20px improves readability */
+  --line-height: 1.6;
+  --max-line-length: 70ch;    /* Comfortable reading width */
+}
+
+/* 2) Base / Typography */
+html {
+  font-size: 100%;
+  scroll-behavior: auto; /* allow user/OS to control motion */
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+main, article, section, .content {
+  max-width: var(--max-line-length);
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+p, ul, ol {
+  margin-block: 0 1rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+  margin: 1.2em 0 0.5em;
+}
+h1 { font-size: clamp(1.6rem, 2.5vw + 1rem, 2.2rem); }
+h2 { font-size: clamp(1.3rem, 2vw + 0.8rem, 1.8rem); }
+h3 { font-size: clamp(1.1rem, 1.5vw + 0.6rem, 1.4rem); }
+
+/* 3) Links */
+a {
+  color: var(--link);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+a:visited { color: var(--link-visited); }
+a:hover, a:focus-visible { color: var(--link-hover); }
+
+/* 4) Focus Visibility (keyboard users) */
+:focus {
+  outline: none; /* reset inconsistent UA styles */
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* 5) Skip Link (place as first element in <body>) */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #000;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  z-index: 9999;
+}
+.skip-link:focus-visible {
+  left: 0.5rem;
+  top: 0.5rem;
+  border-radius: 6px;
+}
+
+/* 6) Images and media */
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+figure { margin: 0 0 1rem; }
+figcaption { color: var(--muted-text); font-size: 0.95em; }
+
+/* 7) Buttons and Controls */
+button, .btn, input[type="submit"], input[type="button"] {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid transparent;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover, .btn:hover,
+button:focus-visible, .btn:focus-visible,
+input[type="submit"]:hover, input[type="submit"]:focus-visible,
+input[type="button"]:hover, input[type="button"]:focus-visible {
+  filter: brightness(1.05);
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* 8) Forms */
+label {
+  display: inline-block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+input, textarea, select {
+  width: 100%;
+  max-width: 40rem;
+  padding: 0.6rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+input::placeholder, textarea::placeholder {
+  color: #666;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  border-color: var(--focus);
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* 9) Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 0.6rem;
+  text-align: left;
+}
+th {
+  background: var(--bg-alt);
+}
+caption {
+  caption-side: top;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+/* 10) Lists for assignments/instructions */
+ul li, ol li {
+  margin-bottom: 0.4rem;
+}
+
+/* 11) Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 12) High Contrast / Forced Colors (Windows, etc.) */
+@media (forced-colors: active) {
+  a, button, input, textarea, select {
+    forced-color-adjust: auto;
+  }
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+/* 13) Dark Mode (optional, if your site supports it) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #f2f2f2;
+    --muted-text: #c8c8c8;
+    --bg: #0f1115;
+    --bg-alt: #171a21;
+    --border: #2a2f3a;
+    --link: #69a9ff;
+    --link-visited: #a892ff;
+    --link-hover: #8bc1ff;
+    --button-bg: #2a7a49;
+    --button-text: #ffffff;
+  }
+  body { background: var(--bg); color: var(--text); }
+  th { background: var(--bg-alt); }
+}
+
+/* 14) Utility classes helpful for course content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.lead { font-size: 1.125rem; }
+.small { font-size: 0.925rem; color: var(--muted-text); }
