@@ -4,451 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 2: Java vs C++ Comparison</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="../styles.css">
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            overflow: hidden;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        header p {
-            font-size: 1.1em;
-            opacity: 0.9;
-        }
-        
-        .content {
-            padding: 40px;
-        }
-        
-        /* Table of Contents / Menu */
-        .toc {
-            background: #f9f9f9;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .toc h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        
-        .toc ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .toc li {
-            margin: 8px 0;
-        }
-        
-        .toc a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .toc a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-        
-        .toc a.active {
-            color: #e74c3c;
-            border-left: 3px solid #e74c3c;
-            padding-left: 8px;
-            background-color: #fff5f5;
-        }
-        
-        /* Collapsible TOC Menu Button */
-        #tocMenuButton {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 1001;
-            transition: all 0.3s ease;
-            display: none;
-        }
-        
-        #tocMenuButton:hover {
-            background-color: #764ba2;
-            transform: scale(1.05);
-        }
-        
-        #tocMenuButton.show {
-            display: block;
-        }
-        
-        /* Sticky TOC Dropdown */
-        .toc.sticky {
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            width: 280px;
-            max-height: 70vh;
-            overflow-y: auto;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            animation: slideDown 0.3s ease-out;
-            display: none;
-        }
-        
-        .toc.sticky.open {
-            display: block;
-        }
-        
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Back to Top Button */
-        #backToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #667eea;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
-        
-        #backToTop:hover {
-            background-color: #764ba2;
-            transform: scale(1.1);
-        }
-        
-        #backToTop.show {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .section {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
-        
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-        
-        h3 {
-            color: #34495e;
-            margin: 20px 0 10px 0;
-            font-size: 1.3em;
-        }
-        
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .comparison-table th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            vertical-align: top;
-        }
-        
-        .comparison-table tr:hover {
-            background: #f5f5f5;
-        }
-        
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-        
-        pre {
-            margin: 0;
-            white-space: pre-wrap;
-        }
-        
-        /* Quiz Section */
-        .quiz-section {
-            background: #e3f2fd;
-            border: 2px solid #2196f3;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 30px 0;
-        }
-        
-        .quiz-section h2 {
-            color: #1976d2;
-            margin-top: 0;
-        }
-        
-        .quiz-question {
-            margin: 25px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-        }
-        
-        .quiz-question h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .quiz-question label {
-            display: block;
-            padding: 10px;
-            margin: 5px 0;
-            background: #f8f9fa;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .quiz-question label:hover {
-            background: #e3f2fd;
-        }
-        
-        .quiz-question input[type="radio"] {
-            margin-right: 10px;
-        }
-        
-        .check-answer-btn {
-            background: #2196f3;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-        
-        .check-answer-btn:hover {
-            background: #1976d2;
-            transform: translateY(-2px);
-        }
-        
-        .feedback {
-            margin-top: 10px;
-            padding: 15px;
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        
-        .feedback.correct {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .feedback.incorrect {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
-        .key-takeaway {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-        
-        .key-takeaway h3 {
-            color: white;
-            margin-top: 0;
-        }
-        
-        .key-takeaway ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .key-takeaway li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        .key-takeaway li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        
-        .note {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .toc.sticky {
-                width: calc(100vw - 40px);
-                right: 10px;
-                top: 55px;
-            }
-            
-            #tocMenuButton {
-                right: 10px;
-                top: 10px;
-                padding: 8px 12px;
-                font-size: 12px;
-            }
-            
-            #backToTop {
-                width: 45px;
-                height: 45px;
-                font-size: 20px;
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .comparison-table {
-                font-size: 0.9em;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
 <body>
+    <!-- Table of Contents -->
+    
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+    
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#learning-objectives">Learning Objectives</a></li>
+            <li><a href="#compilation">Compilation vs Interpretation</a></li>
+            <li><a href="#hello-world">Hello World Showdown</a></li>
+            <li><a href="#io-streams">Input & Output</a></li>
+            <li><a href="#data-types">Variables & Data Types</a></li>
+            <li><a href="#control-flow">Control Flow (Good News!)</a></li>
+            <li><a href="#complete-example">Putting It All Together</a></li>
+            <li><a href="#key-takeaway">Key Takeaways</a></li>
+            <li><a href="#knowledge-check">Knowledge Check</a></li>
+        </ul>
+    </nav>
     <div class="container">
         <header>
-            <h1>� Week 1: From Java to C++</h1>
+            <h1>� Week 02: From Java to C++</h1>
             <p>Your guide to conquering C++ with your Java superpowers! 💪</p>
         </header>
         
-        <div class="content">
-            <div class="note">
+        <main class="content">
+            <div class="important-note">
                 <strong>🎉 Welcome!</strong> You already know Java, which means you're ahead of the game! This week, we'll show you how C++ is like Java's speedier, more powerful cousin. Get ready for some "aha!" moments!
             </div>
             
             <!-- Learning Objectives -->
-            <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-left: none;">
+            <section class="key-takeaway" id="learning-objectives">
                 <h2 style="color: white;">🎯 Learning Objectives</h2>
                 <p>By the end of this week, you'll be able to:</p>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="padding: 5px 0;">✓ Set up a C++ development environment</li>
-                    <li style="padding: 5px 0;">✓ Compare Java and C++ syntax like a pro</li>
-                    <li style="padding: 5px 0;">✓ Understand compilation vs. interpretation</li>
-                    <li style="padding: 5px 0;">✓ Use C++ I/O streams (cin/cout)</li>
-                    <li style="padding: 5px 0;">✓ Write your first C++ programs with confidence</li>
+                    <li>Set up a C++ development environment</li>
+                    <li>Compare Java and C++ syntax like a pro</li>
+                    <li>Understand compilation vs. interpretation</li>
+                    <li>Use C++ I/O streams (cin/cout)</li>
+                    <li>Write your first C++ programs with confidence</li>
                 </ul>
-            </div>
+            </section>
             
-            <!-- Table of Contents -->
-            <div class="toc">
-                <h3>📋 Table of Contents</h3>
-                <ul>
-                    <li><a href="#compilation">Compilation vs Interpretation</a></li>
-                    <li><a href="#hello-world">Hello World Showdown</a></li>
-                    <li><a href="#io-streams">Input & Output</a></li>
-                    <li><a href="#data-types">Variables & Data Types</a></li>
-                    <li><a href="#control-flow">Control Flow (Good News!)</a></li>
-                    <li><a href="#complete-example">Putting It All Together</a></li>
-                    <li><a href="#knowledge-check">Knowledge Check</a></li>
-                </ul>
-            </div>
+            
             
             <!-- Section 1: Compilation vs Interpretation -->
-            <div class="section" id="compilation">
+            <section class="section anchor-offset" id="compilation">
                 <h2>🔧 Compilation vs. Interpretation: The Need for Speed!</h2>
                 <p>Ever wonder why gamers love C++ and mobile apps love Java? It's all about how your code becomes executable! Think of it this way:</p>
                 
-                <div class="note">
+                <div class="important-note">
                     <strong>🏎️ The Race Analogy:</strong><br>
                     <strong>Java</strong> is like having a personal translator who reads your instructions and tells the machine what to do in real-time.<br>
                     <strong>C++</strong> is like speaking the machine's native language directly - no middleman needed!
@@ -457,9 +68,9 @@
                 <table class="comparison-table">
                     <thead>
                         <tr>
-                            <th style="width: 30%;">Aspect</th>
-                            <th style="width: 35%;">Java</th>
-                            <th style="width: 35%;">C++</th>
+                            <th class="w-30">Aspect</th>
+                            <th class="w-35">Java</th>
+                            <th class="w-35">C++</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -496,15 +107,15 @@
                     <p><strong>Use Java when:</strong> You need portability, rapid development, or automatic memory management</p>
                     <p><strong>Use C++ when:</strong> You need maximum performance, low-level control, or are building games, operating systems, or embedded systems</p>
                 </div>
-            </div>
+            </section>
             
             <!-- Section 2: Hello World Showdown -->
-            <div class="section" id="hello-world">
+            <section class="section anchor-offset" id="hello-world">
                 <h2>👋 Hello World Showdown: Java vs C++</h2>
                 <p>Let's start with the classics! Notice how C++ is more... minimalist? 😎</p>
                 
                 <h3>The Java Way (What You Know)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>class Compare
 {
   public static void main(String[] args)
@@ -516,7 +127,7 @@
                 </div>
                 
                 <h3>The C++ Way (Simpler!)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>#include &lt;iostream&gt;  // Bring in I/O library
 using namespace std;   // Use standard namespace
 
@@ -530,7 +141,7 @@ int main()
                 
                 <div class="interactive-box">
                     <h3>🔍 Key Differences Explained</h3>
-                    <ul>
+                    <ul class="list-indent">
                         <li><strong>#include &lt;iostream&gt;</strong> - Like Java's import, but literally copies code into your file at compile time</li>
                         <li><strong>using namespace std;</strong> - Lets you use cout instead of std::cout (saves typing!)</li>
                         <li><strong>int main()</strong> - No need for "public static void" or class wrapper! Just a simple function</li>
@@ -539,18 +150,18 @@ int main()
                     </ul>
                 </div>
                 
-                <div class="note">
+                <div class="important-note">
                     <strong>🎓 Professor's Tip:</strong> In Java, everything must be in a class because it's "purely object-oriented." C++ is an "extension" of C, so it supports both procedural (functions) and object-oriented (classes) programming. Best of both worlds!
                 </div>
-            </div>
+            </section>
             
             <!-- Section 3: I/O Streams Combined -->
-            <div class="section" id="io-streams">
+            <section class="section anchor-offset" id="io-streams">
                 <h2>⌨️ Input & Output: Meet cout and cin!</h2>
                 <p>Say goodbye to System.out.println() and Scanner! C++ has a cleaner (and shorter) way to handle I/O.</p>
                 
                 <h3>📤 Console Output</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>// Java way
 String name = "Alice";
 System.out.println("Hello, " + name + "!");
@@ -560,12 +171,12 @@ string name = "Alice";
 cout &lt;&lt; "Hello, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; endl;</pre>
                 </div>
                 
-                <div class="note">
+                <div class="important-note">
                     <strong>🔗 The &lt;&lt; Operator:</strong> Think of it as a "pipeline" - data flows from right to left into cout. You can chain as many items as you want!
                 </div>
                 
                 <h3>📥 Console Input</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>// Java way (verbose)
 Scanner scanner = new Scanner(System.in);
 System.out.println("Enter your age: ");
@@ -581,8 +192,8 @@ cin &gt;&gt; age;  // >> operator "extracts" data FROM cin</pre>
                 <table class="comparison-table">
                     <thead>
                         <tr>
-                            <th style="width: 40%;">Task</th>
-                            <th style="width: 60%;">C++ Solution</th>
+                            <th class="w-40">Task</th>
+                            <th class="w-60">C++ Solution</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -610,19 +221,19 @@ cin &gt;&gt; age;  // >> operator "extracts" data FROM cin</pre>
                     <p><code>cin &gt;&gt; name</code> only reads ONE word (stops at whitespace).</p>
                     <p>For "John Smith", use: <code>getline(cin, name);</code></p>
                 </div>
-            </div>
+            </section>
             
             <!-- Section 4: Data Types Combined -->
-            <div class="section" id="data-types">
+            <section class="section anchor-offset" id="data-types">
                 <h2>📊 Variables & Data Types: Mostly the Same!</h2>
                 <p>Good news! Most data types work exactly like Java. Just a few tiny differences to remember:</p>
                 
                 <table class="comparison-table">
                     <thead>
                         <tr>
-                            <th style="width: 25%;">Type</th>
-                            <th style="width: 35%;">Java</th>
-                            <th style="width: 40%;">C++</th>
+                            <th class="w-25">Type</th>
+                            <th class="w-35">Java</th>
+                            <th class="w-40">C++</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -657,27 +268,27 @@ cin &gt;&gt; age;  // >> operator "extracts" data FROM cin</pre>
                 <div class="interactive-box">
                     <h3>✨ C++ Bonus Features!</h3>
                     <p><strong>Unsigned types:</strong> Want only positive numbers? Use <code>unsigned int</code> to get twice the range!</p>
-                    <div class="code-block">
+                    <div class="code-box">
 <pre>int x = -100;      // Can be negative or positive
 unsigned int y = 100;  // Only positive (0 to 4.2 billion!)</pre>
                     </div>
                 </div>
                 
-                <div class="note">
+                <div class="important-note">
                     <strong>🔥 Quick Reference:</strong><br>
                     <code>boolean</code> → <code>bool</code><br>
                     <code>String</code> → <code>string</code> (needs <code>#include &lt;string&gt;</code>)<br>
                     Everything else? Works the same! 🎉
                 </div>
-            </div>
+            </section>
             
             <!-- Section 5: Control Flow -->
-            <div class="section" id="control-flow">
+            <section class="section anchor-offset" id="control-flow">
                 <h2>🎮 Control Flow: Zero Learning Curve!</h2>
                 <p>Ready for the best news ever? Control structures are <strong>100% IDENTICAL</strong> in C++! 🎊</p>
                 
                 <h3>Branching (if, if-else, switch)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>// Works exactly the same in C++!
 if (score >= 90) {
     cout &lt;&lt; "A" &lt;&lt; endl;
@@ -701,7 +312,7 @@ switch (choice) {
                 </div>
                 
                 <h3>Looping (for, while, do-while)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>// For loop - exactly the same!
 for (int i = 0; i < 10; i++) {
     cout &lt;&lt; i &lt;&lt; " ";
@@ -723,24 +334,24 @@ do {
                 <div class="interactive-box">
                     <h3>🎯 Translation Checklist</h3>
                     <p>When converting from Java to C++:</p>
-                    <ul>
+                    <ul class="list-indent no-bullets">
                         <li>✅ Keep all if, else if, else exactly the same</li>
                         <li>✅ Keep all for, while, do-while exactly the same</li>
                         <li>✅ Keep all switch-case exactly the same</li>
                         <li>🔄 Just change the I/O statements!</li>
                     </ul>
                 </div>
-            </div>
+            </section>
             
             <!-- Section 6: Complete Example -->
             
             <!-- Section 6: Complete Example -->
-            <div class="section" id="complete-example">
+            <section class="section anchor-offset" id="complete-example">
                 <h2>🎨 Putting It All Together</h2>
                 <p>Let's see a real program that uses everything we've learned! This program collects names and ages in a loop until the user quits.</p>
                 
                 <h3>Java Version (What You Know)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>import java.util.Scanner;
 
 class Basic {
@@ -772,7 +383,7 @@ class Basic {
                 </div>
                 
                 <h3>C++ Version (Your New Skill!)</h3>
-                <div class="code-block">
+                <div class="code-box">
 <pre>#include &lt;iostream&gt;
 #include &lt;string&gt;
 using namespace std;
@@ -805,7 +416,7 @@ int main() {
                 
                 <div class="interactive-box">
                     <h3>🔎 What Changed? (Line-by-Line)</h3>
-                    <ul>
+                    <ul class="list-indent no-bullets">
                         <li>❌ <code>import java.util.Scanner;</code> → ✅ <code>#include &lt;iostream&gt;</code> and <code>#include &lt;string&gt;</code></li>
                         <li>❌ <code>class Basic { public static void main...</code> → ✅ <code>int main() {</code></li>
                         <li>❌ <code>Scanner kb = new Scanner(System.in);</code> → ✅ (not needed!)</li>
@@ -816,12 +427,12 @@ int main() {
                         <li>✅ Everything else stays the same!</li>
                     </ul>
                 </div>
-            </div>
+            </section>
             
             <!-- Key Takeaways -->
-            <div class="key-takeaway">
+            <section class="key-takeaway" id="key-takeaway">
                 <h3>🎯 Key Takeaways (Your Cheat Sheet!)</h3>
-                <ul>
+                <ul class="list-indent">
                     <li>C++ compiles to machine code = faster execution 🚀</li>
                     <li>No class wrapper needed - just <code>int main()</code></li>
                     <li>Use <code>#include &lt;iostream&gt;</code> for I/O</li>
@@ -830,10 +441,10 @@ int main() {
                     <li>if, for, while, switch = exactly the same! 🎉</li>
                     <li>Use <code>getline(cin, str)</code> to read full lines</li>
                 </ul>
-            </div>
+            </section>
             
             <!-- Knowledge Check Quiz -->
-            <div class="quiz-section" id="knowledge-check">
+            <section class="quiz-section" id="knowledge-check">
                 <h2>🧠 Knowledge Check (Time to Shine!)</h2>
                 <p>Let's test your newfound Java-to-C++ superpowers! Think you've got this? 💪</p>
                 
@@ -856,7 +467,7 @@ int main() {
                         <code>main()</code>
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q1', 'b', 1)">Check Answer</button>
-                    <div id="feedback1" class="feedback"></div>
+                    <div class="feedback" id="feedback1" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
                 </div>
                 
                 <div class="quiz-question">
@@ -878,7 +489,7 @@ int main() {
                         <code>::</code>
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q2', 'c', 2)">Check Answer</button>
-                    <div id="feedback2" class="feedback"></div>
+                    <div class="feedback" id="feedback2" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
                 </div>
                 
                 <div class="quiz-question">
@@ -900,7 +511,7 @@ int main() {
                         <code>readLine(cin, name)</code>
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q3', 'b', 3)">Check Answer</button>
-                    <div id="feedback3" class="feedback"></div>
+                    <div class="feedback" id="feedback3" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
                 </div>
                 
                 <div class="quiz-question">
@@ -922,7 +533,7 @@ int main() {
                         <code>BOOL</code>
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q4', 'b', 4)">Check Answer</button>
-                    <div id="feedback4" class="feedback"></div>
+                    <div class="feedback" id="feedback4" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
                 </div>
                 
                 <div class="quiz-question">
@@ -944,7 +555,7 @@ int main() {
                         <code>#include &lt;console&gt;</code>
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q5', 'c', 5)">Check Answer</button>
-                    <div id="feedback5" class="feedback"></div>
+                    <div class="feedback" id="feedback5" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
                 </div>
                 
                 <div class="quiz-question">
@@ -966,192 +577,24 @@ int main() {
                         C++ doesn't have loops
                     </label>
                     <button class="check-answer-btn" onclick="checkAnswer('q6', 'c', 6)">Check Answer</button>
-                    <div id="feedback6" class="feedback"></div>
+                    <div class="feedback" id="feedback6" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>       
+                </div>
+                <div class="check-all-answers">
+                    <button class="check-answer-btn" onclick="checkAll({ q1: 'b', q2: 'c', q3: 'b', q4: 'b', q5: 'c', q6: 'c' })">Check All</button>
+                    <div id="quiz-summary" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="margin-top:12px;font-weight:700"></div>
                 </div>
                 
-                <div class="note" style="margin-top: 30px;">
+                
+                <div class="important-note mt-30">
                     <strong>🎓 Pro Tip:</strong> Don't stress if you don't ace this on the first try! The goal is to learn, not to be perfect. Review the sections above and try again. You've got this! 💪
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
+    <button id="backToTop" aria-label="Back to top">
+        <span aria-hidden="true">&uarr;</span>
+    </button>
     
-    <!-- TOC Menu Button -->
-    <button id="tocMenuButton" title="Table of Contents">📋 Menu</button>
-    
-    <!-- Back to Top Button -->
-    <button id="backToTop" title="Back to Top">↑</button>
-    
-    <script>
-        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
-        
-        const toc = document.querySelector('.toc');
-        const tocLinks = document.querySelectorAll('.toc a');
-        const backToTopButton = document.getElementById('backToTop');
-        const tocMenuButton = document.getElementById('tocMenuButton');
-        let tocIsOpen = false;
-        
-        // Get all section IDs from TOC links
-        const sections = Array.from(tocLinks).map(link => {
-            const href = link.getAttribute('href');
-            return href ? document.querySelector(href) : null;
-        }).filter(section => section !== null);
-        
-        // Toggle TOC menu
-        tocMenuButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            tocIsOpen = !tocIsOpen;
-            if (tocIsOpen) {
-                toc.classList.add('sticky', 'open');
-                tocMenuButton.textContent = '✖️ Close';
-            } else {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-            }
-        });
-        
-        // Close TOC when clicking outside
-        document.addEventListener('click', function(event) {
-            if (tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton) {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-                tocIsOpen = false;
-            }
-        });
-        
-        // Simple scroll handler
-        let ticking = false;
-        
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-                    
-                    // Show menu button after scrolling 200px
-                    if (scrollPosition > 200) {
-                        tocMenuButton.classList.add('show');
-                        toc.classList.add('sticky');
-                    } else {
-                        if (!tocIsOpen) {
-                            tocMenuButton.classList.remove('show');
-                            toc.classList.remove('sticky');
-                        }
-                    }
-                    
-                    // Show/hide back to top button
-                    if (scrollPosition > 300) {
-                        backToTopButton.classList.add('show');
-                    } else {
-                        backToTopButton.classList.remove('show');
-                    }
-                    
-                    // Highlight active section in TOC
-                    let currentSection = '';
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop - 150;
-                        const sectionBottom = sectionTop + section.offsetHeight;
-                        
-                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                            currentSection = section.getAttribute('id');
-                        }
-                    });
-                    
-                    // Update active link
-                    tocLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === '#' + currentSection) {
-                            link.classList.add('active');
-                        }
-                    });
-                    
-                    ticking = false;
-                });
-                
-                ticking = true;
-            }
-        }, { passive: true });
-        
-        // Back to top button click
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Smooth scroll for TOC links and close menu
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 20;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close TOC menu after clicking a link
-                    if (tocIsOpen) {
-                        toc.classList.remove('open');
-                        tocMenuButton.textContent = '📋 Menu';
-                        tocIsOpen = false;
-                    }
-                }
-            });
-        });
-        
-        // ===== Quiz Functions =====
-        
-        let correctAnswers = 0;
-        const answersChecked = new Set();
-        
-        function checkAnswer(questionName, correctValue, questionNum) {
-            const selected = document.querySelector(`input[name="${questionName}"]:checked`);
-            const feedback = document.getElementById(`feedback${questionNum}`);
-            
-            if (!selected) {
-                feedback.innerHTML = '⚠️ Whoa there! Please select an answer first!';
-                feedback.className = 'feedback incorrect';
-                return;
-            }
-            
-            const funnyCorrect = [
-                '✅ Nailed it! You\'re a natural!',
-                '✅ Boom! Correct! You\'re on fire! 🔥',
-                '✅ Yes! You\'re crushing this!',
-                '✅ Perfect! Keep it up, superstar! ⭐',
-                '✅ Correct! C++ is lucky to have you!',
-                '✅ Absolutely right! High five! 🙌'
-            ];
-            
-            const funnyIncorrect = [
-                '❌ Oops! Not quite. Give it another shot! 💪',
-                '❌ Close, but not cigar! Try again!',
-                '❌ Nice try! Review the material and come back stronger!',
-                '❌ Almost! You\'re getting warmer! 🔥',
-                '❌ Not this time, but you\'re learning! Keep going!',
-                '❌ Swing and a miss! But that\'s okay—try again!'
-            ];
-            
-            if (selected.value === correctValue) {
-                const randomCorrect = funnyCorrect[Math.floor(Math.random() * funnyCorrect.length)];
-                feedback.innerHTML = randomCorrect;
-                feedback.className = 'feedback correct';
-                
-                if (!answersChecked.has(questionNum)) {
-                    correctAnswers++;
-                    answersChecked.add(questionNum);
-                }
-            } else {
-                const randomIncorrect = funnyIncorrect[Math.floor(Math.random() * funnyIncorrect.length)];
-                feedback.innerHTML = randomIncorrect;
-                feedback.className = 'feedback incorrect';
-            }
-        }
-    </script>
+    <script src="../scripts.js" defer></script>
 </body>
 </html>
