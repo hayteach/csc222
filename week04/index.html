@@ -18,10 +18,11 @@
         <h3>📋 Content</h3>
         <ul>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#key-concepts">Key Concepts</a></li>
             <li><a href="#uml">UML Diagram</a></li>
             <li><a href="#video">Video</a></li>
             <li><a href="#files">Files</a></li>
+            <li><a href="#templates-quick-guide-heading">Quick Guide: Templates in C++</a></li>
+            <li><a href="#key-concepts">Key Concepts</a></li>
         </ul>
     </nav>
 
@@ -49,12 +50,37 @@
                         <p>The one thing, is that our bag can only store items of the same type and instead of writing separate classes, one to have a bag of strings and another to have a bag of people, we will write 1 class that can be used to store whatever we want.</p>
                     </div>
                     <div>
-                        <img src="https://mendocino.instructure.com/courses/21391/files/2620331/preview" alt="paperBag.jpg" width="306" height="320" />
-                        <img src="https://mendocino.instructure.com/courses/21391/files/2620333/preview" alt="FilledPaperBag.jpg" width="231" height="320" style="margin-top: 12px;" />
+                        <img src="../assets/paperBag.jpg" alt="paperBag.jpg" width="306" height="320" />
+                        <img src="../assets/FilledPaperBag.jpg" alt="FilledPaperBag.jpg" width="231" height="320" style="margin-top: 12px;" />
                     </div>
-                </div>
+                </section>
 
-                <div class="highlight-box" role="region" aria-labelledby="templates-quick-guide-heading">
+               
+
+            <section id="uml" class="info-card" role="region" aria-labelledby="uml-heading">
+                <h2 id="uml-heading">📐 UML Diagram</h2>
+                <p>A UML diagram of our basic bag class:</p>
+                <img src="../assets/BagUML.jpg" alt="UML Diagram of Bag class" style="max-width:100%;height:auto;" />
+            </section>
+
+            <section id="video" class="video-box" role="region" aria-labelledby="video-heading">
+                <h3>🎬 Video</h3>
+                <p>The following video reviews, discusses and walks through how to create and use/test the concept of a Bag construct.</p>
+                <p><a class="video-link" href="https://youtu.be/vwCUEScWSoQ" target="_blank" rel="noopener">Intro to Template Classes</a></p>
+            </section>
+
+            <section id="files" class="section" role="region" aria-labelledby="files-heading">
+                <h2 id="files-heading">📁 Files from the Video</h2>
+                <div class="important-note">
+                    <strong>Important Note:</strong>Try to type out the code yourself to get the practice you need. Use these files as reference only!
+                </div>
+                <ul>
+                    <li><a class="instructure_file_link" title="Bag.h" href="https://mendocino.instructure.com/courses/21391/files/2620334?wrap=1" target="_blank" rel="noopener">Bag.h</a></li>
+                    <li><a class="instructure_file_link" title="Bag.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620335?wrap=1" target="_blank" rel="noopener">Bag.cpp</a></li>
+                    <li><a class="instructure_file_link" title="bagTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620336?wrap=1" target="_blank" rel="noopener">bagTester.cpp</a></li>
+                </ul>
+            </section>
+             <div class="highlight-box" role="region" aria-labelledby="templates-quick-guide-heading">
                     <h3 id="templates-quick-guide-heading">💡 Quick Guide: Templates in C++</h3>
                     <p><strong>What:</strong> Templates let you write generic classes or functions parameterized by type so the same code works for different types (for example, <code>Bag&lt;int&gt;</code> or <code>Bag&lt;std::string&gt;</code>). <strong>How:</strong> the compiler generates concrete code when you instantiate a template (instantiation happens during compilation).</p>
 
@@ -100,28 +126,7 @@ bs.add("apple");</pre>
 <pre>template&lt;class ItemType&gt;</pre>
                 </div>
 
-                <p><strong>Note:</strong> <code>ItemType</code> is just a placeholder variable for whatever you plan to store in the bag (you can name it differently if you prefer).</p>
-            </section>
-
-            <section id="uml" class="info-card" role="region" aria-labelledby="uml-heading">
-                <h2 id="uml-heading">📐 UML Diagram</h2>
-                <p>A UML diagram of our basic bag class:</p>
-                <img src="https://mendocino.instructure.com/courses/21391/files/2620332/preview" alt="BagUML.jpg" style="max-width:100%;height:auto;" />
-            </section>
-
-            <section id="video" class="video-box" role="region" aria-labelledby="video-heading">
-                <h3>🎬 Video</h3>
-                <p>The following video reviews, discusses and walks through how to create and use/test the concept of a Bag construct.</p>
-                <p><a class="video-link" href="https://youtu.be/vwCUEScWSoQ" target="_blank" rel="noopener">Intro to Template Classes</a></p>
-            </section>
-
-            <section id="files" class="section" role="region" aria-labelledby="files-heading">
-                <h2 id="files-heading">📁 Files from the Video</h2>
-                <ul>
-                    <li><a class="instructure_file_link" title="Bag.h" href="https://mendocino.instructure.com/courses/21391/files/2620334?wrap=1" target="_blank" rel="noopener">Bag.h</a></li>
-                    <li><a class="instructure_file_link" title="Bag.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620335?wrap=1" target="_blank" rel="noopener">Bag.cpp</a></li>
-                    <li><a class="instructure_file_link" title="bagTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620336?wrap=1" target="_blank" rel="noopener">bagTester.cpp</a></li>
-                </ul>
+                <p class="important-note"><strong>Note:</strong> <code>ItemType</code> is just a placeholder variable for whatever you plan to store in the bag (you can name it differently if you prefer).</p>
             </section>
 
         </main>
