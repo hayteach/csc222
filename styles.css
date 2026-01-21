@@ -441,6 +441,56 @@ pre {
 .cell-center { text-align: center; }
 .hidden { display: none; }
 
+/* Grid & column helpers (Bootstrap-like) 🔧 */
+/* Use `.row` to create a horizontal group of columns, and `.col-*` or `.two-column` for simple two-column layouts. */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* gutter */
+}
+.col {
+    flex: 1 1 0%;
+    min-width: 0; /* prevents overflow with long content */
+}
+/* Utility column sizes (percentage based) */
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.col-4 {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+}
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+/* Simple two-column block useful for content + image pairs */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start; /* top align by default */
+}
+
+/* Vertical alignment helpers for columns */
+.align-top { align-items: start; }
+.align-center { align-items: center; }
+.align-bottom { align-items: end; }
+
+/* Responsive: collapse columns on small screens */
+@media (max-width: 768px) {
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+    .col-6, .col-4, .col-3 {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+}
+
+
 /* Width utilities */
 .w-25 { width: 25%; }
 .w-30 { width: 30%; }
