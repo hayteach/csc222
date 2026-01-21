@@ -1,13 +1,89 @@
-<p>Write a program that:</p>
-<ol>
-    <li>Prompts the user to input the value of an integer.</li>
-    <li>Store that input into an "int" called "myVar"</li>
-    <li>Create a pointer, "iptr" and store the address of "myVar" in "iptr"</li>
-    <li>Print out the value of the integer "myVar", the address of "myVar" (stored in iptr) and the value of the integer stored at the address that "iptr" is pointing to.</li>
-    <li>Create an integer array, "myArray" of size "myVar" and fill it with integers from 1 to "myVar"</li>
-    <li>Print out the values in "myArray"</li>
-    <li>Create a pointer to "myArray" called "ptrToMyArray"</li>
-    <li>Print out the values in "myArray" using "ptrToMyArray" to access each value.</li>
-    <li>Make sure that your program properly deletes everything and frees memory upon exit.</li>
-</ol>
-<p>&nbsp;</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Lab: Pointer Practice</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    <!-- Table of Contents -->
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Lab Sections
+    </button>
+    
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>📋 Lab Sections</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#tasks">Tasks</a></li>
+            <li><a href="#starter-code">Starter Code</a></li>
+            <li><a href="#submission">Submission</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header role="banner">
+            <h1>🔗 Lab 03: Pointers — Hands-on Practice</h1>
+            <p>Apply pointer concepts by implementing dynamic allocation and pointer-based access.</p>
+        </header>
+
+        <main id="main-content" class="content" tabindex="-1" role="main">
+            <div class="important-note">
+                <strong>🎯 Goal:</strong> Practice pointers, pointer arithmetic, arrays via pointers, and proper dynamic memory management (new/delete) with destructors or clear cleanup.
+            </div>
+
+            <section id="overview" class="section" role="region" aria-labelledby="overview-heading">
+                <h2 id="overview-heading">📖 Assignment Overview</h2>
+                <p>In this lab you'll read an integer from the user, use pointers to inspect and manipulate values and arrays, and ensure all dynamically allocated memory is properly released.</p>
+            </section>
+
+            <section id="tasks" class="section" role="region" aria-labelledby="tasks-heading">
+                <h2 id="tasks-heading">🧾 Tasks</h2>
+                <ol>
+                    <li>Prompt the user to input an integer value and store it in an <code>int myVar</code>.</li>
+                    <li>Create a pointer <code>iptr</code> and store the address of <code>myVar</code> in it.</li>
+                    <li>Print: the value of <code>myVar</code>, the address stored in <code>iptr</code>, and the value pointed to by <code>iptr</code>.</li>
+                    <li>Create a dynamic integer array <code>myArray</code> of size <code>myVar</code> and fill it with values 1..myVar.</li>
+                    <li>Print the array values directly and then again using a pointer <code>ptrToMyArray</code> to access elements.</li>
+                    <li>Free any dynamically allocated memory and verify no leaks (use a destructor if you encapsulate the array in a class).</li>
+                </ol>
+            </section>
+
+            <section id="starter-code" class="section" role="region" aria-labelledby="starter-heading">
+                <h2 id="starter-heading">💻 Starter Code</h2>
+                <div class="code-box" role="region" aria-label="Starter code example" tabindex="0">
+<pre>
+/* Header information (See Programming Style Guide)
+*/
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    // Your code goes here
+    return 0;
+}</pre>
+                </div>
+            </section>
+             <section class="submission-box" id="submission">
+                <h3>📤 Submission Instructions</h3>
+                <p><strong>What to Submit:</strong></p>
+                <ul>
+                    <li>Compress all files (at least <code>Lab03.cpp</code>) into a single archive</li>
+                    <li>Accepted formats: <code>.zip</code>, <code>.7z</code>, or <code>.rar</code></li>
+                    <li>Submit your compressed file through Canvas</li>
+                </ul>
+                
+                <div class="important-note mt-20">
+                    <strong>⚠️ Important:</strong> Make sure all files are included in your submission. Missing files will result in point deductions!
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <button id="backToTop" title="Back to Top">↑</button>
+    <script src="../scripts.js"></script>
+</body>
+</html>

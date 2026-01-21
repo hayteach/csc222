@@ -4,138 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 3: Pointers & Destructors (C++)</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6; color: #111827; /* darker text for better contrast */
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-        }
-        /* Skip link - visible on focus */
-        .skip-link {
-            position: absolute;
-            left: -999px;
-            top: auto;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            background: #fff;
-            color: #000;
-            padding: 8px 12px;
-            z-index: 1000;
-        }
-        .skip-link:focus {
-            left: 20px;
-            top: 20px;
-            width: auto;
-            height: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        /* Focus outlines for keyboard users */
-        a:focus, button:focus, input:focus, .check-answer-btn:focus, .toc a:focus, .code-block:focus {
-            outline: 3px solid #ffcc00;
-            outline-offset: 3px;
-        }
-        /* Make code blocks keyboard focusable */
-        .code-block:focus { box-shadow: 0 0 0 4px rgba(255,193,7,0.25); }
-        /* Improve contrast for focus-visible state */
-        :focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
-        .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
-        header { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 30px; text-align: center; }
-        header h1 { font-size: 2em; margin-bottom: 10px; }
-        header p { font-size: 1.1em; opacity: 0.9; }
-        .content { padding: 40px; }
-        /* Table of Contents - improved contrast for accessibility */
-        .toc {
-            background: #f0f4ff; /* subtle light blue for contrast */
-            padding: 20px;
-            border: 1px solid #a6b4e5; /* higher contrast border */
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        .toc h2 {
-            margin-top: 0;
-            color: #0b2b5a; /* darker, high-contrast heading */
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        .toc ul { list-style-type: none; padding-left: 0; }
-        .toc li { margin: 8px 0; }
-        .toc a {
-            color: #0b3b75; /* darker blue for contrast */
-            text-decoration: none;
-            font-weight: 700;
-            transition: background 0.15s ease, color 0.15s ease;
-            padding: 6px 8px;
-            display: inline-block;
-            border-radius: 6px;
-        }
-        .toc a:hover, .toc a:focus {
-            color: #062343;
-            background: #e9f0ff; /* light highlight */
-            text-decoration: none;
-        }
-        /* Active link styling */
-        .toc a.active {
-            color: #e74c3c;
-            background: #fff5f5;
-            box-shadow: inset 0 0 0 1px rgba(231,76,60,0.08);
-            padding-left: 6px;
-        }
-        .section { margin-bottom: 40px; padding: 25px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #667eea; }
-        /* Sticky TOC and Back to Top styles */
-        #tocMenuButton {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 1001;
-            transition: all 0.3s ease;
-            display: none;
-        }
-        #tocMenuButton:hover { background-color: #764ba2; transform: scale(1.05); }
-        #tocMenuButton.show { display: block; }
-        .toc.sticky { position: fixed; top: 60px; right: 20px; width: 280px; max-height: 70vh; overflow-y: auto; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: none; }
-        .toc.sticky.open { display: block; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px);} to { opacity: 1; transform: translateY(0);} }
-        #backToTop { position: fixed; bottom: 30px; right: 30px; background-color: #667eea; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); display: none; z-index: 999; transition: all 0.3s ease; }
-        #backToTop:hover { background-color: #764ba2; transform: scale(1.1); }
-        #backToTop.show { display: block; animation: fadeIn 0.3s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        h2 { color: #2c3e50; margin-bottom: 15px; font-size: 1.8em; }
-        h3 { color: #34495e; margin: 20px 0 10px 0; font-size: 1.3em; }
-        .code-block { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 8px; margin: 10px 0; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9em; }
-        pre { margin: 0; white-space: pre-wrap; }
-        .note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px; }
-        .quiz-section { background: #e3f2fd; border: 2px solid #2196f3; border-radius: 8px; padding: 25px; margin: 30px 0; }
-        .quiz-question { margin: 25px 0; padding: 20px; background: white; border-radius: 8px; }
-        .quiz-question h4 { color: #2c3e50; margin-bottom: 15px; }
-        .quiz-question label { display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer; transition: background 0.2s; }
-        .quiz-question label:hover { background: #e3f2fd; }
-        .quiz-question input[type="radio"] { margin-right: 10px; }
-        .check-answer-btn { background: #2196f3; color: white; border: none; padding: 10px 25px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 10px; transition: all 0.3s; }
-        .check-answer-btn:hover { background: #1976d2; transform: translateY(-2px); }
-        .feedback { margin-top: 10px; padding: 15px; border-radius: 6px; font-weight: 600; }
-        .feedback.correct { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .feedback.incorrect { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .key-takeaway { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin: 30px 0; }
-        .key-takeaway ul { list-style-type: none; padding-left: 0; }
-        .key-takeaway li { padding: 8px 0; padding-left: 25px; position: relative; }
-        .key-takeaway li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; font-size: 1.2em; }
-        @media (max-width: 768px) { .content { padding: 20px; } }
+    <link rel="stylesheet" href="../styles.css">
     </style>
 </head>
 <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <a class="skip-to-main" href="#main-content">Skip to main content</a>
+
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+    
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#pointers">What is a Pointer?</a></li>
+            <li><a href="#symbols">Symbols & Examples</a></li>
+            <li><a href="#destructors">Destructors & Memory Management</a></li>
+            <li><a href="#examples">Examples & Pitfalls</a></li>
+            <li><a href="#key-takeaways">Key Takeaways</a></li>
+            <li><a href="#additional-resources">Additional Resources</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            
+        </ul>
+    </nav>
     <div class="container">
         <header>
             <h1>Week 3: Pointers & Destructors</h1>
@@ -143,26 +34,12 @@
         </header>
 
         <main id="main-content" class="content" tabindex="-1" role="main">
-            <div class="note">
+            <div class="important-note">
                 <strong>🧠 Quick note:</strong> Pointers let you work directly with memory addresses. They are powerful but require care — especially with dynamic allocation and deallocation.
             </div>
 
-            <nav id="toc-nav" class="toc" role="navigation" aria-label="Table of Contents">
-                <h2>📋 Table of Contents</h2>
-                <ul>
-                    <li><a href="#pointers">What is a Pointer?</a></li>
-                    <li><a href="#symbols">Symbols & Examples</a></li>
-                    <li><a href="#destructors">Destructors & Memory Management</a></li>
-                    <li><a href="#examples">Examples & Pitfalls</a></li>
-                    <li><a href="#key-takeaways">Key Takeaways</a></li>
-                    <li><a href="#additional-resources">Additional Resources</a></li>
-                    <li><a href="#quiz">Quiz</a></li>
-                    
-                </ul>
-            </nav>
-
-            <div class="section">
-                <h2 id="pointers">📌 What is a Pointer?</h2>
+            <section class="section" id="pointers">
+                <h2>📌 What is a Pointer?</h2>
                 <p>A pointer is a variable that stores the memory address of another value. Unlike Java or Python where references are managed for you, in C++ you explicitly create, use, and (sometimes) delete pointers.</p>
 
                 <h3>Why care?</h3>
@@ -171,9 +48,9 @@
                     <li>Dynamic memory: create objects that outlive the scope where they're created</li>
                     <li>Essential for advanced data structures (linked lists, trees) and APIs</li>
                 </ul>
-            </div>
+            </section>
 
-            <div class="section" id="symbols">
+            <section class="section" id="symbols">
                 <h2>🔣 Pointer Symbols & Meaning</h2>
                 <table style="width:100%; border-collapse: collapse;" border="1" aria-labelledby="symbols-caption">
                     <caption id="symbols-caption" style="text-align:left; padding:8px; font-weight:700;">Symbols & Common Pitfalls</caption>
@@ -210,7 +87,7 @@
                     </tbody>
                 </table>
 
-                <div class="code-block" role="region" aria-label="Pointer code example" tabindex="0">
+                <div class="code-box" role="region" aria-label="Pointer code example" tabindex="0">
 <pre>// Create a pointer
 int n = 10;
 int* p = &n;        // p stores the address of n
@@ -230,312 +107,128 @@ delete[] arr;           // free heap memory when done</pre>
                 <div class="note">
                     <strong>⚠️ Tip:</strong> Always initialize pointers (e.g., <code>nullptr</code>) and free dynamically allocated memory with <code>delete</code> or <code>delete[]</code> when appropriate.
                 </div>
+            </section>
+
+            <section class="section" id="destructors">
+                <h2>🧹 Destructors & Memory Management</h2>
+                <p>Destructors are special member functions that run when an object is destroyed. Use them to free resources (memory, file handles) that the object acquired during its lifetime.</p>
+                <div class="code-box" role="region" aria-label="Destructor code example" tabindex="0">
+            <pre>class Foo {
+            public:
+                Foo() { ptr = new int[10]; }
+                ~Foo() { delete[] ptr; }
+            private:
+                int* ptr;
+            };
+
+            // RAII: prefer patterns where acquisition and release are tied to object lifetime.
+            // Better: use smart pointers
+            #include &lt;memory&gt;
+            std::unique_ptr&lt;int[]&gt; arr = std::make_unique&lt;int[]&gt;(10); // auto freed
+            </pre>
+                </div>
+                <p>Modern C++ recommends RAII and smart pointers (<code>std::unique_ptr</code>, <code>std::shared_ptr</code>) to avoid manual <code>new</code>/<code>delete</code> bookkeeping.</p>
+            </section>
+
+            <section class="section" id="examples">
+                <h2>🔍 Examples & Common Pitfalls</h2>
+
+                <h3>Null and dangling pointers</h3>
+                <div class="code-box" role="region" aria-label="Null/dangling pointers example" tabindex="0">
+            <pre>// Null pointer safe check
+            int* p = nullptr;
+            if (p) { *p = 5; } // check before dereferencing
+
+            // Dangling pointer example
+            int* q = new int(5);
+            delete q; // q now dangling; set to nullptr to avoid reuse
+            q = nullptr;
+            </pre>
+                </div>
+
+                <h3>Mismatched delete / delete[]</h3>
+                <div class="code-box" role="region" aria-label="delete[] example" tabindex="0">
+            <pre>int* a = new int[5];
+            // wrong: delete a;  // leads to undefined behavior
+            delete[] a; // correct
+            </pre>
+                </div>
+
+                <h3>Double delete</h3>
+                <p>Never call <code>delete</code> on the same pointer more than once. Reset pointers to <code>nullptr</code> after deleting, or better, use smart pointers.</p>
+            </section>
+
+            <section class="key-takeaway" id="key-takeaways">
+                <h3>✅ Key Takeaways</h3>
+                <ul>
+                    <li>Pointers store addresses; use <code>*</code> to dereference, <code>&amp;</code> to get an address, and <code>-&gt;</code> to access members through a pointer.</li>
+                    <li>Always initialize pointers and check for <code>nullptr</code> before dereferencing.</li>
+                    <li>When you allocate with <code>new</code>, free with <code>delete</code> or <code>delete[]</code> accordingly; prefer smart pointers to avoid errors.</li>
+                    <li>Use destructors and RAII to ensure resources are freed reliably.</li>
+                </ul>
+            </section>
+            <section class="section" id="additional-resources">
+                <h2>🔗 Additional Resources</h2>
+                <ul>
+                    <li><a href="https://youtu.be/_JAoGvOPT7A" target="_blank" rel="noopener">Pointers: Crash Course</a></li>
+                    <li><a href="https://youtu.be/o3CaZyVxkwg" target="_blank" rel="noopener">Why we need Destructors</a></li>
+                    <li>Files used in the demo: <a href="https://mendocino.instructure.com/courses/21391/files/2620330?wrap=1" target="_blank" rel="noopener">pointers.zip</a></li>
+                </ul>
+            </section>
+
+        <section class="quiz-section" id="quiz">
+            <h2>📝 Quick Quiz (Check your understanding)</h2>
+
+            <div class="quiz-question" id="q1">
+                <h4>1) What does <code>int* p;</code> declare?</h4>
+                <label><input type="radio" name="q1" value="a"> A variable that stores an int value</label>
+                <label><input type="radio" name="q1" value="b"> A variable that stores the address of an int</label>
+                <label><input type="radio" name="q1" value="c"> A function returning an int</label>
+                <button class="check-answer-btn" onclick="checkAnswer('q1', 'b', 1)">Check Answer</button>
+                <div class="feedback" id="feedback1" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
             </div>
 
-<div class="section" id="destructors">
-    <h2>🧹 Destructors & Memory Management</h2>
-    <p>Destructors are special member functions that run when an object is destroyed. Use them to free resources (memory, file handles) that the object acquired during its lifetime.</p>
-    <div class="code-block" role="region" aria-label="Destructor code example" tabindex="0">
-<pre>class Foo {
-public:
-    Foo() { ptr = new int[10]; }
-    ~Foo() { delete[] ptr; }
-private:
-    int* ptr;
-};
+            <div class="quiz-question" id="q2">
+                <h4>2) Which operator gives the address of a variable?</h4>
+                <label><input type="radio" name="q2" value="a"> *</label>
+                <label><input type="radio" name="q2" value="b"> -&gt;</label>
+                <label><input type="radio" name="q2" value="c"> &amp;</label>
+                <button class="check-answer-btn" onclick="checkAnswer('q2', 'c', 2)">Check Answer</button>
+                <div class="feedback" id="feedback2" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
+            </div>
 
-// RAII: prefer patterns where acquisition and release are tied to object lifetime.
-// Better: use smart pointers
-#include &lt;memory&gt;
-std::unique_ptr&lt;int[]&gt; arr = std::make_unique&lt;int[]&gt;(10); // auto freed
-</pre>
-    </div>
-    <p>Modern C++ recommends RAII and smart pointers (<code>std::unique_ptr</code>, <code>std::shared_ptr</code>) to avoid manual <code>new</code>/<code>delete</code> bookkeeping.</p>
+            <div class="quiz-question" id="q3">
+                <h4>3) Which is the correct way to free an array allocated with <code>new int[5]</code>?</h4>
+                <label><input type="radio" name="q3" value="a"> delete ptr;</label>
+                <label><input type="radio" name="q3" value="b"> delete[] ptr;</label>
+                <label><input type="radio" name="q3" value="c"> free(ptr);</label>
+                <button class="check-answer-btn" onclick="checkAnswer('q3', 'b', 3)">Check Answer</button>
+                <div class="feedback" id="feedback3" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
+            </div>
+
+            <div class="quiz-question" id="q4">
+                <h4>4) What does a destructor do?</h4>
+                <label><input type="radio" name="q4" value="a"> Initializes member variables</label>
+                <label><input type="radio" name="q4" value="b"> Cleans up resources when an object is destroyed</label>
+                <label><input type="radio" name="q4" value="c"> Allocates dynamic memory</label>
+                <button class="check-answer-btn" onclick="checkAnswer('q4', 'b', 4)">Check Answer</button>
+                <div class="feedback" id="feedback4" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
+            </div>
+
+            <div class="mt-20">
+                <button class="check-answer-btn" onclick="checkAll({q1: 'b', q2: 'c', q3: 'b', q4: 'b'})">Check All</button>
+                <div id="quiz-summary" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="margin-top:12px;font-weight:700"></div>
+            </div>
+        </section>
+
+        <div class="important-note">
+            <strong>💡 Next steps:</strong> Try the examples in <code>pointers.zip</code>, then refactor to use <code>std::unique_ptr</code> where possible.
+        </div>
+
+    </main>
 </div>
-
-<div class="section" id="examples">
-    <h2>🔍 Examples & Common Pitfalls</h2>
-
-    <h3>Null and dangling pointers</h3>
-    <div class="code-block" role="region" aria-label="Null/dangling pointers example" tabindex="0">
-<pre>// Null pointer safe check
-int* p = nullptr;
-if (p) { *p = 5; } // check before dereferencing
-
-// Dangling pointer example
-int* q = new int(5);
-delete q; // q now dangling; set to nullptr to avoid reuse
-q = nullptr;
-</pre>
-    </div>
-
-    <h3>Mismatched delete / delete[]</h3>
-    <div class="code-block" role="region" aria-label="delete[] example" tabindex="0">
-<pre>int* a = new int[5];
-// wrong: delete a;  // leads to undefined behavior
-delete[] a; // correct
-</pre>
-    </div>
-
-    <h3>Double delete</h3>
-    <p>Never call <code>delete</code> on the same pointer more than once. Reset pointers to <code>nullptr</code> after deleting, or better, use smart pointers.</p>
-</div>
-
-<div class="key-takeaway" id="key-takeaways">
-    <h3>✅ Key Takeaways</h3>
-    <ul>
-        <li>Pointers store addresses; use <code>*</code> to dereference, <code>&amp;</code> to get an address, and <code>-&gt;</code> to access members through a pointer.</li>
-        <li>Always initialize pointers and check for <code>nullptr</code> before dereferencing.</li>
-        <li>When you allocate with <code>new</code>, free with <code>delete</code> or <code>delete[]</code> accordingly; prefer smart pointers to avoid errors.</li>
-        <li>Use destructors and RAII to ensure resources are freed reliably.</li>
-    </ul>
-</div>
-<div class="section" id="additional-resources">
-    <h2>🔗 Additional Resources</h2>
-    <ul>
-        <li><a href="https://youtu.be/_JAoGvOPT7A" target="_blank" rel="noopener">Pointers: Crash Course</a></li>
-        <li><a href="https://youtu.be/o3CaZyVxkwg" target="_blank" rel="noopener">Why we need Destructors</a></li>
-        <li>Files used in the demo: <a href="https://mendocino.instructure.com/courses/21391/files/2620330?wrap=1" target="_blank" rel="noopener">pointers.zip</a></li>
-    </ul>
-</div>
-
-<div class="quiz-section" id="quiz">
-    <h2>📝 Quick Quiz (Check your understanding)</h2>
-
-    <div class="quiz-question" id="q1">
-        <h4>1) What does <code>int* p;</code> declare?</h4>
-        <label><input type="radio" name="q1" value="a"> A variable that stores an int value</label>
-        <label><input type="radio" name="q1" value="b"> A variable that stores the address of an int</label>
-        <label><input type="radio" name="q1" value="c"> A function returning an int</label>
-        <button class="check-answer-btn" onclick="checkAnswer('q1', 'b', 1)">Check Answer</button>
-        <div class="feedback" id="feedback1" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
-    </div>
-
-    <div class="quiz-question" id="q2">
-        <h4>2) Which operator gives the address of a variable?</h4>
-        <label><input type="radio" name="q2" value="a"> *</label>
-        <label><input type="radio" name="q2" value="b"> -&gt;</label>
-        <label><input type="radio" name="q2" value="c"> &amp;</label>
-        <button class="check-answer-btn" onclick="checkAnswer('q2', 'c', 2)">Check Answer</button>
-        <div class="feedback" id="feedback2" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
-    </div>
-
-    <div class="quiz-question" id="q3">
-        <h4>3) Which is the correct way to free an array allocated with <code>new int[5]</code>?</h4>
-        <label><input type="radio" name="q3" value="a"> delete ptr;</label>
-        <label><input type="radio" name="q3" value="b"> delete[] ptr;</label>
-        <label><input type="radio" name="q3" value="c"> free(ptr);</label>
-        <button class="check-answer-btn" onclick="checkAnswer('q3', 'b', 3)">Check Answer</button>
-        <div class="feedback" id="feedback3" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
-    </div>
-
-    <div class="quiz-question" id="q4">
-        <h4>4) What does a destructor do?</h4>
-        <label><input type="radio" name="q4" value="a"> Initializes member variables</label>
-        <label><input type="radio" name="q4" value="b"> Cleans up resources when an object is destroyed</label>
-        <label><input type="radio" name="q4" value="c"> Allocates dynamic memory</label>
-        <button class="check-answer-btn" onclick="checkAnswer('q4', 'b', 4)">Check Answer</button>
-        <div class="feedback" id="feedback4" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="display:none"></div>
-    </div>
-
-    <div style="margin-top:20px;">
-        <button class="check-answer-btn" onclick="checkAll()">Check All</button>
-        <div id="quiz-summary" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" style="margin-top:12px;font-weight:700"></div>
-    </div>
-</div>
-
-<div class="note">
-    <strong>💡 Next steps:</strong> Try the examples in <code>pointers.zip</code>, then refactor to use <code>std::unique_ptr</code> where possible.
-</div>
-
-</main>
-</div>
-
-<!-- TOC Menu Button -->
-<button id="tocMenuButton" title="Table of Contents" aria-controls="toc-nav" aria-expanded="false">📋 Menu</button>
-
-
 <!-- Back to Top Button -->
 <button id="backToTop" title="Back to Top" aria-label="Back to top">↑</button>
-
-<script>
-    function checkAnswer(qName, correct, id) {
-        const radios = document.getElementsByName(qName);
-        let selected = null;
-        for (const r of radios) { if (r.checked) selected = r.value; }
-        const feedback = document.getElementById('feedback' + id);
-        feedback.style.display = 'block';
-        if (!selected) {
-            feedback.textContent = 'Please select an answer.';
-            feedback.className = 'feedback incorrect';
-            feedback.setAttribute('tabindex','-1');
-            feedback.focus();
-            return;
-        }
-        if (selected === correct) {
-            feedback.textContent = 'Correct! ✅';
-            feedback.className = 'feedback correct';
-            feedback.setAttribute('tabindex','-1');
-            feedback.focus();
-        } else {
-            feedback.textContent = 'Incorrect. Try reviewing the section above. ❌';
-            feedback.className = 'feedback incorrect';
-            feedback.setAttribute('tabindex','-1');
-            feedback.focus();
-        }
-    }
-
-    function checkAll() {
-        const answers = { q1: 'b', q2: 'c', q3: 'b', q4: 'b' };
-        let score = 0; let total = Object.keys(answers).length;
-        for (const [q, ans] of Object.entries(answers)) {
-            const radios = document.getElementsByName(q);
-            let selected = null; for (const r of radios) if (r.checked) selected = r.value;
-            if (selected === ans) score++;
-            const id = q.replace('q','');
-            const feedback = document.getElementById('feedback' + id);
-            feedback.style.display = 'block';
-            if (!selected) { feedback.textContent = 'No answer selected.'; feedback.className='feedback incorrect'; }
-            else if (selected === ans) { feedback.textContent = 'Correct! ✅'; feedback.className='feedback correct'; }
-            else { feedback.textContent = 'Incorrect. ❌'; feedback.className='feedback incorrect'; }
-        }
-        const summary = document.getElementById('quiz-summary');
-        summary.textContent = `You scored ${score} / ${total}.`;
-        summary.setAttribute('tabindex','-1');
-        summary.focus();
-    }
-
-        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
-        const toc = document.querySelector('.toc');
-        const tocLinks = document.querySelectorAll('.toc a');
-        const backToTopButton = document.getElementById('backToTop');
-        const tocMenuButton = document.getElementById('tocMenuButton');
-        let tocIsOpen = false;
-
-        // Get all section IDs from TOC links
-        const sections = Array.from(tocLinks).map(link => {
-            const href = link.getAttribute('href');
-            return href ? document.querySelector(href) : null;
-        }).filter(section => section !== null);
-
-        // Toggle TOC menu
-        tocMenuButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            tocIsOpen = !tocIsOpen;
-            tocMenuButton.setAttribute('aria-expanded', tocIsOpen ? 'true' : 'false');
-            if (tocIsOpen) {
-                toc.classList.add('sticky', 'open');
-                tocMenuButton.textContent = '✖️ Close';
-                // move focus into TOC for keyboard users
-                const firstLink = toc.querySelector('a'); if (firstLink) firstLink.focus();
-            } else {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-                tocMenuButton.focus();
-            }
-        });
-
-        // Close menu with Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && tocIsOpen) {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-                tocMenuButton.setAttribute('aria-expanded', 'false');
-                tocIsOpen = false;
-                tocMenuButton.focus();
-            }
-        });
-
-        // Close TOC when clicking outside
-        document.addEventListener('click', function(event) {
-            if (tocIsOpen && !toc.contains(event.target) && event.target !== tocMenuButton) {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-                tocMenuButton.setAttribute('aria-expanded', 'false');
-                tocIsOpen = false;
-            }
-        });
-
-        // Simple scroll handler
-        let ticking = false;
-
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-                    // Show menu button after scrolling 200px
-                    if (scrollPosition > 200) {
-                        tocMenuButton.classList.add('show');
-                        toc.classList.add('sticky');
-                    } else {
-                        if (!tocIsOpen) {
-                            tocMenuButton.classList.remove('show');
-                            toc.classList.remove('sticky');
-                        }
-                    }
-
-                    // Show/hide back to top button
-                    if (scrollPosition > 300) {
-                        backToTopButton.classList.add('show');
-                    } else {
-                        backToTopButton.classList.remove('show');
-                    }
-
-                    // Highlight active section in TOC
-                    let currentSection = '';
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop - 150;
-                        const sectionBottom = sectionTop + section.offsetHeight;
-
-                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                            currentSection = section.getAttribute('id');
-                        }
-                    });
-
-                    // Update active link
-                    tocLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === '#' + currentSection) {
-                            link.classList.add('active');
-                        }
-                    });
-
-                    ticking = false;
-                });
-
-                ticking = true;
-            }
-        }, { passive: true });
-
-        // Back to top button click
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Smooth scroll for TOC links and close menu
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 20;
-                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-
-                    // Close TOC menu after clicking a link
-                    if (tocIsOpen) {
-                        toc.classList.remove('open');
-                        tocMenuButton.textContent = '📋 Menu';
-                        tocIsOpen = false;
-                    }
-                }
-            });
-        });
-
-</script>
-
+<script src="../scripts.js"></script>
 </body>
 </html>

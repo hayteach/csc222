@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java & C++ Similarities and Differences</title>
+    <link rel="stylesheet" href="../styles.css">
     <style>
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -47,7 +48,7 @@
         
         .content {
             padding: 40px;
-        }
+        } */
         
         /* Table of Contents / Menu */
         .toc {
@@ -148,34 +149,7 @@
             }
         }
         
-        /* Back to Top Button */
-        #backToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: #667eea;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 999;
-            transition: all 0.3s ease;
-        }
         
-        #backToTop:hover {
-            background-color: #764ba2;
-            transform: scale(1.1);
-        }
-        
-        #backToTop.show {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-        }
         
         @keyframes fadeIn {
             from {
@@ -188,13 +162,6 @@
             }
         }
         
-        .section {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
-        }
         
         h2 {
             color: #2c3e50;
@@ -325,32 +292,36 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+    
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#variables">Variable Declarations</a></li>
+            <li><a href="#imports">Importing Libraries</a></li>
+            <li><a href="#classes">Creating Classes</a></li>
+            <li><a href="#console">Console Programs</a></li>
+            <li><a href="#control">Control Structures</a></li>
+            <li><a href="#operators">Operators</a></li>
+        </ul>
+    </nav>
     <div class="container">
         <header>
             <h1>📚 Java & C++ Quick Reference</h1>
             <p>Your comprehensive guide to similarities and differences!</p>
         </header>
         
-        <div class="content">
-            <div class="note">
+        <main class="content">
+            <div class="important-note">
                 <strong>🎯 Pro Tip:</strong> This page highlights the key similarities and differences between Java and C++. Use it as a quick reference when writing code!
             </div>
             
-            <!-- Table of Contents -->
-            <div class="toc">
-                <h3>📋 Quick Navigation</h3>
-                <ul>
-                    <li><a href="#variables">Variable Declarations</a></li>
-                    <li><a href="#imports">Importing Libraries</a></li>
-                    <li><a href="#classes">Creating Classes</a></li>
-                    <li><a href="#console">Console Programs</a></li>
-                    <li><a href="#control">Control Structures</a></li>
-                    <li><a href="#operators">Operators</a></li>
-                </ul>
-            </div>
-            
             <!-- Section: Variable Declarations -->
-            <div class="section" id="variables">
+            <section class="section" id="variables">
                 <h2>📊 Variable Declarations</h2>
                 <p>Most primitive data types are identical between Java and C++, with a few minor exceptions.</p>
                 
@@ -391,13 +362,13 @@
                     </tbody>
                 </table>
                 
-                <div class="note">
+                <div class="important-note">
                     <strong>⚠️ Watch Out!</strong> In C++, use <code>bool</code> (not <code>boolean</code>) and <code>string</code> (lowercase, not <code>String</code>).
                 </div>
-            </div>
+            </section>
             
             <!-- Section: Importing Libraries -->
-            <div class="section" id="imports">
+            <section class="section" id="imports">
                 <h2>📦 Importing Libraries</h2>
                 <p>Both languages allow you to import external code, but they use different syntax.</p>
                 
@@ -432,10 +403,10 @@ import java.util.Scanner;
 #include &lt;iostream&gt;
 #include &lt;string&gt;</pre>
                 </div>
-            </div>
+            </section>
             
             <!-- Section: Creating Classes -->
-            <div class="section" id="classes">
+            <section class="section" id="classes">
                 <h2>🏗️ Creating Classes</h2>
                 <p>Class creation differs significantly between Java and C++.</p>
                 
@@ -468,10 +439,10 @@ import java.util.Scanner;
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </section>
             
             <!-- Section: Console Programs -->
-            <div class="section" id="console">
+            <section class="section" id="console">
                 <h2>💻 Creating Console Programs</h2>
                 <p>Console programs have different entry points in each language.</p>
                 
@@ -508,10 +479,10 @@ import java.util.Scanner;
                 <div class="note">
                     <strong>✨ Key Difference:</strong> C++ doesn't require a class wrapper for console programs—just a simple <code>main()</code> function!
                 </div>
-            </div>
+            </section>
             
             <!-- Section: Control Structures -->
-            <div class="section" id="control">
+            <section class="section" id="control">
                 <h2>🔀 Control Structures</h2>
                 <p>Great news! Control structures are virtually identical in both languages.</p>
                 
@@ -550,10 +521,10 @@ import java.util.Scanner;
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </section>
             
             <!-- Section: Operators -->
-            <div class="section" id="operators">
+            <section class="section" id="operators">
                 <h2>🔢 Operators</h2>
                 <p>All comparison and logical operators work identically!</p>
                 
@@ -578,10 +549,10 @@ import java.util.Scanner;
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </section>
             
             <!-- Key Takeaways -->
-            <div class="key-takeaway">
+            <section class="key-takeaway">
                 <h3>🎯 Key Takeaways</h3>
                 <ul>
                     <li>Most data types are identical (watch for <code>bool</code> and <code>string</code>)</li>
@@ -591,133 +562,12 @@ import java.util.Scanner;
                     <li>All control structures (if, for, while) are identical! 🎉</li>
                     <li>All operators work the same way</li>
                 </ul>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
-    
-    <!-- TOC Menu Button -->
-    <button id="tocMenuButton" title="Table of Contents">📋 Menu</button>
     
     <!-- Back to Top Button -->
     <button id="backToTop" title="Back to Top">↑</button>
-    
-    <script>
-        // ===== Collapsible TOC Menu, Back to Top, and Active Section Highlighting =====
-        
-        const toc = document.querySelector('.toc');
-        const tocLinks = document.querySelectorAll('.toc a');
-        const backToTopButton = document.getElementById('backToTop');
-        const tocMenuButton = document.getElementById('tocMenuButton');
-        let tocIsOpen = false;
-        
-        // Get all section IDs from TOC links
-        const sections = Array.from(tocLinks).map(link => {
-            const href = link.getAttribute('href');
-            return href ? document.querySelector(href) : null;
-        }).filter(section => section !== null);
-        
-        // Toggle TOC menu
-        tocMenuButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            tocIsOpen = !tocIsOpen;
-            
-            if (tocIsOpen) {
-                toc.classList.add('sticky', 'open');
-                tocMenuButton.textContent = '✖ Close';
-            } else {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-            }
-        });
-        
-        // Close TOC when clicking outside
-        document.addEventListener('click', function(e) {
-            if (tocIsOpen && !toc.contains(e.target) && e.target !== tocMenuButton) {
-                toc.classList.remove('open');
-                tocMenuButton.textContent = '📋 Menu';
-                tocIsOpen = false;
-            }
-        });
-        
-        // Scroll event with requestAnimationFrame for better performance
-        let ticking = false;
-        
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    const scrollPosition = window.scrollY;
-                    
-                    // Show/hide menu button and back to top button
-                    if (scrollPosition > 200) {
-                        tocMenuButton.classList.add('show');
-                    } else {
-                        tocMenuButton.classList.remove('show');
-                    }
-                    
-                    if (scrollPosition > 300) {
-                        backToTopButton.classList.add('show');
-                    } else {
-                        backToTopButton.classList.remove('show');
-                    }
-                    
-                    // Active section highlighting
-                    let currentSection = '';
-                    sections.forEach(section => {
-                        const sectionTop = section.offsetTop - 150;
-                        const sectionBottom = sectionTop + section.offsetHeight;
-                        
-                        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                            currentSection = section.getAttribute('id');
-                        }
-                    });
-                    
-                    // Update active link
-                    tocLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === '#' + currentSection) {
-                            link.classList.add('active');
-                        }
-                    });
-                    
-                    ticking = false;
-                });
-                
-                ticking = true;
-            }
-        }, { passive: true });
-        
-        // Back to top button click
-        backToTopButton.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Smooth scroll for TOC links and close menu
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 20;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close TOC menu after clicking a link
-                    if (tocIsOpen) {
-                        toc.classList.remove('open');
-                        tocMenuButton.textContent = '📋 Menu';
-                        tocIsOpen = false;
-                    }
-                }
-            });
-        });
-    </script>
+    <script src="../scripts.js" defer></script>
 </body>
 </html>
