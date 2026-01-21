@@ -1,36 +1,134 @@
-<p>A template class is one that is based on the idea of code reuse where you can have an algorithmic solution to a problem and you can generalize it across different data types.&nbsp;</p>
-<p>&nbsp;</p>
-<table style="border-collapse: collapse; width: 97.9817%; height: 56px;" border="0">
-    <tbody>
-        <tr style="height: 28px;">
-            <td class="col-half v-top">
-                <p>To address this, I want to look at the concept of a BAG. A bag is a construct that we can put things into. We can also:</p>
-                <ul>
-                    <li>get how many things are stored in it</li>
-                    <li>check if it is empty</li>
-                    <li>get a list of everything in the bag</li>
-                </ul>
-            </td>
-            <td style="width: 49.9625%; height: 28px;"><img id="651003" src="https://mendocino.instructure.com/courses/21391/files/2620331/preview" alt="paperBag.jpg" width="306" height="320" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620331" data-api-returntype="File" />&nbsp;</td>
-        </tr>
-        <tr>
-            <td class="col-half v-top">
-                <p>We are going to create what is called a "template" class that allows us to use the bag to put things into. So we can have a bag of Strings or a bag of People, or a bag of Groceries, etc...</p>
-                <p>The one thing, is that our bag can only&nbsp; store items of the same type and instead of writing separate classes, one to have a bag of strings and another to have a bag of people, we will write 1 class that can be used to store whatever we want.</p>
-            </td>
-            <td style="width: 49.9625%;"><img id="651002" src="https://mendocino.instructure.com/courses/21391/files/2620333/preview" alt="FilledPaperBag.jpg" width="231" height="320" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620333" data-api-returntype="File" />&nbsp;</td>
-        </tr>
-    </tbody>
-</table>
-<p>The key to creating a template class is to include the following definition just before declaration of our class in our .h header file and before each method definition in our .cpp implementation file.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Week 4: Template Classes</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    <!-- Table of Contents -->
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Content
+    </button>
+    
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>📋 Content</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#key-concepts">Key Concepts</a></li>
+            <li><a href="#uml">UML Diagram</a></li>
+            <li><a href="#video">Video</a></li>
+            <li><a href="#files">Files</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header role="banner">
+            <h1>📦 Template Classes — Bag Example</h1>
+            <p>Learn how template classes let you build reusable container types (e.g., Bag&lt;ItemType&gt;).</p>
+        </header>
+
+        <main id="main-content" class="content" tabindex="-1" role="main">
+            <section id="overview" class="section" role="region" aria-labelledby="overview-heading">
+                <h2 id="overview-heading">📖 Overview</h2>
+                <p>A template class is one that is based on the idea of code reuse where you can have an algorithmic solution to a problem and you can generalize it across different data types.</p>
+
+                <div class="two-column">
+                    <div>
+                        <p>To address this, I want to look at the concept of a BAG. A bag is a construct that we can put things into. We can also:</p>
+                        <ul>
+                            <li>get how many things are stored in it</li>
+                            <li>check if it is empty</li>
+                            <li>get a list of everything in the bag</li>
+                        </ul>
+
+                        <p>We are going to create what is called a "template" class that allows us to use the bag to put things into. So we can have a bag of Strings or a bag of People, or a bag of Groceries, etc...</p>
+                        <p>The one thing, is that our bag can only store items of the same type and instead of writing separate classes, one to have a bag of strings and another to have a bag of people, we will write 1 class that can be used to store whatever we want.</p>
+                    </div>
+                    <div>
+                        <img src="https://mendocino.instructure.com/courses/21391/files/2620331/preview" alt="paperBag.jpg" width="306" height="320" />
+                        <img src="https://mendocino.instructure.com/courses/21391/files/2620333/preview" alt="FilledPaperBag.jpg" width="231" height="320" style="margin-top: 12px;" />
+                    </div>
+                </div>
+
+                <div class="highlight-box" role="region" aria-labelledby="templates-quick-guide-heading">
+                    <h3 id="templates-quick-guide-heading">💡 Quick Guide: Templates in C++</h3>
+                    <p><strong>What:</strong> Templates let you write generic classes or functions parameterized by type so the same code works for different types (for example, <code>Bag&lt;int&gt;</code> or <code>Bag&lt;std::string&gt;</code>). <strong>How:</strong> the compiler generates concrete code when you instantiate a template (instantiation happens during compilation).</p>
+
+                    <div class="code-block" role="region" aria-label="template example" tabindex="0">
+<pre>template&lt;class ItemType&gt;
+class Bag {
+public:
+  void add(const ItemType &i) { items.push_back(i); }
+  bool isEmpty() const { return items.empty(); }
+private:
+  std::vector<ItemType> items;
+};
+
+// usage:
+Bag&lt;int&gt; bi;
+bi.add(1);
+Bag&lt;std::string&gt; bs;
+bs.add("apple");</pre>
+                    </div>
+
+                    <p><strong>Quick notes / pitfalls:</strong></p>
+                    <ul class="no-bullets list-indent">
+                        <li>Put template definitions in headers so the compiler can instantiate them.</li>
+                        <li>Templates assume the operations you use on the type exist (e.g., <code>operator==</code> for a <code>contains()</code> method).</li>
+                        <li>Many instantiations can increase binary size; use templates judiciously.</li>
+                    </ul>
+
+                    <h4>Try this</h4>
+                    <ol class="step-list">
+                        <li>Create <code>Bag&lt;int&gt;</code> and <code>Bag&lt;std::string&gt;</code>, add elements, and iterate them.</li>
+                        <li>Add a <code>contains()</code> method (uses <code>operator==</code>) and test with a small <code>struct Person</code>.</li>
+                        <li>Practice RAII: use <code>std::unique_ptr</code> or smart containers to manage dynamic memory safely.</li>
+                    </ol>
+
+                    <p>Resources: <a href="https://en.cppreference.com/w/cpp/language/templates" target="_blank" rel="noopener">cppreference: Templates</a> • <a href="https://isocpp.org/wiki/faq/templates" target="_blank" rel="noopener">ISOC++ FAQ</a></p>
+                </div>
+            </section>
+
+            <section id="key-concepts" class="highlight-box" role="region" aria-labelledby="key-concepts-heading">
+                <h2 id="key-concepts-heading">🔑 Key Concepts</h2>
+                <p>The key to creating a template class is to include the following definition just before declaration of our class in our <code>.h</code> header file and before each method definition in our <code>.cpp</code> implementation file.</p>
+                <div class="code-block" role="region" aria-label="template example" tabindex="0">
 <pre>template&lt;class ItemType&gt;</pre>
-<p>Where:</p>
-<p>ItemType is just a placeholder variable for whatever you plan to store in the bag (NOTE: You don't have to use "ItemType" but it is what I use as it describes what this is).</p>
-<p>A UML diagram of our basic bag class:<br /><img id="651032" src="https://mendocino.instructure.com/courses/21391/files/2620332/preview" alt="BagUML.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620332" data-api-returntype="File" />&nbsp;</p>
-<p>The following video reviews, discusses and walks through how to create and use/test the concept of a Bag construct.</p>
-<p><a href="https://youtu.be/vwCUEScWSoQ" target="_blank" rel="noopener">Intro to Template Classes</a></p>
-<p>&nbsp;</p>
-<p>Files Created in Video:</p>
-<p><a class="instructure_file_link instructure_scribd_file" title="Bag.h" href="https://mendocino.instructure.com/courses/21391/files/2620334?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620334" data-api-returntype="File">Bag.h</a></p>
-<p><a class="instructure_file_link instructure_scribd_file" title="Bag.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620335?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620335" data-api-returntype="File">Bag.cpp</a> <a class="instructure_file_link instructure_scribd_file" title="bagTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620336?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620336" data-api-returntype="File"></a></p>
-<p><a class="instructure_file_link instructure_scribd_file" title="bagTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620336?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620336" data-api-returntype="File">bagTester.cpp</a>&nbsp;</p>
+                </div>
+
+                <p><strong>Note:</strong> <code>ItemType</code> is just a placeholder variable for whatever you plan to store in the bag (you can name it differently if you prefer).</p>
+            </section>
+
+            <section id="uml" class="info-card" role="region" aria-labelledby="uml-heading">
+                <h2 id="uml-heading">📐 UML Diagram</h2>
+                <p>A UML diagram of our basic bag class:</p>
+                <img src="https://mendocino.instructure.com/courses/21391/files/2620332/preview" alt="BagUML.jpg" style="max-width:100%;height:auto;" />
+            </section>
+
+            <section id="video" class="video-box" role="region" aria-labelledby="video-heading">
+                <h3>🎬 Video</h3>
+                <p>The following video reviews, discusses and walks through how to create and use/test the concept of a Bag construct.</p>
+                <p><a class="video-link" href="https://youtu.be/vwCUEScWSoQ" target="_blank" rel="noopener">Intro to Template Classes</a></p>
+            </section>
+
+            <section id="files" class="section" role="region" aria-labelledby="files-heading">
+                <h2 id="files-heading">📁 Files from the Video</h2>
+                <ul>
+                    <li><a class="instructure_file_link" title="Bag.h" href="https://mendocino.instructure.com/courses/21391/files/2620334?wrap=1" target="_blank" rel="noopener">Bag.h</a></li>
+                    <li><a class="instructure_file_link" title="Bag.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620335?wrap=1" target="_blank" rel="noopener">Bag.cpp</a></li>
+                    <li><a class="instructure_file_link" title="bagTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620336?wrap=1" target="_blank" rel="noopener">bagTester.cpp</a></li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to Top">↑</button>
+    <script src="../scripts.js"></script>
+</body>
+</html>

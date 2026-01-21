@@ -222,6 +222,7 @@ pre {
 
 .video-link:hover, .video-link:focus {
     background: #764ba2;
+    color: #ffffff;
     transform: translateX(5px);
 }
 
