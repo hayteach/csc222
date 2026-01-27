@@ -1,47 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Week 4: Lab — Singly Linked List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4 Lab: Singly Linked List</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
 
+    <!-- Table of Contents -->
     <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
-        <span class="emoji" aria-hidden="true">📑</span> Content
+        <span class="emoji" aria-hidden="true">📑</span> Lab Sections
     </button>
     
     <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
-        <h3>📋 Content</h3>
+        <h3>📋 Lab Sections</h3>
         <ul>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#files">Files</a></li>
+            <li><a href="#tasks">Tasks</a></li>
+            <li><a href="#starter-code">Starter Code</a></li>
+            <li><a href="#submission">Submission</a></li>
         </ul>
     </nav>
 
     <div class="container">
         <header role="banner">
-            <h1>🔨 Lab: Singly Linked List</h1>
-            <p>Practice building and traversing a singly linked list using the class `Node` covered in setup.</p>
+            <h1>🔨 Lab 04: Singly Linked List — Hands-on Practice</h1>
+            <p>Implement a singly linked list that stores integers and supports forward and reverse traversal.</p>
         </header>
 
         <main id="main-content" class="content" tabindex="-1" role="main">
+            <div class="important-note">
+                <strong>🎯 Goal:</strong> Build a singly linked list using a `Node` class: insert nodes, traverse forward, traverse in reverse (recursively or by stack), and manage memory correctly.
+            </div>
+
             <section id="overview" class="section" role="region" aria-labelledby="overview-heading">
-                <h2 id="overview-heading">📖 Overview</h2>
-                <p>Write a C++ program that creates a singly linked list of n nodes (ints) and displays the list in forward and reverse order.</p>
+                <h2 id="overview-heading">📖 Assignment Overview</h2>
+                <p>Write a C++ program that constructs a singly linked list of <code>n</code> integer nodes. The program should display the list in the order entered and in reverse order. Use the `Node` class we covered in the setup.</p>
             </section>
 
-            <section id="instructions" class="section" role="region" aria-labelledby="instructions-heading">
-                <h3 id="instructions-heading">Instructions</h3>
+            <section id="tasks" class="section" role="region" aria-labelledby="tasks-heading">
+                <h2 id="tasks-heading">🧾 Tasks</h2>
                 <ol>
-                    <li>Create a `Node` class (header + implementation) if not already provided.</li>
-                    <li>Build functions to insert nodes, traverse and print forward, and print in reverse.</li>
-                    <li>Test your program with different inputs and edge cases.</li>
+                    <li>Create the <code>Node</code> class (header and implementation) if it's not provided.</li>
+                    <li>Implement functions to insert a node at the end and to traverse the list printing values.</li>
+                    <li>Implement printing the list in reverse (recursion or using a stack).</li>
+                    <li>Ensure proper memory management: delete nodes when no longer needed.</li>
+                    <li>Test the program with several inputs including edge cases (empty list, one node, many nodes).</li>
                 </ol>
-                <p>Submit your program including `Node.h` and `Node.cpp` as a compressed archive (.zip, .7z, or .rar).</p>
+            </section>
+
+            <section id="starter-code" class="section" role="region" aria-labelledby="starter-heading">
+                <h2 id="starter-heading">💻 Starter Code</h2>
+                <div class="code-box" role="region" aria-label="Starter code example" tabindex="0">
+<pre>
+// Node.h
+#ifndef NODE_H
+#define NODE_H
+
+class Node {
+public:
+    int value;
+    Node* next;
+    Node(int v, Node* n = nullptr) : value(v), next(n) {}
+};
+
+#endif
+
+// Lab04.cpp
+#include &lt;iostream&gt;
+#include "Node.h"
+using namespace std;
+
+int main() {
+    // Build list, read input, and print forward and reverse
+    return 0;
+}
+</pre>
+                </div>
+            </section>
+
+             <section class="submission-box" id="submission">
+                <h3>📤 Submission Instructions</h3>
+                <p><strong>What to Submit:</strong></p>
+                <ul>
+                    <li>Compress all files (e.g., <code>Lab04.cpp</code>, <code>Node.h</code>, <code>Node.cpp</code>) into a single archive</li>
+                    <li>Accepted formats: <code>.zip</code>, <code>.7z</code>, or <code>.rar</code></li>
+                    <li>Submit your compressed file through Canvas</li>
+                </ul>
+                
+                <div class="important-note mt-20">
+                    <strong>⚠️ Important:</strong> Make sure all required files and a sample run output are included. Missing files will result in point deductions!
+                </div>
             </section>
 
             <section id="files" class="section" role="region" aria-labelledby="files-heading">

@@ -1,55 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Week 4: Homework — Linked List Assignment</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: Linked List Homework — Bag ADT</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
-
+    <!-- Table of Contents -->
     <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
-        <span class="emoji" aria-hidden="true">📑</span> Content
+        <span class="emoji" aria-hidden="true">📑</span> Assignment Sections
     </button>
     
     <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
-        <h3>📋 Content</h3>
+        <h3>📋 Assignment Sections</h3>
         <ul>
-            <li><a href="#overview">Overview</a></li>
+            <li><a href="#overview">Assignment Overview</a></li>
+            <li><a href="#video">Video</a></li>
+            <li><a href="#instructions">Instructions</a></li>
+            <li><a href="#checklist">Checklist</a></li>
             <li><a href="#submission">Submission</a></li>
-            <li><a href="#resources">Resources</a></li>
         </ul>
     </nav>
 
     <div class="container">
         <header role="banner">
-            <h1>📝 Homework: Linked List — Bag ADT</h1>
-            <p>Follow the linked-list tutorial to implement the Linked Bag and submit your archive.</p>
+            <h1>🧭 Homework 3: Linked-list Bag Implementation</h1>
+            <p>Implement the Bag ADT using a singly linked list. Follow the lecture and test your implementation thoroughly.</p>
         </header>
-
+        
         <main id="main-content" class="content" tabindex="-1" role="main">
+            <div class="important-note">
+                <strong>🎯 Assignment Goal:</strong> Translate the Bag ADT into a linked-list implementation (Node + LinkedBag classes/templates), and ensure correct behavior and memory management.
+            </div>
+
             <section id="overview" class="section" role="region" aria-labelledby="overview-heading">
                 <h2 id="overview-heading">📖 Overview</h2>
-                <p>For this assignment, implement a linked-list version of the Bag ADT covered in class. Your implementation should include all necessary files (header and source files) and be tested.</p>
+                <p>This assignment asks you to implement a linked-list based Bag ADT as demonstrated in the lecture. Focus on correctness, clear code organization (headers & implementations), and testing.</p>
             </section>
 
-            <section id="submission" class="section" role="region" aria-labelledby="submission-heading">
-                <h3 id="submission-heading">Submission</h3>
-                <p>Please submit your final code as a compressed archive (.zip, .7z or .rar accepted). The project should include approximately 5–6 files (headers, source files, and a tester).</p>
-                <p><strong>Helpful link:</strong> <a title="Linked List Example/Lecture" href="https://mendocino.instructure.com/courses/21391/pages/linked-list-example-slash-lecture" target="_blank" rel="noopener">Linked List Example / Lecture</a></p>
+            <section id="video" class="video-box" role="region" aria-labelledby="video-heading">
+                <h3 id="video-heading">🎬 Video</h3>
+                <p>Watch the lecture and follow along.</p>
+                <p><a class="video-link" href="https://mendocino.instructure.com/courses/21391/pages/linked-list-example-slash-lecture" target="_blank" rel="noopener">Linked List Example / Lecture (Course Page)</a></p>
             </section>
 
-            <section id="resources" class="section" role="region" aria-labelledby="resources-heading">
-                <h2 id="resources-heading">📁 Resources</h2>
+            <section id="instructions" class="section" role="region" aria-labelledby="instructions-heading">
+                <h2 id="instructions-heading">🛠 Instructions</h2>
+                <ol>
+                    <li>Define a <code>Node</code> class (header + implementation) to hold item data and next pointer.</li>
+                    <li>Implement <code>LinkedBag&lt;ItemType&gt;</code> as a template class with the usual bag operations (add, remove, contains, isEmpty, getCurrentSize, toVector, etc.).</li>
+                    <li>Make sure template definitions are available to the compiler (put definitions in headers or use inline templates).</li>
+                    <li>Create a tester program that demonstrates adding, removing, checking contents, and printing bag contents.</li>
+                    <li>Verify memory is managed properly (no leaks) and code compiles without warnings.</li>
+                </ol>
+            </section>
+
+            <section class="checklist" id="checklist">
+                <h3>✅ Pre-Submission Checklist</h3>
+                <p>Before submitting, ensure you have:</p>
                 <ul>
-                    <li><a href="https://en.cppreference.com/w/cpp/container/list" target="_blank" rel="noopener">std::list (cppreference)</a></li>
-                    <li><a href="https://isocpp.org/" target="_blank" rel="noopener">ISO C++</a></li>
+                    <li class="checklist-item">Program compiles with no warnings</li>
+                    <li class="checklist-item">All required source & header files included</li>
+                    <li class="checklist-item">Tester demonstrates add/remove/contains and edge cases</li>
+                    <li class="checklist-item">No memory leaks (use Valgrind or similar)</li>
+                    <li class="checklist-item">Top-of-file comments describe purpose and authorship</li>
                 </ul>
+            </section>
+
+            <section class="submission-box" id="submission">
+                <h3>📤 Submission Instructions</h3>
+                <p><strong>What to Submit:</strong></p>
+                <ul>
+                    <li>Compress your project files (headers, sources, tester) into a single archive (.zip, .7z, .rar accepted)</li>
+                    <li>Include a README with build/run instructions and a sample run output</li>
+                    <li>Upload the archive to Canvas / the assignment dropbox</li>
+                </ul>
+                <div class="important-note mt-20">
+                    <strong>⚠️ Important:</strong> Missing files or tests will result in point deductions. Make sure your tester covers edge cases (empty bag, duplicates, remove non-existing item).</div>
             </section>
         </main>
     </div>
 
+    <!-- Back to Top Button -->
     <button id="backToTop" title="Back to Top">↑</button>
     <script src="../scripts.js"></script>
 </body>
