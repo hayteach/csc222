@@ -35,7 +35,7 @@
         <main id="main-content" class="content" tabindex="-1" role="main">
             <section id="overview" class="section" role="region" aria-labelledby="overview-heading">
                 <h2 id="overview-heading">📖 Overview</h2>
-                <p>This page contains the short video series used in class for building a linked-list based Bag ADT (interface, Node, LinkedBag implementation, and testing). The videos are embedded so they can play inside an iframe.</p>
+                <p>This page contains the short video series used in class for building a linked-list based Bag ADT (interface, Node, LinkedBag implementation, and testing). </p>
             </section>
 
             <section id="bag-interface" class="video-box" role="region" aria-labelledby="bag-interface-heading">
@@ -85,9 +85,52 @@
 
             <section id="resources" class="section" role="region" aria-labelledby="resources-heading">
                 <h2 id="resources-heading">📁 Resources</h2>
+                <p>Here are curated resources for students learning linked lists in C++ — tutorials, visualizations, practice problems, and a short starter code snippet to get you coding quickly.</p>
                 <ul>
                     <li><a class="instructure_file_link" title="Example files" href="https://mendocino.instructure.com/courses/21391/pages/template-classes-introduction-and-example" target="_blank" rel="noopener">Template Class Example (Course Page)</a></li>
-                    <li><a class="instructure_file_link" title="Lecture files" href="https://mendocino.instructure.com/courses/21391/files" target="_blank" rel="noopener">Course Files</a></li>
+                    <li><a href="https://www.geeksforgeeks.org/data-structures/linked-list/" target="_blank" rel="noopener">GeeksforGeeks — Linked List (C++)</a> — Clear explanations and many example problems.</li>
+                    <li><a href="https://visualgo.net/en/list" target="_blank" rel="noopener">VisuAlgo — Linked Lists</a> — Interactive visualizations to step through insert/delete operations.</li>
+                    <li><a href="https://www.programiz.com/dsa/linked-list" target="_blank" rel="noopener">Programiz — Linked List tutorial</a> — Beginner-friendly guide with code samples.</li>
+                    <li><a href="https://en.cppreference.com/w/cpp/container/list" target="_blank" rel="noopener">cppreference — std::list</a> — Reference for the standard library doubly-linked list (useful for comparison).</li>
+                    <li><a href="https://leetcode.com/tag/linked-list/" target="_blank" rel="noopener">LeetCode — Linked List problems</a> — Practice problems (filter by difficulty to start easy).</li>
+                    <li><a href="https://valgrind.org/" target="_blank" rel="noopener">Valgrind — Memory checking</a> — Tool to detect memory leaks and invalid memory use.</li>
+                    <li><a href="https://www.youtube.com/watch?v=6x6UZa6S1Zg" target="_blank" rel="noopener">Short linked list walkthrough (YouTube)</a> — Another video explanation.</li>
+                </ul>
+
+                <h3>Starter Code</h3>
+                <div class="code-box" role="region" aria-label="Node starter code" tabindex="0">
+<pre>// Node.h
+#ifndef NODE_H
+#define NODE_H
+
+template&lt;class ItemType&gt;
+class Node {
+public:
+    ItemType data;
+    Node&lt;ItemType&gt;* next;
+    Node(const ItemType &d, Node&lt;ItemType&gt;* n = nullptr) : data(d), next(n) {}
+};
+
+#endif
+
+// LinkedBag (interface sketch)
+template&lt;class ItemType&gt;
+class LinkedBag {
+public:
+    bool add(const ItemType &item);
+    bool remove(const ItemType &item);
+    bool contains(const ItemType &item) const;
+    int getCurrentSize() const;
+    bool isEmpty() const;
+};</pre>
+                </div>
+
+                <h3>Practice & Tips</h3>
+                <ul>
+                    <li>Begin with implementing basic operations: insert at head, insert at tail, traverse and print.</li>
+                    <li>Test edge cases: empty list, single-item list, removing head/tail, removing non-existing items.</li>
+                    <li>Use Valgrind while testing to catch memory leaks and invalid accesses early.</li>
+                    <li>Work through a few easy LeetCode or GeeksforGeeks problems to build confidence.</li>
                 </ul>
             </section>
 
