@@ -19,10 +19,28 @@
         <ul>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#bag-interface">The Bag Interface</a></li>
-            <li><a href="#node-class">Creating a Node</a></li>
-            <li><a href="#linked-bag">Linked Bag</a></li>
+            <li>
+                <a href="#node-class">Creating a Node</a>
+                <ul>
+                    <li><a href="#node-header">Node — header</a></li>
+                    <li><a href="#node-impl">Node — implementation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#linked-bag">Linked Bag</a>
+                <ul>
+                    <li><a href="#linked-bag-header">Linked Bag — header</a></li>
+                    <li><a href="#linked-bag-impl">LinkedBag — implementation</a></li>
+                </ul>
+            </li>
             <li><a href="#testing">Testing</a></li>
-            <li><a href="#resources">Resources</a></li>
+            <li>
+                <a href="#resources">Resources</a>
+                <ul>
+                    <li><a href="#starter-code">Starter Code</a></li>
+                    <li><a href="#practice-tips">Practice &amp; Tips</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -51,11 +69,11 @@
                 <p><em>(The book sometimes uses a struct; here we show Node as a class.)</em></p>
                 <div class="video-grid two-column">
                     <div>
-                        <h4>Node header</h4>
+                        <h4 id="node-header">Node header</h4>
                         <iframe src="https://www.youtube.com/embed/R4PYAD9j2Y0" title="Creating the class Node header file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width:100%;height:315px;width:100%;"></iframe>
                     </div>
                     <div>
-                        <h4>Node implementation</h4>
+                        <h4 id="node-impl">Node implementation</h4>
                         <iframe src="https://www.youtube.com/embed/8-vOmOpEQUQ" title="Implementing the Node class" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width:100%;height:315px;width:100%;"></iframe>
                     </div>
                 </div>
@@ -65,11 +83,11 @@
                 <h3 id="linked-bag-heading">Creating the Linked Bag as a Template Class</h3>
                 <div class="video-grid two-column">
                     <div>
-                        <h4>Linked Bag header</h4>
+                        <h4 id="linked-bag-header">Linked Bag header</h4>
                         <iframe src="https://www.youtube.com/embed/Q-0BilGKwuw" title="Creating the Linked Bag header file" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width:100%;height:315px;width:100%;"></iframe>
                     </div>
                     <div>
-                        <h4>LinkedBag implementation</h4>
+                        <h4 id="linked-bag-impl">LinkedBag implementation</h4>
                         <iframe src="https://www.youtube.com/embed/Dpdf8r8tScc" title="Implementing the LinkedBag class" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width:100%;height:315px;width:100%;"></iframe>
                     </div>
                 </div>
@@ -96,8 +114,10 @@
                     <li><a href="https://valgrind.org/" target="_blank" rel="noopener">Valgrind — Memory checking</a> — Tool to detect memory leaks and invalid memory use.</li>
                     <li><a href="https://www.youtube.com/watch?v=6x6UZa6S1Zg" target="_blank" rel="noopener">Short linked list walkthrough (YouTube)</a> — Another video explanation.</li>
                 </ul>
+            </section>
+            <section id="starter-code" class="section" role="region" aria-labelledby="starter-heading">
 
-                <h3>Starter Code</h3>
+                <h3 id="starter-code">Starter Code</h3>
                 <div class="code-box" role="region" aria-label="Node starter code" tabindex="0">
 <pre>// Node.h
 #ifndef NODE_H
@@ -124,8 +144,10 @@ public:
     bool isEmpty() const;
 };</pre>
                 </div>
+                </section>  
+                <section id="practice-tips" class="section" role="region" aria-labelledby="practice-tips-heading">
 
-                <h3>Practice & Tips</h3>
+                <h3 id="practice-tips">Practice &amp; Tips</h3>
                 <ul>
                     <li>Begin with implementing basic operations: insert at head, insert at tail, traverse and print.</li>
                     <li>Test edge cases: empty list, single-item list, removing head/tail, removing non-existing items.</li>
