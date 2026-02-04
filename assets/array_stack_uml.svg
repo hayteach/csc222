@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 240" role="img" aria-labelledby="arrayUmlTitle" preserveAspectRatio="xMidYMid meet">
+  <title id="arrayUmlTitle">UML diagram: Array-based Stack</title>
+  <desc>Simple UML-style rectangle for arrayStack showing operations</desc>
+  <rect x="20" y="20" width="260" height="80" fill="#2a9d8f" stroke="#264653" rx="6"/>
+  <text x="150" y="48" font-size="16" fill="#fff" text-anchor="middle">arrayStack</text>
+  <text x="150" y="66" font-size="12" fill="#fff" text-anchor="middle">+ arrayStack(int=100)</text>
+  <rect x="320" y="20" width="260" height="160" fill="#e9c46a" stroke="#264653" rx="6"/>
+  <text x="450" y="48" font-size="14" fill="#000" text-anchor="middle">Attributes</text>
+  <text x="450" y="68" font-size="12" fill="#000" text-anchor="middle">- maxStackSize : int</text>
+  <text x="450" y="86" font-size="12" fill="#000" text-anchor="middle">- stackTop : int</text>
+  <text x="450" y="104" font-size="12" fill="#000" text-anchor="middle">- list : ItemType*</text>
+  <text x="450" y="132" font-size="14" fill="#000" text-anchor="middle">Operations</text>
+  <text x="450" y="150" font-size="12" fill="#000" text-anchor="middle">+ push(ItemType)</text>
+  <text x="450" y="168" font-size="12" fill="#000" text-anchor="middle">+ pop()</text>
+</svg>
