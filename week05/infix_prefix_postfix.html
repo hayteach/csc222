@@ -1,51 +1,78 @@
-<p>Infix, prefix and postfix are 3 different ways to write arithmetic expressions.</p>
-<p>infix - this is the way we learned in elementary school</p>
-<p>prefix - also called Polish Notation after the Polish mathemetician that developed it, is a way to write the same mathematical expression by putting the operator before the value so parentheses are not needed</p>
-<p>postfix - also called Reverse Polish Notation (RPN) because it is like prefix except the operator comes after the value also not requiring parentheses.</p>
-<p>Here are some examples:</p>
-<table class="layout-table" border="1">
-    <tbody>
-        <tr style="height: 29px;">
-            <th style="width: 33.3022%; height: 29px; text-align: center;">Infix</th>
-            <th style="width: 33.3022%; height: 29px; text-align: center;">Prefix</th>
-            <th style="width: 33.3022%; height: 29px; text-align: center;">Postfix</th>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a + b</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">+ a b</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b +</td>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a + b * c&nbsp;</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">+ a * b c</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b c * +</td>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a * b + c</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">+ * a b c</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b * c +</td>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">(a + b) * c</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">* + a b c</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b + c *</td>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">(a-b) * (c + d)</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">* - a b + c d</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b - c d + *</td>
-        </tr>
-        <tr style="height: 29px;">
-            <td style="width: 33.3022%; height: 29px; text-align: center;">(a + b) * (c - d / e) + f</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">+ * + a b - c / d e f</td>
-            <td style="width: 33.3022%; height: 29px; text-align: center;">a b + c d e / - * f +</td>
-        </tr>
-    </tbody>
-</table>
-<p>So ... why is this important you may ask....</p>
-<p>Many compilers convert arithmetic expressions into some form of Postfix notation. This is done because postfix notation can be easily evaluated by using a stack.</p>
-<p>Consider this "infix" expression: (6 + 3) * 2</p>
-<p>We can convert this to "postfix" as: 6 3 + 2 *</p>
-<p>And solve using a stack as shown in this figure</p>
-<p><img id="915336" src="https://mendocino.instructure.com/courses/21391/files/2620375/preview" alt="PostFixWithStack.jpeg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620375" data-api-returntype="File" /></p>
-<p><em>Ref: Malik (2018). C++ Programming: Program Design Including Data Structures, 5th ed. ISBN-13: 978-1-337-11756-2</em></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Infix / Prefix / Postfix | Week 05 — CSC 222</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#postfix">Postfix & Evaluation</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header role="banner">
+            <h1>Infix, Prefix, and Postfix</h1>
+            <p>Notations for arithmetic expressions and their relation to stacks</p>
+        </header>
+
+        <main id="main-content" role="main" tabindex="-1">
+            <section id="overview" aria-labelledby="overview-heading">
+                <h2 id="overview-heading">Overview</h2>
+                <p>Infix places the operator between operands (a + b). Prefix (Polish notation) places the operator before operands (+ a b). Postfix (Reverse Polish Notation) places the operator after operands (a b +).</p>
+            </section>
+
+            <section id="examples" aria-labelledby="examples-heading">
+                <h2 id="examples-heading">Examples</h2>
+                <table class="comparison-table" border="1" aria-describedby="examples-heading">
+                    <thead>
+                        <tr>
+                            <th>Infix</th>
+                            <th>Prefix</th>
+                            <th>Postfix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="text-align:center">a + b</td><td style="text-align:center">+ a b</td><td style="text-align:center">a b +</td></tr>
+                        <tr><td style="text-align:center">a + b * c</td><td style="text-align:center">+ a * b c</td><td style="text-align:center">a b c * +</td></tr>
+                        <tr><td style="text-align:center">a * b + c</td><td style="text-align:center">+ * a b c</td><td style="text-align:center">a b * c +</td></tr>
+                        <tr><td style="text-align:center">(a + b) * c</td><td style="text-align:center">* + a b c</td><td style="text-align:center">a b + c *</td></tr>
+                        <tr><td style="text-align:center">(a-b) * (c + d)</td><td style="text-align:center">* - a b + c d</td><td style="text-align:center">a b - c d + *</td></tr>
+                        <tr><td style="text-align:center">(a + b) * (c - d / e) + f</td><td style="text-align:center">+ * + a b - c / d e f</td><td style="text-align:center">a b + c d e / - * f +</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="postfix" aria-labelledby="postfix-heading">
+                <h2 id="postfix-heading">Why Postfix?</h2>
+                <p>Many compilers convert arithmetic expressions to postfix because it can be evaluated easily using a stack.</p>
+                <p>Example: Infix (6 + 3) * 2 → Postfix: 6 3 + 2 *</p>
+                <figure>
+                    <img src="https://mendocino.instructure.com/courses/21391/files/2620375/preview" alt="Postfix evaluation using stack" />
+                    <figcaption>Postfix evaluation illustrated with a stack.</figcaption>
+                </figure>
+            </section>
+
+            <section id="references" aria-labelledby="references-heading">
+                <h3 id="references-heading">References</h3>
+                <p><em>Ref: Malik (2018). C++ Programming: Program Design Including Data Structures, 5th ed. ISBN-13: 978-1-337-11756-2</em></p>
+            </section>
+        </main>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">↑</button>
+    <script src="../scripts.js" defer></script>
+</body>
+</html>

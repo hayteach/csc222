@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lab 05 — Queue remove(n) | CSC 222</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#instructions">Instructions</a></li>
+            <li><a href="#submission">Submission</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header role="banner">
+            <h1>Lab 05 — Queue remove(n)</h1>
+            <p>Extend the Queue ADT with a method to remove and discard the first n items.</p>
+        </header>
+
+        <main id="main-content" role="main" tabindex="-1">
+            <section id="overview" aria-labelledby="overview-heading">
+                <h2 id="overview-heading">Overview</h2>
+                <p>Add a method <code>remove(n)</code> to the Queue ADT that discards the first <code>n</code> entries from the queue. Ensure it handles edge cases like n &gt; size and n &lt;= 0.</p>
+            </section>
+
+            <section id="instructions" aria-labelledby="instructions-heading">
+                <h3 id="instructions-heading">Instructions</h3>
+                <ul>
+                    <li>Update the Queue interface to declare <code>void remove(int n)</code> (or equivalent in C++ signatures).</li>
+                    <li>Implement the method in the array-based queue implementation and any linked-list implementation used in class.</li>
+                    <li>Update the tester program to exercise <code>remove(n)</code> for typical and edge cases.</li>
+                </ul>
+            </section>
+
+            <section id="submission" aria-labelledby="submission-heading">
+                <h3 id="submission-heading">Submission</h3>
+                <p>Submit all files necessary to run your tester as a compressed archive (.zip, .7z, or .rar). Include a README describing how to build and run the tester.</p>
+            </section>
+        </main>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">↑</button>
+    <script src="../scripts.js" defer></script>
+</body>
+</html>

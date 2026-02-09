@@ -1,97 +1,121 @@
-<p>A stack is an abstract data type that simulates a very common occurrence in nature.&nbsp;</p>
-<p>Please review all tabs before proceeding on.</p>
-<div class="enhanceable_content tabs">
-    <ul>
-        <li><a href="#tab1">Definition of a Stack</a></li>
-        <li><a href="#tab2">Stack Operations</a></li>
-        <li><a href="#tab3">Array-based Implementation</a></li>
-        <li><a href="#tab5">Testers</a></li>
-    </ul>
-    <div id="tab1">
-        <p>&nbsp;</p>
-        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
-            <tbody>
-                <tr>
-                    <td colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
-                </tr>
-                <tr>
-                    <td style="width: 49.9225%; vertical-align: top;">
-                        <p>In the real world, we have occasions when we accumulate stuff into a holding area for later use. Each of these areas can have different properties. A Stack ADT (abstract data type) acts just like what it is ... it is a stack. So think of a stack of papers or a stack of DVDs or a stack of plates. If you think about it, the first thing you can get at is actually the last thing you added to the stack. So a stack is knows as a LIFO (Last In - First Out) structure.&nbsp;</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Week 05 — Stacks | CSC 222</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    <button id="menuBtn" aria-label="Toggle table of contents" aria-expanded="false">
+        <span class="emoji" aria-hidden="true">📑</span> Menu
+    </button>
+
+    <nav id="tableOfContents" role="navigation" aria-label="Table of contents">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#tab1">Definition of a Stack</a></li>
+            <li><a href="#tab2">Stack Operations</a></li>
+            <li><a href="#tab3">Array-based Implementation</a></li>
+            <li><a href="#tab5">Testers</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header role="banner">
+            <h1>📚 Week 05 — Stacks</h1>
+            <p>🧱 ADT Concepts • 📦 Array‑Based Implementation • 🧪 Testers</p>
+        </header>
+
+        <main id="main-content" role="main" tabindex="-1">
+            <section id="overview" aria-labelledby="overview-heading">
+                <h2 id="overview-heading">Overview</h2>
+                <p>A stack is an abstract data type that simulates a very common occurrence in nature. Please review all sections below.</p>
+            </section>
+
+            <section id="tab1" aria-labelledby="tab1-heading">
+                <h2 id="tab1-heading">Definition of a Stack</h2>
+                <div class="layout-table">
+                    <div>
+                        <p>In the real world, we have occasions when we accumulate stuff into a holding area for later use. A Stack ADT acts like a stack of papers or plates. The last item added is the first one available — this is known as LIFO (Last In, First Out).</p>
                         <p>Last plate on the stack is the first one to be used!</p>
-                    </td>
-                    <td style="width: 50.0258%; vertical-align: top;"><img id="665536" src="https://mendocino.instructure.com/courses/21391/files/2620325/preview" alt="Stack of plates an analogy for a Stack ADT" width="371" height="246" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620325" data-api-returntype="File" />&nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                    <figure>
+                        <img src="../assets/stack-plates-11500834.jpg" alt="Stack of plates an analogy for a Stack ADT" width="371" height="246">
+                        <figcaption>Analogy: plates stacked — LIFO behavior.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="tab2" aria-labelledby="tab2-heading">
+                <h2 id="tab2-heading">Stack Operations</h2>
+                <p>Stacks expose a small set of operations (initialize, push, pop, top, isEmpty, isFull) which makes them easy to reason about. Using an interface (or abstract class) ensures consistent method names across implementations.</p>
+                <figure>
+                    <img src="../assets/stackInterfaceADT_uml.jpg" alt="Diagram of Stack interface and ADT" />
+                    <figcaption>Stack ADT interface (abstract methods only).</figcaption>
+                </figure>
+                <p>The stack ADT header used in class is included in the repo: <a href="files/stackADT.h">stackADT.h</a>.</p>
+            </section>
+
+            <section id="tab3" aria-labelledby="tab3-heading">
+                <h2 id="tab3-heading">Array-based Implementation</h2>
+                <p>Now that we've defined how a stack works, we can look at creating one that we can use in other programs to 
+                    solve problems. The first implementation we will look at is that of using an Array to store the elements 
+                    we put onto the stack. First, we will look at the UML diagram for an array-based stack that implements all of the 
+                    stack operations from the stackADT interface plus the additional attributes and methods we need as described below.</p>
+                <figure>
+                    <img src="../assets/arrayStack_uml.jpg" alt="UML diagram for an Array-based Stack" width="400" height="246" />
+                    <figcaption>UML diagram for the array-based stack.</figcaption>
+                </figure>
+                <p>
+                    In addition to the interface methods of:
+                    <ul>
+                        <li>initializeStack()</li>
+                        <li>isEmptyStack()</li>
+                        <li>isFullStack()</li>
+                        <li>push(ItemType)</li>
+                        <li>top()</li>
+                        <li>pop()</li>
+                    </ul>
+                     We need the following attributes to use an array:
+                    <ul>
+                        <li>maxStackSize - to define how big our array is (or the maximum number of ItemType things we can store in the stack</li>
+                        <li>stackTop - the current top of the stack which is necessary when the stack is only partially filled</li>     
+                        <li>*list - pointer to our array of ItemType things</li>
+                    </ul>
+                    We also have the added methods so that we can construct arrayStack objects:
+                    <ul>
+                        <li>arrayStack(int = 100) - default arrayStack constructor</li>
+                        <li>arrayStack(arrayStack) - constructor for creating a stack from an existing stack</li>
+                        <li>copyStack(arrayStack) - copies an existing arrayStack</li>
+                        <li>~arrayStack() - destructor for the arrayStack object</li>
+                        <li>operator=  - define what the assignment operator, =, will do when using arrayStack objects</li>
+                    </ul>
+                </p>
+                <p>Source files included in this folder: <a href="files/arrayStack.h">arrayStack.h</a>, <a href="files/arrayStack.cpp">arrayStack.cpp</a>.</p>
+            </section>
+
+            <section id="tab5" aria-labelledby="tab5-heading">
+                <h2 id="tab5-heading">Testers</h2>
+                <p>Use the provided tester programs to verify your implementation.</p>
+                <ul>
+                    <li><a href="files/arrayStackTester.cpp">arrayStackTester.cpp</a></li>
+                    <li><a href="files/linkedStackTester.cpp">linkedStackTester.cpp</a></li>
+                </ul>
+            </section>
+
+            <section id="references" aria-labelledby="references-heading">
+                <h3 id="references-heading">References</h3>
+                <p><em>Ref: Malik (2018). C++ Programming: Program Design Including Data Structures, 5th Ed (ch. 17). ISBN-13: 978-1-337-11756-2</em></p>
+            </section>
+        </main>
     </div>
-    <div id="tab2">
-        <p>&nbsp;</p>
-        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
-            <tbody>
-                <tr>
-                    <td colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
-                </tr>
-                <tr>
-                    <td style="width: 49.9225%; vertical-align: top;">
-                        <p>For the Stack ADT, we want to create an interface so that all stacks, regardless of how we implement them, will have and use a common set of methods. In essences, from a user standpoint, it won't matter whether we implement the stack using an array or a linked-list. Their program will work with&nbsp; either since all of the methods are named the same and produce identical output.</p>
-                        <p>This is, by the way, one of the primary reasons to use interfaces for common ADTs.</p>
-                    </td>
-                    <td style="width: 50.0258%; vertical-align: top;"><img id="665591" src="https://mendocino.instructure.com/courses/21391/files/2620329/preview" alt="StackInterfaceADT.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620329" data-api-returntype="File" /> &nbsp;</td>
-                </tr>
-            </tbody>
-        </table>
-        <p>The implementation of the stackADT interface is shown in the figure below. Please note that all of the methods we defined in this&nbsp; <br />ADT are virtual and abstract. Because of this, there can be no corresponding implementation file hence there is no include statement for stackADT.cpp because that file will not exist. The actual implementation details will be coded in any class that implements this interface.</p>
-        <p><img id="665622" src="https://mendocino.instructure.com/courses/21391/files/2620327/preview" alt="stackADT_h.jpg" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620327" data-api-returntype="File" /></p>
-        <p>Here's a copy of the actual code file: &nbsp;<a class="instructure_file_link instructure_scribd_file" title="stackADT.h" href="https://mendocino.instructure.com/courses/21391/files/2620323?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620323" data-api-returntype="File">stackADT.h</a>&nbsp;</p>
-    </div>
-    <div id="tab3">
-        <p>Now that we've defined how a stack works, we can look at creating one that we can use in other programs to solve problems. The first implementation we will look at is that of using an Array to store the elements we put onto the stack. First, we will look at the UML diagram for an array-based stack that implements all of the stack operations from the stackADT interface plus the additional attributes and methods we need as described below.</p>
-        <p>&nbsp;</p>
-        <table style="border-collapse: collapse; width: 97.1142%;" border="0">
-            <tbody>
-                <tr>
-                    <td style="width: 99.9483%;" colspan="2"><span style="color: #ffffff;">Layout Table</span></td>
-                </tr>
-                <tr>
-                    <td style="width: 49.9225%; vertical-align: top;">
-                        <p><img id="665592" src="https://mendocino.instructure.com/courses/21391/files/2620319/preview" alt="UML diagram for an Array-based Stack" width="400" height="246" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620319" data-api-returntype="File" />&nbsp;</p>
-                    </td>
-                    <td style="width: 50.0258%; vertical-align: top;">
-                        <p>&nbsp; In addition to the interface methods of:</p>
-                        <ul>
-                            <li>initializeStack()</li>
-                            <li>isEmptyStack()</li>
-                            <li>siFullStack()</li>
-                            <li>push(ItemType)</li>
-                            <li>top()</li>
-                            <li>pop()</li>
-                        </ul>
-                        <p>We need the following attributes to use an array:</p>
-                        <ul>
-                            <li>maxStackSize - to define how big our array is (or the maximum number of ItemType things we can store in the stack</li>
-                            <li>stackTop - the current top of the stack which is necessary when the stack is only partially filled</li>
-                            <li>*list - pointer to our array of ItemType things</li>
-                        </ul>
-                        <p>We also have the added methods so that we can construct arrayStack objects:</p>
-                        <ul>
-                            <li>arrayStack(int = 100) - default arrayStack constructor</li>
-                            <li>arrayStack(arrayStack) - constructor for creating a stack from an existing stack</li>
-                            <li>copyStack(arrayStack) - copies an existing arrayStack</li>
-                            <li>~arrayStack() - destructor for the arrayStack object</li>
-                            <li>operator=&nbsp; - define what the assignment operator, =, will do when using arrayStack objects</li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <p>I've included a copy of my files for this class below. Please review the implementations and make sure to include/ask any questions you may have on this.</p>
-        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="arrayStack.h" href="https://mendocino.instructure.com/courses/21391/files/2620380?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620380" data-api-returntype="File">arrayStack.h</a>&nbsp;</p>
-        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="arrayStack.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620328?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620328" data-api-returntype="File">arrayStack.cpp</a>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>
-    <div id="tab5">
-        <p>Once we've coded our stack made from an array, we need to test it. The following program creating stacks, push things on, popping them off, etc...</p>
-        <p><a class="instructure_file_link instructure_scribd_file inline_disabled" title="arrayStackTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620326?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620326" data-api-returntype="File">arrayStackTester.cpp</a> <a class="instructure_file_link instructure_scribd_file inline_disabled" title="linkedStackTester.cpp" href="https://mendocino.instructure.com/courses/21391/files/2620317?wrap=1" target="_blank" rel="noopener" data-api-endpoint="https://mendocino.instructure.com/api/v1/courses/21391/files/2620317" data-api-returntype="File"></a></p>
-    </div>
-</div>
-<p><em>Ref: Malik (2018). C++ Programming: Program Design Including Data Structures, 5th Ed (ch. 17). ISBN-13: 978-1-337-11756-2</em></p>
+
+    <button id="backToTop" aria-label="Back to top">↑</button>
+    <script src="../scripts.js" defer></script>
+</body>
+</html>
