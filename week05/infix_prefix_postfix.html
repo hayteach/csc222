@@ -17,6 +17,7 @@
         <ul>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#examples">Examples</a></li>
+            <li><a href="#notation-explanations">Notations Explained</a></li>
             <li><a href="#postfix">Postfix & Evaluation</a></li>
             <li><a href="#references">References</a></li>
         </ul>
@@ -32,6 +33,9 @@
             <section id="overview" aria-labelledby="overview-heading">
                 <h2 id="overview-heading">Overview</h2>
                 <p>Infix places the operator between operands (a + b). Prefix (Polish notation) places the operator before operands (+ a b). Postfix (Reverse Polish Notation) places the operator after operands (a b +).</p>
+                <div class="important-note">
+                    <strong>💡 Pro Tip:</strong> Postfix notation is widely used in calculators and compilers because it simplifies evaluation using a stack, avoiding the need for parentheses and complex precedence rules.
+                </div>
             </section>
 
             <section id="examples" aria-labelledby="examples-heading">
@@ -51,18 +55,245 @@
                         <tr><td style="text-align:center">(a + b) * c</td><td style="text-align:center">* + a b c</td><td style="text-align:center">a b + c *</td></tr>
                         <tr><td style="text-align:center">(a-b) * (c + d)</td><td style="text-align:center">* - a b + c d</td><td style="text-align:center">a b - c d + *</td></tr>
                         <tr><td style="text-align:center">(a + b) * (c - d / e) + f</td><td style="text-align:center">+ * + a b - c / d e f</td><td style="text-align:center">a b + c d e / - * f +</td></tr>
+                        <tr><td style="text-align:center">a - b + c</td><td style="text-align:center">+ - a b c</td><td style="text-align:center">a b - c +</td></tr>
+                        <tr><td style="text-align:center">a / b * c + d</td><td style="text-align:center">+ * / a b c d</td><td style="text-align:center">a b / c * d +</td></tr>
+                        <tr><td style="text-align:center">(a + b) / (c - d)</td><td style="text-align:center">/ + a b - c d</td><td style="text-align:center">a b + c d - /</td></tr>
+                        <tr><td style="text-align:center">a ^ b + c</td><td style="text-align:center">+ ^ a b c</td><td style="text-align:center">a b ^ c +</td></tr>
                     </tbody>
                 </table>
             </section>
+            <!-- ...existing code... -->
+<section id="notation-explanations">
+    <h2>Expression Notations: Infix, Prefix, and Postfix</h2>
+    <p>Expressions can be represented in different notations, which affect how operators and operands are arranged. These notations are commonly used in programming, especially when evaluating expressions using stacks.</p>
+    
+    <h3>Infix Notation</h3>
+    <p>Infix notation is the most common form, where the operator is placed between the operands. For example:</p>
+    <ul>
+        <li><code>a + b</code> (addition)</li>
+        <li><code>(a * b) + c</code> (multiplication and addition with parentheses for precedence)</li>
+    </ul>
+    <p>This notation requires knowledge of operator precedence and associativity to evaluate correctly.</p>
+    
+    <h3>Prefix Notation (Polish Notation)</h3>
+    <p>In prefix notation, the operator precedes the operands. For example:</p>
+    <ul>
+        <li><code>+ a b</code> (equivalent to <code>a + b</code>)</li>
+        <li><code>+ * a b c</code> (equivalent to <code>(a * b) + c</code>)</li>
+    </ul>
+    <p>This notation eliminates the need for parentheses and precedence rules, as the structure is unambiguous.</p>
+    
+    <h3>Postfix Notation (Reverse Polish Notation)</h3>
+    <p>In postfix notation, the operator follows the operands. For example:</p>
+    <ul>
+        <li><code>a b +</code> (equivalent to <code>a + b</code>)</li>
+        <li><code>a b * c +</code> (equivalent to <code>(a * b) + c</code>)</li>
+    </ul>
+    <p>Like prefix, it avoids parentheses and is easy to evaluate using a stack: operands are pushed onto the stack, and operators pop the required operands, perform the operation, and push the result back.</p>
+    
+    <h3>Why Use Prefix or Postfix?</h3>
+    <p>Prefix and postfix notations are useful in compilers and calculators because they simplify parsing and evaluation without needing to handle operator precedence explicitly. Algorithms like the shunting-yard algorithm convert infix to postfix for easier computation.</p>
+</section>
+<!-- ...existing code... -->
 
             <section id="postfix" aria-labelledby="postfix-heading">
-                <h2 id="postfix-heading">Why Postfix?</h2>
+                <h2 id="postfix-heading">Postfix & Evaluation</h2>
                 <p>Many compilers convert arithmetic expressions to postfix because it can be evaluated easily using a stack.</p>
+                <h3>Evaluation Examples Using the Same Values</h3>
+                <p>Using the same expression: (6 + 3) * 2 = 18</p>
                 <p>Example: Infix (6 + 3) * 2 → Postfix: 6 3 + 2 *</p>
-                <figure>
-                    <img src="https://mendocino.instructure.com/courses/21391/files/2620375/preview" alt="Postfix evaluation using stack" />
-                    <figcaption>Postfix evaluation illustrated with a stack.</figcaption>
-                </figure>
+                
+                <h4>Infix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Infix: (6 + 3) * 2
+Steps:
+1. Evaluate inside parentheses: 6 + 3 = 9
+2. Multiply: 9 * 2 = 18
+Result: 18</pre>
+                </div>
+                
+                <h4>Prefix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Prefix: * + 6 3 2
+Using stack (process from right to left):
+1. Push 2:
+Stack:
++---+
+| 2 |
++---+
+
+2. Push 3:
+Stack:
++---+
+| 3 |
++---+
+| 2 |
++---+
+
+3. Push 6:
+Stack:
++---+
+| 6 |
++---+
+| 3 |
++---+
+| 2 |
++---+
+
+4. Encounter '+': Pop 6 and 3, compute 6 + 3 = 9, push 9:
+Stack:
++---+
+| 9 |
++---+
+| 2 |
++---+
+
+5. Encounter '*': Pop 9 and 2, compute 9 * 2 = 18, push 18:
+Stack:
++---+
+| 18|
++---+
+
+Result: 18</pre>
+                </div>
+                
+                <h4>Postfix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Postfix: 6 3 + 2 *
+Steps:
+1. Push 6:
+Stack:
++---+
+| 6 |
++---+
+
+2. Push 3:
+Stack:
++---+
+| 3 |
++---+
+| 6 |
++---+
+
+3. '+': Pop 3 and 6, 6 + 3 = 9, push 9:
+Stack:
++---+
+| 9 |
++---+
+
+4. Push 2:
+Stack:
++---+
+| 2 |
++---+
+| 9 |
++---+
+
+5. '*': Pop 2 and 9, 9 * 2 = 18, push 18:
+Stack:
++---+
+| 18|
++---+
+
+Result: 18</pre>
+                </div>
+                
+                <p>Another example: 4 * 5 + 6 = 26</p>
+                
+                <h4>Infix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Infix: 4 * 5 + 6
+Steps (following precedence: * before +):
+1. Multiply: 4 * 5 = 20
+2. Add: 20 + 6 = 26
+Result: 26</pre>
+                </div>
+                
+                <h4>Prefix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Prefix: + * 4 5 6
+Using stack (right to left):
+1. Push 6:
+Stack:
++---+
+| 6 |
++---+
+
+2. Push 5:
+Stack:
++---+
+| 5 |
++---+
+| 6 |
++---+
+
+3. Push 4:
+Stack:
++---+
+| 4 |
++---+
+| 5 |
++---+
+| 6 |
++---+
+
+4. '*': Pop 4 and 5, 4 * 5 = 20, push 20:
+Stack:
++---+
+| 20|
++---+
+| 6 |
++---+
+
+5. '+': Pop 20 and 6, 20 + 6 = 26, push 26:
+Stack:
++---+
+| 26|
++---+
+
+Result: 26</pre>
+                </div>
+                
+                <h4>Postfix Evaluation</h4>
+                <div class="code-box">
+                    <pre>Postfix: 4 5 * 6 +
+Steps:
+1. Push 4:
+Stack:
++---+
+| 4 |
++---+
+
+2. Push 5:
+Stack:
++---+
+| 5 |
++---+
+| 4 |
++---+
+
+3. '*': Pop 5 and 4, 4 * 5 = 20, push 20:
+Stack:
++---+
+| 20|
++---+
+
+4. Push 6:
+Stack:
++---+
+| 6 |
++---+
+| 20|
++---+
+
+5. '+': Pop 6 and 20, 20 + 6 = 26, push 26:
+Stack:
++---+
+| 26|
++---+
+
+Result: 26</pre>
+                </div>
             </section>
 
             <section id="references" aria-labelledby="references-heading">
